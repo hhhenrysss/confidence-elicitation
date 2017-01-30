@@ -23,32 +23,59 @@
     form {
       margin: 20px 0;
     }
+    #w { 
+  width:20px; height:0px; 
+  margin:10px ; 
+  background:yellow;  
+  color:#fff;  
+  position:absolute;
+  z-index: 20;
+  vertical-align:bottom;
+  display: inline;
+  vertical-align:bottom;
+}
+#z { 
+  width:500px; height:20px; margin:10px ; background:green; 
+  line-height:500px;  color:#fff;
+  z-index: 10
+}
   </style>
 </head>
 <body>
 
 <form id="form">
   <label for="eq">Enter an equation:</label>
-  <input type="text" id="eq" value="4 * sin(x) + 5 * cos(x/2)" />
+  <input type="text" id="eq" value="-x^2" />
   <input type="submit" value="Draw" />
 </form>
 
+<div id="w"></div> 
 <div id="plot"></div>
+</div><div id="z" >
 
-<!-- <p>
-  Plot library: <a href="https://github.com/maurizzzio/function-plot">https://github.com/maurizzzio/function-plot</a>
-</p> -->
+
 
 <script>
   function draw() {
     try {
       functionPlot({
         target: '#plot',
+        
         data: [{
+          // fn: '-x^2'
           fn: document.getElementById('eq').value,
           sampler: 'builtIn',  // this will make function-plot use the evaluator of math.js
           graphType: 'polyline'
-        }]
+        }],
+        tip: {
+          xLine: true,    // dashed line parallel to y = 0
+          yLine: true,    // dashed line parallel to x = 0
+          renderer: function (x, y, index) {
+            // the returning value will be shown in the tip
+          }
+        },
+        yAxis: {domain: [-1, 1]},
+        xAxis: {domain: [-1, 1]},
       });
     }
     catch (err) {
@@ -63,6 +90,56 @@
   };
 
   draw();
+
+
+
+
+  var x,y;
+
+//当需求为获得的坐标值相对于某一对象时，用：
+function positionObj(event,id){
+  //获得对象相对于页面的横坐标值；id为对象的id
+  var thisX = document.getElementById(id).offsetLeft;
+  
+  //获得对象相对于页面的横坐标值；
+  var thisY = document.getElementById(id).offsetTop;
+  
+  //获得页面滚动的距离；
+  //注：document.documentElement.scrollTop为支持非谷歌内核；document.body.scrollTop为谷歌内核
+  var thisScrollTop = document.documentElement.scrollTop + document.body.scrollTop;
+  
+  event = event||window.event;
+  
+  //获得相对于对象定位的横标值 = 鼠标当前相对页面的横坐标值 - 对象横坐标值；
+  x = event.clientX - thisX;
+  
+  //获得相对于对象定位的纵标值 = 鼠标当前相对页面的纵坐标值 - 对象纵坐标值 - 滚动条滚动的高度；
+  y = event.clientY - thisY + thisScrollTop;
+
+  // if(x>200){
+    document.getElementById("z").style.width =x+"px";
+    document.getElementById("w").style.height =y+"px";
+
+  // }
+  // else
+    // document.getElementById("z").style.backgroundColor ="yellow";
+}
+
+
+
+document.getElementById("plot").onmousemove = function(event){
+  positionObj(event,"plot");
+  document.getElementById("x").innerHTML = "x= " + x + "px";
+  document.getElementById("y").innerHTML = "y= " + y + "px";
+}
+
+
+document.getElementById("plot").onmouseout = function(event){
+  document.getElementById("x").innerHTML = "";
+  document.getElementById("y").innerHTML = "";
+}
+
+
 </script>
 
 </body>
