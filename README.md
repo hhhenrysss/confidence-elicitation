@@ -1,5 +1,8 @@
 # Confidence Elicitation
 
+![Example of output.](example.png)
+
+
 ## Update log
 
 ### 02/03/17
