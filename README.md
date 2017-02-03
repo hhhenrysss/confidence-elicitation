@@ -4,6 +4,7 @@
 
 ### 02/03/17
 - Finish the general framework (read questions, process, output answer).
+- Add output functionality (write locally or write to server)
 - Tweak the slider to be more smooth and pass value accurately.
 
 ### 01/24/17
