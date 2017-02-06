@@ -2,6 +2,11 @@
 
 ## Update log
 
+### 02/06/17
+- Added dynamic money bank and graph.
+- Added identification page.
+- Changed layout a bit.
+
 ### 02/03/17
 - Finished the general framework (read questions, process, output answer).
 - Added output functionality (write locally or write to server).
@@ -13,6 +18,11 @@
 - Create general JSON format for question as an example.
 
 ## To Do (john):
+
+### 02/06/17
+- Add capability to load everything into one CSV file.
+- Add study instruction to first page or separate page.
+- Make more responsive with bootstrap.
 
 ### 02/03/17
 - Add the money bank functionality.

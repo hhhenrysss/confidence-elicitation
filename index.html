@@ -9,25 +9,25 @@
 
     <link href="css/stylesheet.css" type="text/css" rel="stylesheet">
     <link href="css/jquery-ui.min.css" type="text/css" rel="stylesheet">
-
+    <link href="css/c3.min.css" type="text/css" rel="stylesheet">
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <script src="js/jquery.js"></script>
+
+    <script src="js/d3.js" charset="utf-8"></script>
+    <script src="js/c3.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
-    <script src="js/slider.js"></script>
 
     <style>
         #custom-handle {
-            width: 3em;
+            width: 2em;
             height: 1.6em;
             top: 50%;
             margin-top: -.8em;
             text-align: center;
             line-height: 1.6em;
         }
-
         #custom-handle .ui-slider-range { background: #ef2929; }
         #custom-handle .ui-slider-handle { border-color: #ef2929; }
-
     </style>
 
 </head>
@@ -36,27 +36,37 @@
 
     <div id="jquery-script-menu">
     <div class="jquery-script-center">
-    <h1>Confidence Elicitation</h1>
+        <br><br>
+    <h1>Confidence Elicitation<img src="image/uiuc_logo.gif" alt="logo" align="right" width="300" hspace="50"></h1>
+
     </div>
     </div>
     <div class="wrapper">
     <div class="main">
 
     <h2><div class="question-container"></div></h2>
-        <div><div>What is the probability that you think your answer is correct?</div></div><br>
 
+        <label id="slider-label" for="slider">What is the probability that you think your answer is correct?<br></label>
+        <br>
         <div id="slider">
             <div id="custom-handle" class="ui-slider-handle"></div>
         </div>
-
     <a id="nextBtn" href="#" class="button">Continue »</a>
+
+    <div id="chart"></div>
+
     <script src="js/survey.js" type="text/javascript"></script>
 
-    </div><div class="completed-message"></div>
     </div>
-
-    <div class="footer"></div>
+        <div class="completed-message"></div>
     </div>
 
 </body>
+
+<footer>
+    <div class="footer" align="right">
+    (c) 2065 Beckman Institute, 405 North Mathews Avenue, Urbana, Illinois 61801
+    </div>
+</footer>
+
 </html>
