@@ -45,6 +45,8 @@ survey = { questions: undefined,
                 return
 
             console.log(nextClick);
+
+            // If button is clicked and answer is selected
             if ( $('#nextBtn').text().indexOf('Continue') === 0) {
 
                 // Store the slider value
@@ -61,6 +63,7 @@ survey = { questions: undefined,
                     money +=-1 * (slider_value[nextClick]/100).toFixed(2);
                 }
 
+                // Increase the question index
                 nextClick += 1;
 
                 // Update moneyBank
@@ -86,7 +89,9 @@ survey = { questions: undefined,
                 self.showNextQuestionSet();
 
             }
-            else { // This is for the final question
+
+            // This is for the final question
+            else {
 
                 // Store the slider value
                 slider_value.push($('#slider').slider('value'));
@@ -119,7 +124,6 @@ survey = { questions: undefined,
                 });
 
                 console.log(moneyBank);
-
 
                 // Get all of the answers to save
                 var answers = {moneyEarned: money};
@@ -167,7 +171,7 @@ survey = { questions: undefined,
         this.showNextQuestionSet();
     }
 
-
+    // Function to get the answers to the radio buttom questions
     survey.getQuestionAnswer = function(question) {
         var result;
 
@@ -183,7 +187,7 @@ survey = { questions: undefined,
         return result ? result : undefined;
     }
 
-    // Display the question
+    // Function to the question
     survey.generateQuestionElement = function(question) {
         var questionElement = $('<div id="' + question.id + '" class="question"></div>');
         var questionTextElement = $('<div class="question-text"></div>');
@@ -223,6 +227,7 @@ survey = { questions: undefined,
             html += '<td><div>' + question.labels[1] + '</div></td></tr></table>';
             questionAnswerElement.append(html);
         }
+        // If the question is marked as required, do not allow the user to continue
         if ( question.required === true ) {
             var last = questionTextElement.find(':last');
             (last.length ? last : questionTextElement).append('<span class="required-asterisk" aria-hidden="true">*</span>');
@@ -231,6 +236,7 @@ survey = { questions: undefined,
         questionElement.hide();
     }
 
+    // Function to hide question when we've reached the last page
     survey.hideAllQuestions = function() {
         $('.question:visible').each(function(index, element){
             $(element).hide();
@@ -240,6 +246,7 @@ survey = { questions: undefined,
         });
     }
 
+    // Function to get the next question
     survey.showNextQuestionSet = function() {
         this.hideAllQuestions();
         this.firstQuestionDisplayed = this.lastQuestionDisplayed+1;
@@ -254,6 +261,7 @@ survey = { questions: undefined,
         this.doButtonStates();
     }
 
+    // Function to get the previous question
     survey.showPreviousQuestionSet = function() {
         this.hideAllQuestions();
         this.lastQuestionDisplayed = this.firstQuestionDisplayed-1;
@@ -268,6 +276,7 @@ survey = { questions: undefined,
         this.doButtonStates();
     }
 
+    // Create the buttons for the survey
     survey.doButtonStates = function() {
         if ( this.lastQuestionDisplayed == this.questions.length-1 ) {
             $('#nextBtn').text('Finish');
@@ -278,7 +287,6 @@ survey = { questions: undefined,
             $('#nextBtn').removeClass('blue');
         }
     }
-
 
     // Display the question
     survey.generateBankElement = function(question) {
@@ -299,14 +307,15 @@ survey = { questions: undefined,
     // Utility Functions
     //////////////////////////////////////////////////////////////////////////////////////////
 
-    // Use to get the answers and save to file
+    // Use to get the answers and save to file locally
     survey.saveAnswers = function (text, filename){
         var a = document.createElement('a');
         a.setAttribute('href', 'data:text/plain;charset=utf-u,' + encodeURIComponent(text));
         a.setAttribute('download', filename);
         a.click()
     }
-})(survey, jQuery);
+
+})(survey, jQuery); // End class
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // LOAD IN THE QUESTIONS (To-Do: Read CSV into JSON makes life easier)
