@@ -32,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/js/survey.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="21" column="51" lean-forward="true" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
+              <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -289,12 +289,12 @@
       <workItem from="1485967145753" duration="6035000" />
       <workItem from="1485974418637" duration="7641000" />
       <workItem from="1486145759991" duration="15000" />
-      <workItem from="1486154156574" duration="22215000" />
+      <workItem from="1486154156574" duration="22376000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38223000" />
+    <option name="totallyTimeSpent" value="38384000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1179" height="813" extended-state="0" />
@@ -499,7 +499,7 @@
     <entry file="file://$PROJECT_DIR$/js/survey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="21" column="51" lean-forward="true" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
+          <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
           <folding />
         </state>
       </provider>
