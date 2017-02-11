@@ -5,6 +5,7 @@
 - Display quadradic function
 - Display bars on axis
 - Created cursor on the plot
+
 ### 01/24/17
 - Added general framework with jQuery and jQuery-UI.
 - Create general JSON format for question as an example.
