@@ -12,10 +12,10 @@ survey = { questions: undefined,
 
         // Initialize needed computations
         var slider_value = [0];
-        var testBank = ["Yes", "No", "Yes", "No", "No", "No"]; // Read the testBank here (To do: pass from csv)
+        var testBank = ["Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"]; // Read the testBank here (To do: pass from csv)
         var money = 12; // Starting bank balance
-        var moneyBank = ['Bank Balance'];
-        var nextClick = 0; // Index 0 is reserved for subject name
+        var moneyBank = ['Money Earned'];
+        var nextClick = 1; // Index 0 is reserved for subject name
 
         this.questions = questions;
 
@@ -23,14 +23,22 @@ survey = { questions: undefined,
             self.generateQuestionElement( question );
         });
 
-
         $('#nextBtn').click(function() {
+
             var ok = true;
+            if (nextClick == 1) {
+                document.getElementById('instructions').innerHTML = '';
+            }
+            else if (nextClick > 1) {
+                console.log("Group: " + self.getQuestionAnswer(self.questions[1])) // DO SOMETHING HERE AFTER WE GET THE GROUP!
 
-            // Turn on the slider and its label
-            $("#slider").show();
-            document.getElementById("slider-label").style.display= "inline";
+                // Turn on the slider and its label; get rid of instruction
+                $("#slider").show();
+                document.getElementById("slider-label").style.display = "inline";
+                document.getElementById('instructions').innerHTML = '';
+            }
 
+            console.log(nextClick)
 
             // Make question required and display message
             for (i = self.firstQuestionDisplayed; i <= self.lastQuestionDisplayed; i++) {
@@ -44,7 +52,6 @@ survey = { questions: undefined,
             if (!ok)
                 return
 
-            console.log(nextClick);
 
             // If button is clicked and answer is selected
             if ( $('#nextBtn').text().indexOf('Continue') === 0) {
@@ -55,13 +62,20 @@ survey = { questions: undefined,
                 // Move the slider back to 0
                 $("#slider").slider("value",  $("#slider").slider("option", "min"));
 
+                // To do: change text back to 0
+
                 // Change balance of bank
-                if(self.getQuestionAnswer(self.questions[nextClick]) === testBank[nextClick]) {
-                    money += 1 * (slider_value[nextClick]/100).toFixed(2);
+                if (nextClick > 2) {
+                    if(self.getQuestionAnswer(self.questions[nextClick-1]) === testBank[nextClick-1]) {
+                        money += slider_value[nextClick] * 0.01;
+                    }
+                    else{
+                        money += slider_value[nextClick] * -0.01;
+                    }
                 }
-                else{
-                    money +=-1 * (slider_value[nextClick]/100).toFixed(2);
-                }
+
+                console.log(slider_value[nextClick]);
+                console.log(money);
 
                 // Increase the question index
                 nextClick += 1;
@@ -81,13 +95,10 @@ survey = { questions: undefined,
                             moneyBank
                         ]
                     },
-                    colors: {'Bank Balance': '#1f77b4'}
+                    colors: {'Money Earned': '#1f77b4'},
                 });
 
-                console.log(moneyBank);
-
                 self.showNextQuestionSet();
-
             }
 
             // This is for the final question
@@ -96,12 +107,18 @@ survey = { questions: undefined,
                 // Store the slider value
                 slider_value.push($('#slider').slider('value'));
 
-                if(self.getQuestionAnswer(self.questions[nextClick-1]) === testBank[nextClick]) {
-                    money += 1 * (slider_value[nextClick]/100).toFixed(2);
+                if (nextClick > 2) {
+                    if(self.getQuestionAnswer(self.questions[nextClick-1]) === testBank[nextClick-1]) {
+
+                        money += slider_value[nextClick] * 0.01;
+                    }
+                    else{
+                        money += slider_value[nextClick] * -0.01;
+                    }
                 }
-                else{
-                    money +=-1 * (slider_value[nextClick]/100).toFixed(2);
-                }
+
+                console.log(slider_value[nextClick]);
+                console.log(money);
 
                 nextClick += 1;
 
@@ -120,10 +137,9 @@ survey = { questions: undefined,
                             moneyBank
                         ]
                     },
-                    colors: {'Bank Balance': '#1f77b4'}
+                    colors: {'Money Earned': '#1f77b4'},
+                    title: 'Bank Balance'
                 });
-
-                console.log(moneyBank);
 
                 // Get all of the answers to save
                 var answers = {moneyEarned: money};
@@ -136,8 +152,8 @@ survey = { questions: undefined,
                 self.hideAllQuestions();
                 $("#slider").hide();
                 $('#nextBtn').hide();
-                $('.completed-message').text("Thank you for participating in this study! Your answers have been saved.\n You've earned: $" + money.toFixed(2) + "!");
                 document.getElementById("slider-label").style.display = "none";
+                $('.completed-message').text("Thank you for participating in this study! Your answers have been saved.\n You've earned: $" + money.toFixed(2) + "!");
 
                 /*
                  // USE THIS TO WRITE TO A SERVER
@@ -199,6 +215,7 @@ survey = { questions: undefined,
         questionElement.append(questionCommentElement);
         questionTextElement.html(question.text);
         questionCommentElement.html(question.comment);
+
         if ( question.type === 'single-select' ) {
             questionElement.addClass('single-select');
             question.options.forEach(function(option) {
@@ -209,13 +226,11 @@ survey = { questions: undefined,
             // No slider for these types of questions
             $("#slider").hide();
             document.getElementById("slider-label").style.display = 'none';
-
             questionElement.addClass('text-field-small');
             questionAnswerElement.append('<input type="text" value="" class="text" name="' + question.id + '">');
         }
         else if ( question.type === 'single-select-oneline' ) {
             questionElement.addClass('single-select-oneline');
-            $("#slider").show();
             var html = '<table border="0" cellpadding="5" cellspacing="0"><tr><td></td>';
             question.options.forEach(function(label) {
                 html += '<td><label>' + label + '</label></td>';

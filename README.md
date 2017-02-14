@@ -2,6 +2,11 @@
 
 ## Update log
 
+### 02/14/17
+- Fixed money calculation.
+- Add group select page and instructions.
+- Cleaned up code a little
+
 ### 02/06/17
 - Added dynamic money bank and graph.
 - Added identification page.

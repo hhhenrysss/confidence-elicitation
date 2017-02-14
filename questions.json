@@ -1,13 +1,26 @@
 [
     {
         "text":"Please enter your subject number:",
-        "id":"1",
+        "id":"0",
         "break_after":true,
         "required":true,
         "type":"text-field-small",
         "options":[
             "Yes",
             "No"
+        ]
+    },
+    {
+        "text":"What is your group number?",
+        "id":"1",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "1",
+            "2",
+            "3",
+            "4"
         ]
     },
     {
