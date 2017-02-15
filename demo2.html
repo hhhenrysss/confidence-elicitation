@@ -28,30 +28,26 @@
       height: 200px
     }
     #w { 
-  width:10px; height:10px; 
-  margin:0px ; 
-  background:red;  
-  color:#fff;  
-  position:absolute;
-  z-index: 20;
-  vertical-align:bottom;
-  display: inline;
-  vertical-align:bottom;
-}
-#z { 
-  width:10px; height:10px; margin:0px ; background:green; 
-  line-height:500px;  color:#fff;
-  z-index: 20
-}
+      width:20px; height:10px; 
+      margin:0px ; 
+      background:red;  
+      color:#fff;  
+      position:absolute;
+      z-index: 20;
+      vertical-align:bottom;
+      display: inline;
+      vertical-align:bottom;
+    }
+    #z { 
+      width:10px; height:20px; margin-left: 0px ; background:green; 
+      line-height:500px;  color:#fff;
+      z-index: 20
+    }
   </style>
 </head>
 <body>
 
-<!-- <form id="form">
-  <label for="eq">Enter an equation:</label>
-  <input type="text" id="eq" value="-x^2" />
-  <input type="submit" value="Draw" />
-</form> -->
+
 
 <div id="z" ></div>
 
@@ -65,9 +61,12 @@
     try {
       functionPlot({
         target: '#plot',
+        width: 400,
+        height:300,
         yAxis: {domain: [-1, 0]},
-        xAxis: {domain: [0, 1]},        
+        xAxis: {domain: [0, 6]},        
         data: [{
+          // fn: '-1+(x-1)^2'
           fn: '-x^2'
           // fn: document.getElementById('eq').value,
           // sampler: 'builtIn',  // this will make function-plot use the evaluator of math.js
@@ -80,6 +79,7 @@
             // the returning value will be shown in the tip
           }
         },
+        disableZoom: true
 
       });
     }
@@ -121,10 +121,17 @@ function positionObj(event,id){
   //获得相对于对象定位的纵标值 = 鼠标当前相对页面的纵坐标值 - 对象纵坐标值 - 滚动条滚动的高度；
   y = event.clientY - thisY + thisScrollTop;
 
-  // if(x>200){
+
+  if (x>85) {
+        document.getElementById("z").style.width =85+"px";
+  }
+  else if (y>320) {
+    document.getElementById("w").style.height =320+"px";
+  }
+  else{
     document.getElementById("z").style.width =x+"px";
     document.getElementById("w").style.height =y+"px";
-
+  }
   // }
   // else
     // document.getElementById("z").style.backgroundColor ="yellow";
@@ -138,11 +145,6 @@ document.getElementById("plot").onmousemove = function(event){
   document.getElementById("y").innerHTML = "y= " + y + "px";
 }
 
-
-// document.getElementById("plot").onmouseout = function(event){
-//   document.getElementById("x").innerHTML = "";
-//   document.getElementById("y").innerHTML = "";
-// }
 
 
 </script>
