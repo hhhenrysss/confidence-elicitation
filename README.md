@@ -4,7 +4,7 @@
 ### 02/14/17
 - Made y axis 3 times larger than x axis
 - Fixed the bug that x color bar can be beyond the range
-
+- Forked into local github account
 ### 02/10/17
 - Display quadradic function
 - Display bars on axis
