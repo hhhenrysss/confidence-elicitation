@@ -12,12 +12,12 @@ survey = { questions: undefined,
 
         // Initialize needed computations
         var slider_value = [0];
-        var testBank = ["Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"]; // Read the testBank here (TODO: pass from csv)
-        var money = 12; // Starting bank balance
-        var moneyBank = ['Money Earned'];
+        var testBank = ["I understand and agree with the instructions above.", "Yes", "No", "Yes", "No", "Yes", "No", "Yes", "No"]; // Read the testBank here (TODO: pass from csv)
+        var currentBalance = 12; // Starting bank balance
+        var moneyBank = ['Earnings from Previous Round', 0];
         var questionCounter = 0; // Keeps track of what question we are currently
-        var nextClick = 1; // Count number of time the button next is clicked; used to determine the breaks
-
+        var nextClick = 0; // Count number of time the button next is clicked; used to determine the breaks
+        var brier = 0;
 
         this.questions = questions;
 
@@ -32,11 +32,14 @@ survey = { questions: undefined,
             var group = self.getQuestionAnswer(self.questions[1]);
             var ok = true;
 
-            console.log("question ID:" + self.questions[questionCounter]['id']);
+            //console.log("question ID:" + self.questions[questionCounter]['id']);
             console.log("Question Counter:" + questionCounter);
-            console.log("nextClick value:" + nextClick);
+            //console.log("nextClick value:" + nextClick);
             //console.log("SubjectID: " + self.getQuestionAnswer(self.questions[0]))
             //console.log("Group: " + self.getQuestionAnswer(self.questions[1]))
+
+            //console.log("currentBalance:" + currentBalance);
+            console.log("moneyBank:" + moneyBank);
 
             if (questionID == 0 && questionCounter == 1) {
 
@@ -48,7 +51,7 @@ survey = { questions: undefined,
                         "<img src=\"\\image\\hslider.png\" align=\"middle\"> " +
                         "<br><br>You will receive $10 for your participation, regardless of how " +
                         "you perform in the experiment. You will have a chance to earn more money based on how many " +
-                        "questions you can answer correctly.<br><br></font>";
+                        "questions you can answer correctly.<br></font>";
                 } else if (group == "Group 2: SL, B") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
                         "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
@@ -59,13 +62,13 @@ survey = { questions: undefined,
                         "questions you can answer correctly.<br><br>" +
                         "There will be a virtual bank starting at $12 which " +
                         "increases or decreases depending on your answer and your conviction for each question. " +
-                        "Note, the bank will never go below zero.<br><br></font>";
+                        "Note, the bank will never go below zero.<br></font>";
                 } else if (group == "Group 3: PS, NB") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
                     "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
                     "quantify your conviction using a parabolic slider as shown below. <br><br> You will receive $10 for your participation, regardless of how " +
                     "you perform in the experiment. You will have a chance to earn more money based on how many " +
-                    "questions you can answer correctly.<br><br></font>";
+                    "questions you can answer correctly.<br></font>";
                 } else if (group == "Group 4: PS, B") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
                         "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
@@ -73,7 +76,7 @@ survey = { questions: undefined,
                         "you perform in the experiment. You will have a chance to earn more money based on how many " +
                         "questions you can answer correctly.<br><br> There will be a virtual bank starting at $12 which " +
                         "increases or decreases depending on your answer and your conviction for each question. " +
-                        "Note, the bank will never go below zero.<br><br></font>";
+                        "Note, the bank will never go below zero.<br></font>";
                 }
 
             }
@@ -104,6 +107,9 @@ survey = { questions: undefined,
                 // TODO: Make continue button appears after 60 seconds
                 if (nextClick % 2 == 0 && nextClick != 0 && questionID != 0) {
 
+                    // Push the last calculation | TODO: Incorrect, fix this
+                    moneyBank.push(Number(brier.toFixed(2)));
+
                     // Hide the question and slider
                     self.hideAllQuestions();
                     $("#slider").hide();
@@ -115,9 +121,16 @@ survey = { questions: undefined,
 
                     // Tell them to take a break
                     document.getElementById('message').innerHTML="Please take a 1 minute break and review your " +
-                        "current earnings is shown in the chart below."
+                            "current earnings is shown in the chart below.<br><br>Your current bank balance is: $" +
+                            currentBalance;
 
+                    console.log("BREAK QUESTION!");
+
+                    // Reset the iterator
                     nextClick = 0;
+
+                    // Reset the bank for new round
+                    moneyBank = ['Earnings from Previous Round', 0];
                 }
                 else {
 
@@ -128,19 +141,29 @@ survey = { questions: undefined,
                     $("#slider").slider("value",  $("#slider").slider("option", "min"));
 
                     // TODO: change text back to 0
+                    // Compute Brier Score and get bank balance (use simply calculation for now)
+                    // TODO: INCORRECT: need to fix this
+                    // TODO: Verify Brier calculation; Make this part into a function
+                    if (questionCounter > 1 && questionID != 0) {
+                        // If correct answer
+                        console.log(self.questions[questionCounter]['text']);
+                        console.log(self.getQuestionAnswer(self.questions[questionCounter]));
+                        console.log(testBank[questionCounter]);
 
-                    // Change balance of bank
-                    if (questionCounter > 1) {
                         if(self.getQuestionAnswer(self.questions[questionCounter]) === testBank[questionCounter]) {
-                            money += slider_value[questionCounter] * 0.01;
+                            //brier = Math.pow(((slider_value[questionCounter]*0.01)-1),2);
+                            brier = slider_value[questionCounter]*0.01;
+                            currentBalance += brier;
                         }
-                        else{
-                            money += slider_value[questionCounter] * -0.01;
+                        // If incorrect answer
+                        else {
+                            //brier = Math.pow(((slider_value[questionCounter]*0.01)-1),2);
+                            brier = -slider_value[questionCounter]*0.01;
+                            currentBalance += brier;
                         }
-                    }
+                        moneyBank.push(Number(brier.toFixed(2)));
 
-                    // Update moneyBank
-                    moneyBank.push(Number(money.toFixed(2)));
+                    }
 
                     // Increase the question index and click counter
                     nextClick += 1;
@@ -150,8 +173,6 @@ survey = { questions: undefined,
                     self.showNextQuestionSet();
                     $("#chart").hide();
                 }
-
-
             }
 
             // This is for the final question
@@ -160,20 +181,27 @@ survey = { questions: undefined,
                 // Store the slider value
                 slider_value.push($('#slider').slider('value'));
 
-                if (nextClick > 2) {
+                // Compute Brier Score and get bank balance (use simply calculation for now)
+                // TODO: Verify Brier calculation; Make this part into a function
+                if (questionCounter > 1) {
+                    // If correct answer
                     if(self.getQuestionAnswer(self.questions[questionCounter]) === testBank[questionCounter]) {
-
-                        money += slider_value[questionCounter] * 0.01;
+                        //brier = Math.pow(((slider_value[questionCounter]*0.01)-1),2);
+                        brier = slider_value[questionCounter]*0.01;
+                        currentBalance += brier;
+                        moneyBank.push(Number(brier.toFixed(2)));
                     }
-                    else{
-                        money += slider_value[questionCounter] * -0.01;
+                    // If incorrect answer
+                    else {
+                        //brier = Math.pow(((slider_value[questionCounter]*0.01)-1),2);
+                        brier = -slider_value[questionCounter]*0.01;
+                        currentBalance += brier;
+                        moneyBank.push(Number(brier.toFixed(2)));
+
                     }
                 }
 
                 nextClick += 1;
-
-                // Update moneyBank
-                moneyBank.push(Number(money.toFixed(2)));
 
                 // Plot the current moneyBank
                 self.getBank(moneyBank);
@@ -370,18 +398,39 @@ survey = { questions: undefined,
 
     survey.getBank = function (moneyBank) {
         var chart = c3.generate({
-            bindto: '#chart',
             size: {
-                height: 250,
-                width: 450
+                height: 240,
+                width: 480
             },
             data: {
                 columns: [
-                    moneyBank
+                    moneyBank,
+                    ['Reference Line',0,0,0,0,0,0,0,0,0,0]
                 ],
+                type: 'bar',
+                types: {
+                        'Reference Line': 'line',
+                },
+                colors: {
+                    'Earnings from Previous Round': function(d) { return d.value < 0 ? '#E57F7F' : '#99EA99' }
+                }
             },
-            colors: {'Money Earned': '#1f77b4'},
-            title: 'Bank Balance'
+            legend: {
+                show: false
+            },
+            axis: {
+                y: {
+                    max: 1,
+                    min: -1,
+                    // Range includes padding, set 0 if no padding needed
+                    // padding: {top:0, bottom:0}
+                }
+            },
+            bar: {
+                width: {
+                    ratio: 0.3 // this makes bar width 50% of length between ticks
+                }
+            }
         });
     }
 
