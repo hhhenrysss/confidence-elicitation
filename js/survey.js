@@ -12,10 +12,12 @@ survey = { questions: undefined,
 
         // Initialize needed computations
         var slider_value = [0];
-        var testBank = ["Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"]; // Read the testBank here (To do: pass from csv)
+        var testBank = ["Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"]; // Read the testBank here (TODO: pass from csv)
         var money = 12; // Starting bank balance
         var moneyBank = ['Money Earned'];
-        var nextClick = 1; // Index 0 is reserved for subject name
+        var questionCounter = 0; // Keeps track of what question we are currently
+        var nextClick = 1; // Count number of time the button next is clicked; used to determine the breaks
+
 
         this.questions = questions;
 
@@ -25,20 +27,63 @@ survey = { questions: undefined,
 
         $('#nextBtn').click(function() {
 
+            var subjectID = self.getQuestionAnswer(self.questions[0]);
+            var questionID = self.questions[questionCounter]['id'];
+            var group = self.getQuestionAnswer(self.questions[1]);
             var ok = true;
-            if (nextClick == 1) {
-                document.getElementById('instructions').innerHTML = '';
-            }
-            else if (nextClick > 1) {
-                console.log("Group: " + self.getQuestionAnswer(self.questions[1])) // DO SOMETHING HERE AFTER WE GET THE GROUP!
 
-                // Turn on the slider and its label; get rid of instruction
+            console.log("question ID:" + self.questions[questionCounter]['id']);
+            console.log("Question Counter:" + questionCounter);
+            console.log("nextClick value:" + nextClick);
+            //console.log("SubjectID: " + self.getQuestionAnswer(self.questions[0]))
+            //console.log("Group: " + self.getQuestionAnswer(self.questions[1]))
+
+            if (questionID == 0 && questionCounter == 1) {
+
+                // Instruction given will depend on the group
+                if (group == "Group 1: SL, NB") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
+                        "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
+                        "quantify your conviction using a horizontal slider as shown below. <br><br> " +
+                        "<img src=\"\\image\\hslider.png\" align=\"middle\"> " +
+                        "<br><br>You will receive $10 for your participation, regardless of how " +
+                        "you perform in the experiment. You will have a chance to earn more money based on how many " +
+                        "questions you can answer correctly.<br><br></font>";
+                } else if (group == "Group 2: SL, B") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
+                        "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
+                        "quantify your conviction using a horizontal slider as shown below. <br><br> " +
+                        "<img src=\"\\image\\hslider.png\" align=\"middle\"> " +
+                        "<br>You will receive $10 for your participation, regardless of how " +
+                        "you perform in the experiment. You will have a chance to earn more money based on how many " +
+                        "questions you can answer correctly.<br><br>" +
+                        "There will be a virtual bank starting at $12 which " +
+                        "increases or decreases depending on your answer and your conviction for each question. " +
+                        "Note, the bank will never go below zero.<br><br></font>";
+                } else if (group == "Group 3: PS, NB") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
+                    "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
+                    "quantify your conviction using a parabolic slider as shown below. <br><br> You will receive $10 for your participation, regardless of how " +
+                    "you perform in the experiment. You will have a chance to earn more money based on how many " +
+                    "questions you can answer correctly.<br><br></font>";
+                } else if (group == "Group 4: PS, B") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
+                        "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
+                        "quantify your conviction using a parabolic slider as shown below. <br><br> You will receive $10 for your participation, regardless of how " +
+                        "you perform in the experiment. You will have a chance to earn more money based on how many " +
+                        "questions you can answer correctly.<br><br> There will be a virtual bank starting at $12 which " +
+                        "increases or decreases depending on your answer and your conviction for each question. " +
+                        "Note, the bank will never go below zero.<br><br></font>";
+                }
+
+            }
+            else if (questionCounter > 1) {
+
+                // Turn on the slider and its label and get rid of instruction
                 $("#slider").show();
                 document.getElementById("slider-label").style.display = "inline";
-                document.getElementById('instructions').innerHTML = '';
+                document.getElementById('instructions').innerHTML = "";
             }
-
-            console.log(nextClick)
 
             // Make question required and display message
             for (i = self.firstQuestionDisplayed; i <= self.lastQuestionDisplayed; i++) {
@@ -52,53 +97,61 @@ survey = { questions: undefined,
             if (!ok)
                 return
 
-
             // If button is clicked and answer is selected
             if ( $('#nextBtn').text().indexOf('Continue') === 0) {
 
-                // Store the slider value
-                slider_value.push($('#slider').slider('value'));
+                // Every n question, show the bank and take a break
+                // TODO: Make continue button appears after 60 seconds
+                if (nextClick % 2 == 0 && nextClick != 0 && questionID != 0) {
 
-                // Move the slider back to 0
-                $("#slider").slider("value",  $("#slider").slider("option", "min"));
+                    // Hide the question and slider
+                    self.hideAllQuestions();
+                    $("#slider").hide();
+                    document.getElementById("slider-label").style.display = "none";
 
-                // To do: change text back to 0
+                    // Plot the current moneyBank
+                    self.getBank(moneyBank);
+                    $("#chart").show();
 
-                // Change balance of bank
-                if (nextClick > 2) {
-                    if(self.getQuestionAnswer(self.questions[nextClick-1]) === testBank[nextClick-1]) {
-                        money += slider_value[nextClick] * 0.01;
+                    // Tell them to take a break
+                    document.getElementById('message').innerHTML="Please take a 1 minute break and review your " +
+                        "current earnings is shown in the chart below."
+
+                    nextClick = 0;
+                }
+                else {
+
+                    // Store the slider value
+                    slider_value.push($('#slider').slider('value'));
+
+                    // Move the slider back to 0
+                    $("#slider").slider("value",  $("#slider").slider("option", "min"));
+
+                    // TODO: change text back to 0
+
+                    // Change balance of bank
+                    if (questionCounter > 1) {
+                        if(self.getQuestionAnswer(self.questions[questionCounter]) === testBank[questionCounter]) {
+                            money += slider_value[questionCounter] * 0.01;
+                        }
+                        else{
+                            money += slider_value[questionCounter] * -0.01;
+                        }
                     }
-                    else{
-                        money += slider_value[nextClick] * -0.01;
-                    }
+
+                    // Update moneyBank
+                    moneyBank.push(Number(money.toFixed(2)));
+
+                    // Increase the question index and click counter
+                    nextClick += 1;
+                    questionCounter += 1;
+
+                    document.getElementById('message').innerHTML="";
+                    self.showNextQuestionSet();
+                    $("#chart").hide();
                 }
 
-                console.log(slider_value[nextClick]);
-                console.log(money);
 
-                // Increase the question index
-                nextClick += 1;
-
-                // Update moneyBank
-                moneyBank.push(Number(money.toFixed(2)));
-
-                // Plot the current moneyBank
-                var chart = c3.generate({
-                    bindto: '#chart',
-                    size: {
-                        height: 250,
-                        width: 450
-                    },
-                    data: {
-                        columns: [
-                            moneyBank
-                        ]
-                    },
-                    colors: {'Money Earned': '#1f77b4'},
-                });
-
-                self.showNextQuestionSet();
             }
 
             // This is for the final question
@@ -108,17 +161,14 @@ survey = { questions: undefined,
                 slider_value.push($('#slider').slider('value'));
 
                 if (nextClick > 2) {
-                    if(self.getQuestionAnswer(self.questions[nextClick-1]) === testBank[nextClick-1]) {
+                    if(self.getQuestionAnswer(self.questions[questionCounter]) === testBank[questionCounter]) {
 
-                        money += slider_value[nextClick] * 0.01;
+                        money += slider_value[questionCounter] * 0.01;
                     }
                     else{
-                        money += slider_value[nextClick] * -0.01;
+                        money += slider_value[questionCounter] * -0.01;
                     }
                 }
-
-                console.log(slider_value[nextClick]);
-                console.log(money);
 
                 nextClick += 1;
 
@@ -126,20 +176,7 @@ survey = { questions: undefined,
                 moneyBank.push(Number(money.toFixed(2)));
 
                 // Plot the current moneyBank
-                var chart = c3.generate({
-                    bindto: '#chart',
-                    size: {
-                        height: 250,
-                        width: 450
-                    },
-                    data: {
-                        columns: [
-                            moneyBank
-                        ]
-                    },
-                    colors: {'Money Earned': '#1f77b4'},
-                    title: 'Bank Balance'
-                });
+                self.getBank(moneyBank);
 
                 // Get all of the answers to save
                 var answers = {moneyEarned: money};
@@ -148,8 +185,9 @@ survey = { questions: undefined,
                 }
 
                 // Write answer to file (Note: Only works for Chrome | Not Safari)
-                self.saveAnswers(JSON.stringify(answers), 'solution.json');
+                self.saveAnswers(JSON.stringify(answers), String(subjectID) + '.json');
                 self.hideAllQuestions();
+                $("#chart").show();
                 $("#slider").hide();
                 $('#nextBtn').hide();
                 document.getElementById("slider-label").style.display = "none";
@@ -330,10 +368,27 @@ survey = { questions: undefined,
         a.click()
     }
 
+    survey.getBank = function (moneyBank) {
+        var chart = c3.generate({
+            bindto: '#chart',
+            size: {
+                height: 250,
+                width: 450
+            },
+            data: {
+                columns: [
+                    moneyBank
+                ],
+            },
+            colors: {'Money Earned': '#1f77b4'},
+            title: 'Bank Balance'
+        });
+    }
+
 })(survey, jQuery); // End class
 
 //////////////////////////////////////////////////////////////////////////////////////////
-// LOAD IN THE QUESTIONS (To-Do: Read CSV into JSON makes life easier)
+// LOAD IN THE QUESTIONS (TODO: Read CSV into JSON makes life easier)
 //////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
@@ -367,3 +422,4 @@ $( function() {
         }
     });
 } );
+
