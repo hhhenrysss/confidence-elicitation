@@ -2,6 +2,11 @@
 
 ## Update log
 
+### 02/23/17
+- Fixed experimenter questions.
+- Changed instructions depending on groups.
+- Added breaks after N questions.
+
 ### 02/14/17
 - Fixed money calculation.
 - Add group select page and instructions.
@@ -23,6 +28,11 @@
 - Create general JSON format for question as an example.
 
 ## To Do (john):
+
+### 02/23/17
+- Make button on break page appears after M seconds.
+- Incorporate parabolic sliders
+- Clean up code
 
 ### 02/06/17
 - Add capability to load everything into one CSV file.
