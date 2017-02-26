@@ -57,10 +57,11 @@
 
 <script type="text/javascript">
 
-//setting up empty data array
 var data = [];
 
 // popuate data 
+//
+//
 getData(); 
 
 function getData() {
@@ -97,7 +98,8 @@ var margin = {
 //
 //
 var x = d3.scale.linear()
-    .range([0, width]);
+    // .domain([0,d3.max(data)])
+    .range([0, width]);//can adjust axis range
 
 var y = d3.scale.linear()
     .range([height, 0]);
@@ -131,6 +133,8 @@ y.domain(d3.extent(data, function(d) {
 
 svg.append("g")
     .attr("class", "x axis")
+                // .attr("transform","translate(10,160)")  
+
     .call(xAxis);
 svg.append("g")
     .attr("class", "y axis")
@@ -195,6 +199,42 @@ function dragended(d) {
     .classed("dragging", false);
 }
 
+
+
+
+//color indicator
+//
+//
+container.append("rect")  
+   .attr("x",0)  
+   .attr("y",-30)   
+   .attr("width",0)
+   .attr("height",20)  
+   .attr("fill","green")
+   .attr("id","horizontal"); 
+
+
+container.append("rect")  
+   .attr("x",0)  
+   .attr("y",0)   
+   .attr("width",10)
+   .attr("height",0)  
+   .attr("fill","red")
+   .attr("id","vertical"); 
+
+function findTheMouse(){
+  var coordinates = d3.mouse(this);
+  // x1.textContent = coordinates[0];
+  // y1.textContent = coordinates[1];
+    svg.select("rect[id='horizontal']")  
+           .attr("width",coordinates[0]-50)  ;
+    svg.select("rect[id='vertical']")  
+           .attr("height",coordinates[1])  ;
+           // .attr("width",xScale)           //pay attention
+}
+d3.select("svg")
+  .on("mousemove", findTheMouse);
+ 
 
 </script>
 
