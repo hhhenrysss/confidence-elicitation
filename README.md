@@ -2,6 +2,9 @@
 
 ## Update log
 
+### 02/26/2017
+- Fit the handle and the plot
+
 ### 02/25/2017
 - Used vanilla D3 to draw quadratic plot, handle, axis without ticks
 
@@ -19,8 +22,5 @@
 - Added general framework with jQuery and jQuery-UI.
 - Create general JSON format for question as an example.
 
-## To Do (john):
-
-### 01/24/17
-- Record slider value after submitting question.
-- Reset slider value after question
+## To Do
+- Convert csv to JSON
