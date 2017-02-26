@@ -52,6 +52,8 @@
 </head>
 
 <body>
+<div id="realTime"></div>
+<div id="originData"></div>
 
 </body>
 
@@ -72,6 +74,13 @@ for (var i = 0; i < 50; i++) {
         "q": q,
         "p": p
     }
+var div = d3.select("body").select("#originData")
+    div
+      .text("x: "+q + ",y: " + p)
+      // .style("left", (d3.event.pageX - 34) + "px")
+      // .style("top", (d3.event.pageY - 12) + "px");
+          console.log("x: "+q+"y: "+p);
+
     data.push(el)
 };
 // need to sort for plotting
@@ -80,19 +89,28 @@ data.sort(function(x, y) {
 }); 
 }
 function gaussian(x) {
-    return (-0.00001)*x*x;
+    return (-1)*x*x;
 };
 
 
-
+// create canvass
+// 
+// 
 var margin = {
         top: 20,
         right: 20,
         bottom: 30,
         left: 50
     },
-    width = 960 - margin.left - margin.right,
+    width = 200 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
 // axises
 //
@@ -102,6 +120,7 @@ var x = d3.scale.linear()
     .range([0, width]);//can adjust axis range
 
 var y = d3.scale.linear()
+    // .domain([0,d3.max(data)])
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()
@@ -113,17 +132,6 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .tickValues([])
 
-
-
-// function plot
-//
-//
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 x.domain(d3.extent(data, function(d) {
     return d.q;
 }));
@@ -134,13 +142,16 @@ y.domain(d3.extent(data, function(d) {
 svg.append("g")
     .attr("class", "x axis")
                 // .attr("transform","translate(10,160)")  
-
     .call(xAxis);
 svg.append("g")
     .attr("class", "y axis")
     .call(yAxis);
 
 
+
+// function plot
+//
+//
 var container = svg.append("g");
 
 var line = d3.svg.line()
@@ -191,7 +202,7 @@ function dragstarted(d) {
 function dragged(d) {  
   d3.select(this)
     .attr("cx", d.x = d3.event.x)
-    .attr("cy", d.y = (0.0005*d3.event.x *d3.event.x));
+    .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
 }
 
 function dragended(d) {
@@ -222,15 +233,22 @@ container.append("rect")
    .attr("fill","red")
    .attr("id","vertical"); 
 
+
 function findTheMouse(){
   var coordinates = d3.mouse(this);
-  // x1.textContent = coordinates[0];
-  // y1.textContent = coordinates[1];
+  var div = d3.select("body").select("#realTime")
+    div
+      .text("x: "+coordinates[0] + ",y: " + coordinates[1])
+      .style("left", (d3.event.pageX - 34) + "px")
+      .style("top", (d3.event.pageY - 12) + "px");
     svg.select("rect[id='horizontal']")  
-           .attr("width",coordinates[0]-50)  ;
+           .attr("width",coordinates[0])  ;
     svg.select("rect[id='vertical']")  
            .attr("height",coordinates[1])  ;
            // .attr("width",xScale)           //pay attention
+    // console.log("x: "+coordinates[0]+"y: "+coordinates[1]);
+    // console.log("y: "+coordinates[1]);
+
 }
 d3.select("svg")
   .on("mousemove", findTheMouse);
