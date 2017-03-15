@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9c6ee5c-6158-420f-b260-41e09e7ad2eb" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/paraslider_style.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/parabolicSlider.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/stylesheet.css" afterPath="$PROJECT_DIR$/css/stylesheet.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/survey.js" afterPath="$PROJECT_DIR$/js/survey.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,8 +28,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+            <state relative-caret-position="1003">
+              <caret line="59" column="34" lean-forward="false" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -33,43 +38,41 @@
       <file leaf-file-name="survey.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/survey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="144" column="56" lean-forward="false" selection-start-line="144" selection-start-column="56" selection-end-line="144" selection-end-column="56" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="questions.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/questions.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="24" column="6" lean-forward="true" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-              <folding />
+            <state relative-caret-position="663">
+              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+                <element signature="e#24387#24436#0" expanded="false" />
+                <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+                <element signature="e#24574#24694#0" expanded="false" />
+                <element signature="e#25613#25648#0" expanded="false" />
+                <element signature="e#25698#25733#0" expanded="false" />
+                <element signature="e#26087#26133#0" expanded="false" />
+                <element signature="e#26163#26209#0" expanded="false" />
+                <element signature="e#26417#26458#0" expanded="false" />
+                <element signature="e#26593#26639#0" expanded="false" />
+                <element signature="e#26883#26926#0" expanded="false" />
+                <element signature="e#26965#27008#0" expanded="false" />
+                <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+                <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+                <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>text-field-small</find>
-      <find>backBtn</find>
-      <find>json</find>
-      <find>questions</find>
-      <find>slider ti</find>
-      <find>text</find>
-      <find>break</find>
-      <find>thank</find>
-      <find>append</find>
-      <find>question</find>
-      <find>test_bank</find>
-      <find>footer</find>
-      <find>Please select an answer before continuing.</find>
-      <find>Finish</find>
-      <find>finish</find>
-      <find>button</find>
       <find>options</find>
       <find>slider_valu</find>
       <find>completed-message</find>
@@ -84,7 +87,27 @@
       <find>moneyBank</find>
       <find>currentBalance</find>
       <find>currentBalancemoney</find>
+      <find>line</find>
+      <find>#slider</find>
+      <find>#chart</find>
+      <find>c3.generatec3.generate</find>
+      <find>console.log</find>
+      <find>push</find>
+      <find>d3.select</find>
+      <find>test</find>
+      <find>bodyparabolic-handle</find>
+      <find>parabolic-handle</find>
+      <find>body</find>
+      <find>.remove()</find>
+      <find>draw</find>
+      <find>svg</find>
+      <find>console.lo</find>
+      <find>.show()</find>
     </findStrings>
+    <replaceStrings>
+      <replace>body</replace>
+      <replace>#parabolic-handle</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -95,9 +118,13 @@
         <option value="$PROJECT_DIR$/js/slider.js" />
         <option value="$PROJECT_DIR$/js/jquery.csv.min.js" />
         <option value="$PROJECT_DIR$/answers.csv" />
-        <option value="$PROJECT_DIR$/css/stylesheet.css" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/questions.json" />
+        <option value="$PROJECT_DIR$/css/stylesheet.css" />
+        <option value="$USER_HOME$/Desktop/confidence-elicitation-shuo/testQuadraricFunction.html" />
+        <option value="$PROJECT_DIR$/testQuadraricFunction.html" />
+        <option value="$PROJECT_DIR$/css/paraslider_style.css" />
+        <option value="$PROJECT_DIR$/js/parabolicSlider.js" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/survey.js" />
       </list>
     </option>
@@ -109,9 +136,11 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="817" />
+    <option name="width" value="1721" />
+    <option name="height" value="1400" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -128,6 +157,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -171,7 +201,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -181,10 +210,14 @@
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\John\Documents\GitHub\confidence-elicitation\js" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
@@ -192,6 +225,9 @@
       <method />
     </configuration>
     <configuration default="false" name="survey.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="survey.js" working-dir="$PROJECT_DIR$/js">
+      <method />
+    </configuration>
+    <configuration default="false" name="testQuadraricFunction.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/confidence-elicitation/testQuadraricFunction.html">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -253,14 +289,16 @@
       <recursive>false</recursive>
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.survey.js" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.testQuadraricFunction.html" />
     </list>
     <recent_temporary>
-      <list size="2">
+      <list size="3">
         <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.survey.js" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.testQuadraricFunction.html" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.survey.js" />
       </list>
     </recent_temporary>
   </component>
@@ -288,33 +326,38 @@
       <workItem from="1487357758179" duration="23000" />
       <workItem from="1487359505756" duration="1059000" />
       <workItem from="1487868931090" duration="23480000" />
+      <workItem from="1489547919649" duration="1601000" />
+      <workItem from="1489548819413" duration="6527000" />
+      <workItem from="1489554787550" duration="6957000" />
+      <workItem from="1489560309950" duration="210000" />
+      <workItem from="1489560679932" duration="6000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73882000" />
+    <option name="totallyTimeSpent" value="89183000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="817" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1721" height="1400" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11388889" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.171261" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3252688" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22983871" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2364341" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32945737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22983871" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,10 +367,43 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/js/survey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/questions.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="6" lean-forward="true" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="960">
@@ -340,7 +416,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -348,7 +440,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="19" lean-forward="false" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -356,7 +447,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2370">
           <caret line="158" column="25" lean-forward="false" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -372,7 +462,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1290">
           <caret line="86" column="41" lean-forward="false" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="41" />
-          <folding />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -380,7 +486,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -388,7 +493,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2370">
           <caret line="158" column="25" lean-forward="false" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -404,7 +508,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1290">
           <caret line="86" column="41" lean-forward="false" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="41" />
-          <folding />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -412,7 +532,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -420,7 +539,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2370">
           <caret line="158" column="25" lean-forward="false" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -436,7 +554,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -444,7 +578,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -452,7 +585,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2370">
           <caret line="158" column="25" lean-forward="false" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -468,7 +600,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -476,7 +624,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -484,7 +631,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2370">
           <caret line="158" column="25" lean-forward="false" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -508,7 +654,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -516,7 +678,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -532,7 +693,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="40" lean-forward="true" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
-          <folding />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -540,7 +717,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -556,7 +732,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3030">
           <caret line="202" column="34" lean-forward="false" selection-start-line="202" selection-start-column="34" selection-end-line="202" selection-end-column="34" />
-          <folding />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -595,43 +787,92 @@
     <entry file="file://$PROJECT_DIR$/js/papaparse.min.js" />
     <entry file="file://$PROJECT_DIR$/js/jquery.csv.min.js" />
     <entry file="file://$PROJECT_DIR$/answers.csv" />
-    <entry file="file://$PROJECT_DIR$/css/jquery-ui.min.css">
+    <entry file="file://$PROJECT_DIR$/js/canvasjs.min.js" />
+    <entry file="file://$USER_HOME$/Desktop/confidence-elicitation-shuo/testQuadraricFunction.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-285">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="880">
+          <caret line="229" column="18" lean-forward="true" selection-start-line="229" selection-start-column="18" selection-end-line="229" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/canvasjs.min.js" />
     <entry file="file://$PROJECT_DIR$/css/stylesheet.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2370">
-          <caret line="158" column="25" lean-forward="false" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="25" />
-          <folding />
+        <state relative-caret-position="300">
+          <caret line="221" column="31" lean-forward="false" selection-start-line="221" selection-start-column="30" selection-end-line="221" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testQuadraricFunction.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/questions.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="24" column="6" lean-forward="true" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-          <folding />
+        <state relative-caret-position="255">
+          <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/paraslider_style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/jquery-ui.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="6" column="15832" lean-forward="true" selection-start-line="6" selection-start-column="15832" selection-end-line="6" selection-end-column="15832" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/parabolicSlider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="11" lean-forward="true" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+        <state relative-caret-position="1003">
+          <caret line="59" column="34" lean-forward="false" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/survey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="144" column="56" lean-forward="false" selection-start-line="144" selection-start-column="56" selection-end-line="144" selection-end-column="56" />
-          <folding />
+        <state relative-caret-position="663">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#getData#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24387#24436#0" expanded="false" />
+            <element signature="n#!!block;n#gaussian#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="e#24574#24694#0" expanded="false" />
+            <element signature="e#25613#25648#0" expanded="false" />
+            <element signature="e#25698#25733#0" expanded="false" />
+            <element signature="e#26087#26133#0" expanded="false" />
+            <element signature="e#26163#26209#0" expanded="false" />
+            <element signature="e#26417#26458#0" expanded="false" />
+            <element signature="e#26593#26639#0" expanded="false" />
+            <element signature="e#26883#26926#0" expanded="false" />
+            <element signature="e#26965#27008#0" expanded="false" />
+            <element signature="n#!!block;n#dragstarted#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragged#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+            <element signature="n#!!block;n#dragended#0;n#!!block;n#parabolicSlider#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
