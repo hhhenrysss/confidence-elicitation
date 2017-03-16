@@ -33,8 +33,6 @@ function gaussian(x) {
 
 
 // create canvass
-//
-//
 var margin = {
         top: 20,
         right: 20,
@@ -51,8 +49,6 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // axises
-//
-//
 var x = d3.scale.linear()
 // .domain([0,d3.max(data)])
     .range([0, width]);//can adjust axis range
@@ -86,8 +82,6 @@ svg.append("g")
     .call(yAxis);
 
 // function plot
-//
-//
 var container = svg.append("g");
 
 var line = d3.svg.line()
@@ -103,8 +97,6 @@ container.append("path")
     .attr("d", line);
 
 // handle
-//
-//
 var drag = d3.behavior.drag()
     .origin(function(d) { return d; })
     .on("dragstart", dragstarted)
