@@ -699,9 +699,9 @@ function parabolicSlider() {
         //color indicator
         container.append("rect")
             .attr("x", 0)
-            .attr("y", -30)
+            .attr("y", -10)
             .attr("width", 0)
-            .attr("height", 20)
+            .attr("height", 10)
             .attr("fill", "green")
             .attr("id", "horizontal");
 
@@ -724,9 +724,9 @@ function parabolicSlider() {
                 .style("left", (d3.event.pageX - 34) + "px")
                 .style("top", (d3.event.pageY - 12) + "px");
             svg.select("rect[id='horizontal']")
-                .attr("width", coordinates[0]);
+                .attr("width", coordinates[0]-50);
             svg.select("rect[id='vertical']")
-                .attr("height", coordinates[1]);
+                .attr("height", coordinates[1]-20);
             // .attr("width",xScale)           //pay attention
             // console.log("x: "+coordinates[0]+"y: "+coordinates[1]);
             // console.log("y: "+coordinates[1]);
@@ -735,6 +735,15 @@ function parabolicSlider() {
         d3.select("svg")
             .on("mousemove", findTheMouse);
 
+        svg.on("click", function() {
+            var coords = d3.mouse(this);
+            var div = d3.select("body").select("#realTime")
+
+            div
+                .text("x: "+coords[0]/500 + ",y: " + coords[1]/500)
+            // Normally we go from data to pixels, but here we're doing pixels to data
+
+        })
     parabolicSlider = function(){} // Only allows function to be called once
 
     return coordinates

@@ -155,9 +155,9 @@ container.append("rect")
     .attr("fill","red")
     .attr("id","vertical");
 
-
+var coordinates;
 function findTheMouse(){
-    var coordinates = d3.mouse(this);
+    coordinates = d3.mouse(this);
     var div = d3.select("body").select("#realTime")
     div
         .text("x: "+coordinates[0] + ",y: " + coordinates[1])
@@ -174,3 +174,14 @@ function findTheMouse(){
 }
 d3.select("svg")
     .on("mousemove", findTheMouse);
+
+
+svg.on("click", function() {
+    var coordinates = d3.mouse(this);
+    var div = d3.select("body").select("#realTime")
+
+    div
+        .text("x: "+coordinates[0]/500 + ",y: " + coordinates[1]/500)
+    // Normally we go from data to pixels, but here we're doing pixels to data
+
+})
