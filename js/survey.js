@@ -442,12 +442,11 @@ survey = { questions: undefined,
                 O = 1
             else
                 O = 0
-
             F = sliderValue[i]*0.01;
             // Used for testing
             if (userAnswer[i] == testBank[i]) {
-                /ain_loss.push(F * 0.01);
-                //gain_loss.push(Math.pow(F-O,2));
+                gain_loss.push(F * 0.01);
+                //gain_loss.push(Math.pow(F-1,2));
             } else {
                 gain_loss.push(-F * 0.01);
                 //gain_loss.push(-Math.pow(F-O,2));
@@ -562,185 +561,210 @@ $( function() {
 } );
 
 function parabolicSlider() {
-        var data = [];
+    var data = [];
 
-        // populate data
-        getData();
+    // populate data
+    getData();
 
-        function getData() {
-            for (var i = 0; i < 50; i++) {
-                q = i
-                p = gaussian(q)
-                el = {
-                    "q": q,
-                    "p": p
-                }
-                var div = d3.select("#parabolic").select("#originData")
-                div
-                    .text("x: " + q + ",y: " + p)
-                // .style("left", (d3.event.pageX - 34) + "px")
-                // .style("top", (d3.event.pageY - 12) + "px");
-                //console.log("x: "+q+"y: "+p);
-
-                data.push(el)
+    function getData() {
+        for (var i = 0; i < 50; i++) {
+            q = i
+            p = gaussian(q)
+            el = {
+                "q": q,
+                "p": p
             }
-            ;
-            // need to sort for plotting
-            data.sort(function (x, y) {
-                return x.q - y.q;
-            });
-        }
-
-        function gaussian(x) {
-            return (-1) * x * x; // Function for line/curve
-        };
-
-
-        // create canvass
-        var margin = {
-                top: 20,
-                right: 20,
-                bottom: 30,
-                left: 50
-            },
-            width = 200 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
-
-        var svg = d3.select("#parabolic").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        // axises
-        var x = d3.scale.linear()
-        // .domain([0,d3.max(data)])
-            .range([0, width]);//can adjust axis range
-
-        var y = d3.scale.linear()
-        // .domain([0,d3.max(data)])
-            .range([height, 0]);
-
-        var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("top")
-            .tickValues([])
-        var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left")
-            .tickValues([])
-
-        x.domain(d3.extent(data, function (d) {
-            return d.q;
-        }));
-        y.domain(d3.extent(data, function (d) {
-            return d.p;
-        }));
-
-        svg.append("g")
-            .attr("class", "x axis")
-            // .attr("transform","translate(10,160)")
-            .call(xAxis);
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis);
-
-        // function plot
-        var container = svg.append("g");
-
-        var line = d3.svg.line()
-            .x(function (d) {
-                return x(d.q);
-            })
-            .y(function (d) {
-                return y(d.p);
-            });
-        container.append("path")
-            .datum(data)
-            .attr("class", "line")
-            .attr("d", line);
-
-        // handle
-        var drag = d3.behavior.drag()
-            .origin(function (d) {
-                return d;
-            })
-            .on("dragstart", dragstarted)
-            .on("drag", dragged)
-            .on("dragend", dragended);
-
-        handle = [{
-            x: 0,
-            y: 0
-        }];
-
-        handle_circle = container.append("g")
-            .attr("class", "dot")
-            .selectAll('circle')
-            .data(handle)
-            .enter().append("circle")
-            .attr("r", 5)
-            .attr("cx", function (d) {
-                return d.x;
-            })
-            .attr("cy", function (d) {
-                return d.y;
-            })
-            .call(drag);
-
-        function dragstarted(d) {
-            d3.event.sourceEvent.stopPropagation();
-            d3.select(this)
-                .classed("dragging", true);
-        }
-
-        function dragged(d) {
-            d3.select(this)
-                .attr("cx", d.x = d3.event.x)
-                .attr("cy", d.y = (0.025 * d3.event.x * d3.event.x)); // Function for handle
-        }
-
-        function dragended(d) {
-            d3.select(this)
-                .classed("dragging", false);
-        }
-
-        //color indicator
-        container.append("rect")
-            .attr("x", 0)
-            .attr("y", -30)
-            .attr("width", 0)
-            .attr("height", 20)
-            .attr("fill", "green")
-            .attr("id", "horizontal");
-
-
-        container.append("rect")
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("width", 10)
-            .attr("height", 0)
-            .attr("fill", "red")
-            .attr("id", "vertical");
-
-        function findTheMouse() {
-            coordinates = d3.mouse(this);
-            var div = d3.select("#parabolic").select("#realTime")
+            var div = d3.select("#parabolic").select("#originData")
             div
-                .text("x: " + coordinates[0] + ",y: " + coordinates[1])
-                .style("left", (d3.event.pageX - 34) + "px")
-                .style("top", (d3.event.pageY - 12) + "px");
-            svg.select("rect[id='horizontal']")
-                .attr("width", coordinates[0]);
-            svg.select("rect[id='vertical']")
-                .attr("height", coordinates[1]);
-            // .attr("width",xScale)           //pay attention
-            // console.log("x: "+coordinates[0]+"y: "+coordinates[1]);
-            // console.log("y: "+coordinates[1]);
-        }
+                .text("x: " + q + ",y: " + p)
+            // .style("left", (d3.event.pageX - 34) + "px")
+            // .style("top", (d3.event.pageY - 12) + "px");
+            //console.log("x: "+q+"y: "+p);
 
-        d3.select("svg")
-            .on("mousemove", findTheMouse);
+            data.push(el)
+        }
+        ;
+        // need to sort for plotting
+        data.sort(function (x, y) {
+            return x.q - y.q;
+        });
+    }
+
+    function gaussian(x) {
+        return (-1) * x * x; // Function for line/curve
+    };
+
+
+    // create canvass
+    var margin = {
+            top: 20,
+            right: 20,
+            bottom: 30,
+            left: 50
+        },
+        width = 200 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("#parabolic").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // axises
+    var x = d3.scale.linear()
+    // .domain([0,d3.max(data)])
+        .range([0, width]);//can adjust axis range
+
+    var y = d3.scale.linear()
+    // .domain([0,d3.max(data)])
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("top")
+        .tickValues([])
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .tickValues([])
+
+    x.domain(d3.extent(data, function (d) {
+        return d.q;
+    }));
+    y.domain(d3.extent(data, function (d) {
+        return d.p;
+    }));
+
+    svg.append("g")
+        .attr("class", "x axis")
+        // .attr("transform","translate(10,160)")
+        .call(xAxis);
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+    // function plot
+    var container = svg.append("g");
+
+    var line = d3.svg.line()
+        .x(function (d) {
+            return x(d.q);
+        })
+        .y(function (d) {
+            return y(d.p);
+        });
+    container.append("path")
+        .datum(data)
+        .attr("class", "line")
+        .attr("d", line);
+
+    // handle
+    var drag = d3.behavior.drag()
+        .origin(function (d) {
+            return d;
+        })
+        .on("dragstart", dragstarted)
+        .on("drag", dragged)
+        .on("dragend", dragended);
+
+    handle = [{
+        x: 0,
+        y: 0
+    }];
+
+    handle_circle = container.append("g")
+        .attr("class", "dot")
+        .selectAll('circle')
+        .data(handle)
+        .enter().append("circle")
+        .attr("r", 5)
+        .attr("cx", function (d) {
+            return d.x;
+        })
+        .attr("cy", function (d) {
+            return d.y;
+        })
+        .call(drag);
+
+    function dragstarted(d) {
+        d3.event.sourceEvent.stopPropagation();
+        d3.select(this)
+            .classed("dragging", true);
+    }
+
+    function dragged(d) {
+        d3.select(this)
+            .attr("cx", d.x = d3.event.x)
+            .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
+        var div = d3.select("body").select("#realTime")
+        svg.select("rect[id='horizontal']")
+            .attr("width",d3.event.x) ;
+        svg.select("rect[id='vertical']")
+            .attr("height",d3.event.y-20) ;
+    }
+
+    function dragended(d) {
+        d3.select(this)
+            .classed("dragging", false);
+    }
+
+    //color indicator
+    container.append("rect")
+        .attr("x", 0)
+        .attr("y", -10)
+        .attr("width", 0)
+        .attr("height", 10)
+        .attr("fill", "green")
+        .attr("id", "horizontal");
+
+
+    container.append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 10)
+        .attr("height", 0)
+        .attr("fill", "red")
+        .attr("id", "vertical");
+
+    // var coordinates = 0
+
+    function findTheMouse() {
+        var coordinates = d3.mouse(this);
+        var div = d3.select("body").select("#realTime")
+        div
+        // .text("x: "+coordinates[0]/500 + ",y: " + coordinates[1]/500)
+            .style("left", (d3.event.pageX - 100) + "px")
+            .style("top", (d3.event.pageY - 12) + "px");
+        // .attr("width",xScale)           //pay attention
+        // console.log("x: "+coordinates[0]+"y: "+coordinates[1]);
+        // console.log("y: "+coordinates[1]);
+    }
+
+    d3.select("svg")
+        .on("mousemove", findTheMouse);
+
+    svg.on("click", function() {
+        var coords = d3.mouse(this);
+        var div = d3.select("body").select("#realTime")
+        div
+            .text("x: "+coords[0]/500 + ",y: " + coords[1]/500)
+        svg.select("rect[id='horizontal']")
+            .attr("width",coords[0]) ;
+        svg.select("rect[id='vertical']")
+            .attr("height",coords[1]) ;
+        // Normally we go from data to pixels, but here we're doing pixels to data
+    })
+
+    // Update rectangles when mouse is released
+    svg.on("mouseup", function(){
+        var coords = d3.mouse(this);
+        svg.select("rect[id='horizontal']")
+                .attr("width",coords[0]) ;
+            svg.select("rect[id='vertical']")
+                .attr("height",coords[1]) ;
+        });
+
 
     parabolicSlider = function(){} // Only allows function to be called once
 
