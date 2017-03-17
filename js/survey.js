@@ -11,15 +11,18 @@ survey = { questions: undefined,
         var self = this;
 
         // Initialize needed computations
-        var slider_value = [];
-        var testBank = ["I understand and agree with the instructions above.", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"]; // Read the testBank here (TODO: pass from csv)
+        var slider_value = []; // Use between rounds
+        var sliderBank = [0]; // Use to output
         var currentBalance = 12; // Starting bank balance
-        var moneyBank = ['Earnings from Previous Round', 0];
+        var moneyBank = ['Earnings from Previous Round'];
         var questionCounter = 0; // Keeps track of what question we are currently
         var nextClick = 0; // Count number of time the button next is clicked; used to determine the breaks
         var answerBank = [];
         var roundUserAnswer = [];
         var roundAnswer = [];
+
+        // Read in the appropriate test bank
+        testBank = getTestBank("answer_subjective");
 
         this.questions = questions;
 
@@ -34,17 +37,18 @@ survey = { questions: undefined,
             var group =  self.getQuestionAnswer(self.questions[1]);
             var ok = true;
 
-            answerBank.push(self.getQuestionAnswer(self.questions[questionCounter]));//console.log("Question ID:" + self.questions[questionCounter]['id']);
+            answerBank.push(self.getQuestionAnswer(self.questions[questionCounter]));
+
+            //console.log("Question ID:" + self.questions[questionCounter]['id']);
             console.log("Question Counter:" + questionCounter);
             console.log("QuestionID:" + questionID);
-            console.log("nextClick value:" + nextClick);
+            //console.log("nextClick value:" + nextClick);
             //console.log("SubjectID: " + self.getQuestionAnswer(self.questions[0]))
             //console.log("Group: " + group)
             //console.log("QuestioAnswer:" + self.getQuestionAnswer(self.questions[1]))
             //console.log("currentBalance:" + currentBalance);
             //console.log("AnswerBank" + answerBank);
             //console.log("moneyBank:" + moneyBank);
-            //console.log(slider_value);
 
             if (questionID == 0 && questionCounter == 1) {
 
@@ -102,15 +106,13 @@ survey = { questions: undefined,
                 else if (group == "Group 3: PS, NB" || group == "Group 4: PS, B"){
                     $("#slider").remove(); // Destroy the regular slider
 
-                    coord = parabolicSlider(); // Start the parabolic slider
-                    console.log(coord);
+                    parabolicSlider(); // Start the parabolic slider
                     d3.selectAll("svg").attr("visibility", "show"); // Make sure it is visible after the breaks
 
                     // Get rid of the instructions
                     document.getElementById("slider-label").style.display = "inline";
                     document.getElementById('instructions').innerHTML = "";
                 }
-
             }
 
             // Make question required and display message
@@ -127,29 +129,30 @@ survey = { questions: undefined,
 
             // If button is clicked and answer is selected
             if ( $('#nextBtn').text().indexOf('Continue') === 0) {
-                // TAKE A BREAK: Every n question, show the bank and take a break
-                if (questionID % 2 == 0 && nextClick != 0 && questionID != 0) {
 
-                    if (questionCounter > 2) {
-                        // Push slider_value from previous question
-                        // TODO: Add parabolic to slider value
-                        slider_value.push($('#slider').slider('value'));
-                        roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
-                        roundAnswer.push(testBank[questionCounter]);
-                    }
+                if (questionCounter > 2 & nextClick != 0) {
+                    // Push slider_value from previous question
+                    // TODO: Add parabolic to slider value
+                    slider_value.push($('#slider').slider('value'));
+                    sliderBank.push($('#slider').slider('value'));
+                    roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
+                    roundAnswer.push(testBank[questionID]);
+                }
+
+                // TAKE A BREAK: Every n question, show the bank and take a break
+                if (questionID % 3 == 0 && questionID != 0 && nextClick != 0) {
+
                     console.log("BREAK QUESTION!");
-                    console.log(slider_value);
-                    console.log(roundUserAnswer);
-                    console.log(roundAnswer);
+                    console.log("slider value: " + slider_value);
+                    console.log("User answer in round:" + roundUserAnswer);
+                    console.log("testBank round answer:" + roundAnswer);
+
 
                     // COMPUTE BRIER SCORE AND GET CHART
                     roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer)
-                    console.log(roundScore)
 
                     moneyBank = moneyBank.concat(roundScore);
                     moneyBank = moneyBank.filter(Boolean); // Remove falsy because of pop()
-
-                    console.log(moneyBank);
 
                     // Hide the question and sliders
                     self.hideAllQuestions();
@@ -166,15 +169,15 @@ survey = { questions: undefined,
                     }
 
                     currentBalance +=  Number(self.sumArr(roundScore).toFixed(2));
-                    console.log(currentBalance);
+
                     // Tell them to take a break
                     document.getElementById('message').innerHTML="Please take a 1 minute break! " +
                             "The Continue button will show after 1 minute.<br><br>Below is a graph which displays how " +
-                            "you've performed in the previous round.<br><br>In the last round, your balance changed by: $" +
-                            self.sumArr(roundScore).toFixed(2) + "<br><br>Your current balance is $" +
-                            currentBalance;
+                            "you've performed in the previous round.<br><br>In the last round, your balance changed by: " +
+                            self.sumArr(roundScore).toFixed(2) + "$" + "<br><br>Your current total balance is $" +
+                            currentBalance.toFixed(2);
                     $('#nextBtn').hide()
-                    $('#nextBtn').delay(2000).show(0); // Show button after n/1000 seconds. (e.g., n=5000 is 5 sec)
+                    $('#nextBtn').delay(3000).show(0); // Show button after n/1000 seconds. (e.g., n=5000 is 5 sec)
 
                     // Reset the iterator
                     nextClick = 0;
@@ -185,27 +188,14 @@ survey = { questions: undefined,
                     roundUserAnswer = [];
 
                     // Reset the bank for new round
-                    moneyBank = ['Earnings from Previous Round', 0];
+                    moneyBank = ['Earnings from Previous Round'];
                 }
-
+                // Move on to next question if not break
                 else {
-                    // Do not store the values of the experimenter questions
-                    if (questionCounter > 2) {
-                        // Remove value if break was before
-                        slider_value.pop();
-                        roundUserAnswer.pop();
-                        roundAnswer.pop();
-                        // Store the slider value
-                        // TODO: Add parabolic to slider value
-                        slider_value.push($('#slider').slider('value'));
-                        roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
-                        roundAnswer.push(testBank[questionCounter]);
-                    }
 
                     // Move the slider back to 0
                     // TODO: change slider text back to 0
                     $("#slider").slider("value",  $("#slider").slider("option", "min"));
-
 
                     // Increase the question index and click counter
                     nextClick += 1;
@@ -223,15 +213,11 @@ survey = { questions: undefined,
                 // Store the slider value
                 // TODO: Add parabolic to slider value
                 slider_value.push($('#slider').slider('value'));
-                console.log(slider_value);
-
+                sliderBank.push($('#slider').slider('value'));
                 roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer)
-                console.log(roundScore)
 
                 moneyBank = moneyBank.concat(roundScore);
                 moneyBank = moneyBank.filter(Boolean); // Remove falsy because of pop()
-
-                console.log(moneyBank);
 
                 // Hide the question and sliders
                 self.hideAllQuestions();
@@ -240,14 +226,12 @@ survey = { questions: undefined,
                 document.getElementById("slider-label").style.display = "none"
                 document.getElementById('message').innerHTML="Thank you for your participation in this study! Your answers have been saved." +
                     "<br><br>Below is a graph which displays how " +
-                    "you've performed in the previous round.<br><br>In the last round, your balance changed by: $" +
-                    self.sumArr(roundScore).toFixed(2) + "<br><br>The total money you've earned is $" +
+                    "you've performed in the previous round.<br><br>In the last round, your balance changed by: " +
+                    self.sumArr(roundScore).toFixed(2) + "$" + "<br><br>The total money you've earned is $" +
                     currentBalance.toFixed(2);
 
                 // Plot the current moneyBank
                 self.getBank(moneyBank);
-                $("#chart").show();
-
                 if (group == "Group 2: SL, B" || group == "Group 4: PS, B") {
                     $("#chart").show();
                 } else {
@@ -256,12 +240,11 @@ survey = { questions: undefined,
 
                 nextClick += 1;
 
-
-
+                // TODO: Not writing the answer correctly; skips the first two
                 // Get all of the answers and money earned to save
                 var answers = {moneyEarned: currentBalance};
                 for (i = 0; i < self.questions.length; i++) {
-                    answers[self.questions[i].id] = [self.getQuestionAnswer(self.questions[i]), slider_value[i]];
+                    answers[self.questions[i].id] = [answerBank[i], sliderBank[i]];
                 }
 
                 // Write answer to file (Note: Only works for Chrome | Not Safari)
@@ -449,14 +432,25 @@ survey = { questions: undefined,
         a.click()
     }
 
-    // ToDo: Implement Brier Score
+    // ToDo: Implement Brier Score correctly
     survey.getBrier = function(userAnswer, sliderValue, testBank) {
         var gain_loss = [];
+        var O = 0;
+        var F = 0;
         for (var i = 0; i < userAnswer.length; i++) {
+            if (testBank[i] == "Yes")
+                O = 1
+            else
+                O = 0
+
+            F = sliderValue[i]*0.01;
+            // Used for testing
             if (userAnswer[i] == testBank[i]) {
-                gain_loss.push(sliderValue[i] * 0.01);
+                /ain_loss.push(F * 0.01);
+                //gain_loss.push(Math.pow(F-O,2));
             } else {
-                gain_loss.push(-sliderValue[i] * 0.01);
+                gain_loss.push(-F * 0.01);
+                //gain_loss.push(-Math.pow(F-O,2));
             }
         }
         return gain_loss
@@ -471,7 +465,7 @@ survey = { questions: undefined,
             data: {
                 columns: [
                     moneyBank,
-                    ['Reference Line',0,0,0,0,0,0,0,0] // # of 0 should be the number of questions per round
+                    ['Reference Line',0,0,0,0,0,0,0,0,0,0] // # of 0 should be the number of questions per round
                 ],
                 type: 'bar',
                 types: {
@@ -520,15 +514,30 @@ survey = { questions: undefined,
 //////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
-    $.getJSON('questions.json', function(json) {
+    $.getJSON('questions_example.json', function(json) {
         survey.setup_survey(json);        
     });
 });
+
 
 window.onbeforeunload = function() {
     return "This will reset all answers that you've already filled in!";
 }
 
+// Function to read the answer csv into an array
+function getTestBank(filename) {
+    $.ajax({
+        url: "answer/" + filename + ".csv",
+        async: false,
+        success: function (csvd) {
+            data = $.csv.toArrays(csvd);
+        },
+        dataType: "text",
+        complete: function () {
+        }
+    });
+    return data[0];
+};
 
 ////////////////////////////////////////////////////////////////////////////////////
 // REGULAR SLIDER
@@ -714,8 +723,6 @@ function parabolicSlider() {
             .attr("fill", "red")
             .attr("id", "vertical");
 
-        var coordinates = 0
-
         function findTheMouse() {
             coordinates = d3.mouse(this);
             var div = d3.select("#parabolic").select("#realTime")
@@ -737,5 +744,4 @@ function parabolicSlider() {
 
     parabolicSlider = function(){} // Only allows function to be called once
 
-    return coordinates
 };
