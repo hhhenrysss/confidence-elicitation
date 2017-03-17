@@ -5,13 +5,15 @@ survey = { questions: undefined,
 ////////////////////////////////////////////////////////////////////////////////////
 // Survey Class
 ////////////////////////////////////////////////////////////////////////////////////
+var coordinates = 0;
+var slider_value = [];
+
 (function (survey, $) {
 
     survey.setup_survey = function(questions) {
         var self = this;
 
         // Initialize needed computations
-        var slider_value = [];
         var testBank = ["I understand and agree with the instructions above.", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"]; // Read the testBank here (TODO: pass from csv)
         var currentBalance = 12; // Starting bank balance
         var moneyBank = ['Earnings from Previous Round', 0];
@@ -133,7 +135,9 @@ survey = { questions: undefined,
                     if (questionCounter > 2) {
                         // Push slider_value from previous question
                         // TODO: Add parabolic to slider value
-                        slider_value.push($('#slider').slider('value'));
+
+                        // slider_value.push($('#slider').slider('value'));
+
                         roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
                         roundAnswer.push(testBank[questionCounter]);
                     }
@@ -714,7 +718,7 @@ function parabolicSlider() {
             .attr("fill", "red")
             .attr("id", "vertical");
 
-        var coordinates = 0
+        // var coordinates = 0
 
         function findTheMouse() {
             coordinates = d3.mouse(this);
@@ -741,6 +745,11 @@ function parabolicSlider() {
 
             div
                 .text("x: "+coords[0]/500 + ",y: " + coords[1]/500)
+
+            slider_value.push(coords[1]/500);
+            console.log(slider_value[1]/500);
+            // console.log(coords[1]);
+            // console.log("hello");
             // Normally we go from data to pixels, but here we're doing pixels to data
 
         })
