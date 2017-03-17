@@ -244,10 +244,10 @@ function findTheMouse(){
       // .text("x: "+coordinates[0]/500 + ",y: " + coordinates[1]/500)
       .style("left", (d3.event.pageX - 100) + "px")
       .style("top", (d3.event.pageY - 12) + "px");
-    // svg.select("rect[id='horizontal']")  
-    //        .attr("width",coordinates[0]-50)  ;
-    // svg.select("rect[id='vertical']")  
-    //        .attr("height",coordinates[1]-20)  ;
+    svg.select("rect[id='horizontal']")  
+           .attr("width",coordinates[0]-50)  ;
+    svg.select("rect[id='vertical']")  
+           .attr("height",coordinates[1]-20)  ;
 
            // .attr("width",xScale)           //pay attention
     // console.log("x: "+coordinates[0]+"y: "+coordinates[1]);
