@@ -5,6 +5,8 @@ survey = { questions: undefined,
 ////////////////////////////////////////////////////////////////////////////////////
 // Survey Class
 ////////////////////////////////////////////////////////////////////////////////////
+
+var coords=0;
 (function (survey, $) {
 
     survey.setup_survey = function(questions) {
@@ -133,14 +135,29 @@ survey = { questions: undefined,
                 if (questionCounter > 2 & nextClick != 0) {
                     // Push slider_value from previous question
                     // TODO: Add parabolic to slider value
-                    slider_value.push($('#slider').slider('value'));
-                    sliderBank.push($('#slider').slider('value'));
+
+                    if (group == "Group 4: PS, B" ||group == "Group 3: PS, B") {
+
+                        slider_value.push(coords[1] / 500);
+                        sliderBank.push(coords[1] / 500);
+
+                    }
+                    else{
+                        slider_value.push($('#slider').slider('value'));
+                        sliderBank.push($('#slider').slider('value'));
+
+                    }
+                    console.log(slider_value);
+                    console.log(sliderBank);
+
+
+
                     roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
                     roundAnswer.push(testBank[questionID]);
                 }
 
                 // TAKE A BREAK: Every n question, show the bank and take a break
-                if (questionID % 3 == 0 && questionID != 0 && nextClick != 0) {
+                if (questionID % 10 == 0 && questionID != 0 && nextClick != 0) {
 
                     console.log("BREAK QUESTION!");
                     console.log("slider value: " + slider_value);
@@ -212,8 +229,24 @@ survey = { questions: undefined,
 
                 // Store the slider value
                 // TODO: Add parabolic to slider value
-                slider_value.push($('#slider').slider('value'));
-                sliderBank.push($('#slider').slider('value'));
+
+
+                if (group == "Group 4: PS, B" ||group == "Group 3: PS, B") {
+
+                    slider_value.push(coords[1] / 500);
+                    sliderBank.push(coords[1] / 500);
+
+                }
+                else{
+                    slider_value.push($('#slider').slider('value'));
+                    sliderBank.push($('#slider').slider('value'));
+
+                }
+
+                console.log(slider_value);
+                console.log(sliderBank);
+
+                
                 roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer)
 
                 moneyBank = moneyBank.concat(roundScore);
@@ -445,11 +478,11 @@ survey = { questions: undefined,
             F = sliderValue[i]*0.01;
             // Used for testing
             if (userAnswer[i] == testBank[i]) {
-                gain_loss.push(F * 0.01);
-                //gain_loss.push(Math.pow(F-1,2));
+                //gain_loss.push(F * 0.01);
+                gain_loss.push(Math.pow(F-1,2)+0.25);
             } else {
-                gain_loss.push(-F * 0.01);
-                //gain_loss.push(-Math.pow(F-O,2));
+                //gain_loss.push(-F * 0.01);
+                gain_loss.push(-(Math.pow(F-O,2)-0.25));
             }
         }
         return gain_loss
@@ -513,7 +546,7 @@ survey = { questions: undefined,
 //////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
-    $.getJSON('questions_example.json', function(json) {
+    $.getJSON('questions_subjective.json', function(json) {
         survey.setup_survey(json);        
     });
 });
@@ -745,7 +778,7 @@ function parabolicSlider() {
         .on("mousemove", findTheMouse);
 
     svg.on("click", function() {
-        var coords = d3.mouse(this);
+        coords = d3.mouse(this);
         var div = d3.select("body").select("#realTime")
         div
             .text("x: "+coords[0]/500 + ",y: " + coords[1]/500)
@@ -758,7 +791,7 @@ function parabolicSlider() {
 
     // Update rectangles when mouse is released
     svg.on("mouseup", function(){
-        var coords = d3.mouse(this);
+         coords = d3.mouse(this);
         svg.select("rect[id='horizontal']")
                 .attr("width",coords[0]) ;
             svg.select("rect[id='vertical']")
