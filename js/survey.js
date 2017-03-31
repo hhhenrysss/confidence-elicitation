@@ -1,12 +1,41 @@
 survey = { questions: undefined,
-           firstQuestionDisplayed: -1,
-           lastQuestionDisplayed: -1};
+    firstQuestionDisplayed: -1,
+    lastQuestionDisplayed: -1};
 
 ////////////////////////////////////////////////////////////////////////////////////
 // Survey Class
 ////////////////////////////////////////////////////////////////////////////////////
 
 var coords=0;
+var handle1 = [{
+    x: 0,
+    y: 0
+}];
+// create canvass
+var margin = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 50
+    },
+    width = 200 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// var svg = d3.select("#parabolic").append("svg")
+//     .attr("width", width + margin.left + margin.right)
+//     .attr("height", height + margin.top + margin.bottom)
+//     .append("g")
+//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//
+// var container = svg.append("g");
+// var drag;
+
+var svg;
+var container;
+var drag;
+var handle_circle;
+var hor;
+var ver;
 (function (survey, $) {
 
     survey.setup_survey = function(questions) {
@@ -14,7 +43,7 @@ var coords=0;
 
         // Initialize needed computations
         var slider_value = []; // Use between rounds
-        var sliderBank = [0]; // Use to output
+        var sliderBank = [0, 0, 0]; // Use to output
         var currentBalance = 12; // Starting bank balance
         var moneyBank = ['Earnings from Previous Round'];
         var questionCounter = 0; // Keeps track of what question we are currently
@@ -22,6 +51,8 @@ var coords=0;
         var answerBank = [];
         var roundUserAnswer = [];
         var roundAnswer = [];
+        var startTime = new Date();
+        var timeBank = [0,0,0];
 
         // Read in the appropriate test bank
         testBank = getTestBank("answer_subjective");
@@ -56,46 +87,50 @@ var coords=0;
 
                 // Instruction given will depend on the group
                 if (group == "Group 1: SL, NB") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
-                        "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
-                        "quantify your conviction using a horizontal slider as shown below. <br><br> " +
-                        "<img src=\"\\image\\hslider.png\" align=\"middle\"> " +
-                        "<br><br>You will receive $10 for your participation, regardless of how " +
-                        "you perform in the experiment. You will have a chance to earn more money based on how many " +
-                        "questions you can answer correctly.<br></font>";
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
+                        "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
+                        "balance, but the bank balance will never go below zero.<br></font>";
                 } else if (group == "Group 2: SL, B") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
-                        "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
-                        "quantify your conviction using a horizontal slider as shown below. <br><br> " +
-                        "<img src=\"\\image\\hslider.png\" align=\"middle\"> " +
-                        "<br>You will receive $10 for your participation, regardless of how " +
-                        "you perform in the experiment. You will have a chance to earn more money based on how many " +
-                        "questions you can answer correctly.<br><br>" +
-                        "There will be a virtual bank starting at $12 which " +
-                        "increases or decreases depending on your answer and your conviction for each question. " +
-                        "Note, the bank will never go below zero.<br></font>";
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>At the end of every 10 questions, you will receive a summary report of " +
+                        "your earned reward/penalty in the most recent 10 questions as well as your overall bank balance " +
+                        "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
+                        "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
+                        "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
                 } else if (group == "Group 3: PS, NB") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
-                        "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
-                        "quantify your conviction using a parabolic slider as shown below. <br><br>" +
-                         "<img src=\"\\image\\pslider.png\" align=\"middle\"> " +
-                         "<br><br>You will receive $10 for your participation, regardless of how " +
-                        "you perform in the experiment. You will have a chance to earn more money based on how many " +
-                        "questions you can answer correctly.<br></font>";
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
+                        "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
+                        "balance, but the bank balance will never go below zero.<br></font>";
                 } else if (group == "Group 4: PS, B") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b>: In this study, you will be asked " +
-                        "\"Yes-No\" type of questions on a variety of topics. For each question, you will also be asked to " +
-                        "quantify your conviction using a parabolic slider as shown below. <br><br> " +
-                        "<img src=\"\\image\\pslider.png\" align=\"middle\"> " +
-                        "<br><br>You will receive $10 for your participation, regardless of how " +
-                        "you perform in the experiment. You will have a chance to earn more money based on how many " +
-                        "questions you can answer correctly.<br><br> There will be a virtual bank starting at $12 which " +
-                        "increases or decreases depending on your answer and your conviction for each question. " +
-                        "Note, the bank will never go below zero.<br></font>";
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>At the end of every 10 questions, you will receive a summary report of " +
+                        "your earned reward/penalty in the most recent 10 questions as well as your overall bank balance " +
+                        "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
+                        "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
+                        "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
                 }
 
             }
             else if ((questionCounter > 1)) {
+
                 group = answerBank[1];
                 if (group == "Group 1: SL, NB" || group == "Group 2: SL, B") {
                     $("#slider").show(); // Show the regular slider
@@ -107,12 +142,12 @@ var coords=0;
                 }
                 else if (group == "Group 3: PS, NB" || group == "Group 4: PS, B"){
                     $("#slider").remove(); // Destroy the regular slider
-
                     parabolicSlider(); // Start the parabolic slider
                     d3.selectAll("svg").attr("visibility", "show"); // Make sure it is visible after the breaks
 
                     // Get rid of the instructions
-                    document.getElementById("slider-label").style.display = "inline";
+                    document.getElementById("slider-label").style.display = "inline"
+                    document.getElementById('slider-label').innerHTML = "As you move the slider on the curve, the green bar always show";
                     document.getElementById('instructions').innerHTML = "";
                 }
             }
@@ -129,47 +164,108 @@ var coords=0;
             if (!ok)
                 return
 
+            // #####################
             // If button is clicked and answer is selected
             if ( $('#nextBtn').text().indexOf('Continue') === 0) {
 
+                var endTime = new Date();
+                var elapsed = endTime - startTime;
+
                 if (questionCounter > 2 & nextClick != 0) {
-                    // Push slider_value from previous question
-                    // TODO: Add parabolic to slider value
 
-                    if (group == "Group 4: PS, B" ||group == "Group 3: PS, B") {
+                    if (group == "Group 3: PS, NB" || group == "Group 4: PS, B") {
+                        d3.select("#handle_circle").remove()
+                        hor
+                            .attr("width", 0);
+                        ver
+                            .attr("height", 0);
+                        handle1 = [{
+                            x: 0,
+                            y: 0
+                        }];
 
-                        slider_value.push(coords[1] / 500);
-                        sliderBank.push(coords[1] / 500);
+                        function dragstarted(d) {
+                            d3.event.sourceEvent.stopPropagation();
+                            d3.select(this)
+                                .classed("dragging", true);
+                        }
 
+                        function dragged(d) {
+                            d3.select(this)
+                                .attr("cx", d.x = d3.event.x)
+                                .attr("cy", d.y = (0.025 * d3.event.x * d3.event.x));
+                            var div = d3.select("body").select("#realTime")
+                            hor
+                                .attr("width", d3.event.x);
+                            ver
+                                .attr("height", d3.event.y - 20);
+                        }
+
+                        function dragended(d) {
+                            d3.select(this)
+                                .classed("dragging", false);
+                        }
+
+                        // handle
+                        drag = d3.behavior.drag()
+                            .origin(function (d) {
+                                return d;
+                            })
+                            .on("dragstart", dragstarted)
+                            .on("drag", dragged)
+                            .on("dragend", dragended);
+
+                        //console.log(container);
+                        handle_circle = container.append("g")
+                            .attr("id", "handle_circle")
+                            .attr("class", "dot")
+                            .selectAll('circle')
+                            .data(handle1)
+                            .enter().append("circle")
+                            .attr("r", 5)
+                            .attr("cx", function (d) {
+                                return d.x;
+                            })
+                            .attr("cy", function (d) {
+                                return d.y;
+                            })
+                            .call(drag);
+
+                        // Push slider_value from previous question
+                        slider_value.push(coords[1] / 5);
+                        sliderBank.push(coords[1] / 5);
+                        timeBank.push(elapsed)
                     }
-                    else{
+                    else {
                         slider_value.push($('#slider').slider('value'));
                         sliderBank.push($('#slider').slider('value'));
-
+                        timeBank.push(elapsed)
                     }
+
                     console.log(slider_value);
                     console.log(sliderBank);
-
-
+                    console.log(timeBank);
 
                     roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
                     roundAnswer.push(testBank[questionID]);
                 }
 
                 // TAKE A BREAK: Every n question, show the bank and take a break
-                if (questionID % 10 == 0 && questionID != 0 && nextClick != 0) {
+                if (questionID % 2 == 0 && questionID != 0 && nextClick != 0) {
 
                     console.log("BREAK QUESTION!");
                     console.log("slider value: " + slider_value);
                     console.log("User answer in round:" + roundUserAnswer);
                     console.log("testBank round answer:" + roundAnswer);
 
-
                     // COMPUTE BRIER SCORE AND GET CHART
                     roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer)
 
                     moneyBank = moneyBank.concat(roundScore);
                     moneyBank = moneyBank.filter(Boolean); // Remove falsy because of pop()
+
+                    console.log("Money earned in round:" + roundScore);
+                    console.log("Money bank:" + moneyBank);
 
                     // Hide the question and sliders
                     self.hideAllQuestions();
@@ -189,10 +285,9 @@ var coords=0;
 
                     // Tell them to take a break
                     document.getElementById('message').innerHTML="Please take a 1 minute break! " +
-                            "The Continue button will show after 1 minute.<br><br>Below is a graph which displays how " +
-                            "you've performed in the previous round.<br><br>In the last round, your balance changed by: " +
-                            self.sumArr(roundScore).toFixed(2) + "$" + "<br><br>Your current total balance is $" +
-                            currentBalance.toFixed(2);
+                        "The Continue button will show after 1 minute.<br><br>In the last round, your balance changed by: " +
+                        self.sumArr(roundScore).toFixed(2) + "$" + "<br><br>Your current total balance is $" +
+                        currentBalance.toFixed(2);
                     $('#nextBtn').hide()
                     $('#nextBtn').delay(3000).show(0); // Show button after n/1000 seconds. (e.g., n=5000 is 5 sec)
 
@@ -209,7 +304,6 @@ var coords=0;
                 }
                 // Move on to next question if not break
                 else {
-
                     // Move the slider back to 0
                     // TODO: change slider text back to 0
                     $("#slider").slider("value",  $("#slider").slider("option", "min"));
@@ -227,26 +321,25 @@ var coords=0;
             // FINAL QUESTION
             else {
 
-                // Store the slider value
-                // TODO: Add parabolic to slider value
+                var endTime = new Date();
+                var elapsed = endTime - startTime;
 
-
-                if (group == "Group 4: PS, B" ||group == "Group 3: PS, B") {
-
-                    slider_value.push(coords[1] / 500);
-                    sliderBank.push(coords[1] / 500);
-
+                // Store the slider value and elapsed time
+                if (group == "Group 4: PS, B" ||group == "Group 3: PS, NB") {
+                    slider_value.push(coords[1] /5);
+                    sliderBank.push(coords[1] /5);
+                    timeBank.push(elapsed)
                 }
-                else{
+                else {
                     slider_value.push($('#slider').slider('value'));
                     sliderBank.push($('#slider').slider('value'));
-
+                    timeBank.push(elapsed)
                 }
 
                 console.log(slider_value);
                 console.log(sliderBank);
 
-                
+
                 roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer)
 
                 moneyBank = moneyBank.concat(roundScore);
@@ -277,7 +370,7 @@ var coords=0;
                 // Get all of the answers and money earned to save
                 var answers = {moneyEarned: currentBalance};
                 for (i = 0; i < self.questions.length; i++) {
-                    answers[self.questions[i].id] = [answerBank[i], sliderBank[i]];
+                    answers[self.questions[i].id] = [answerBank[i], sliderBank[i], timeBank[i]];
                 }
 
                 // Write answer to file (Note: Only works for Chrome | Not Safari)
@@ -292,33 +385,33 @@ var coords=0;
 
                 /*
                  // USE THIS TO WRITE TO A SERVER
-                $.ajax({type: 'post',
-                        url: 'http://localhost:8000',
-                        contentType: "application/json",
-                        data: JSON.stringify(answers),
-                        processData: false,
-                        success: function(response) {
-                            self.hideAllQuestions();
-                            $('#nextBtn').hide();
-                            if ('success' in response) {
-                                $('.completed-message').html('Thank you for participating in this study!<br><br>'+response['success']);
-                            }
-                            else if ('error' in response) {
-                                $('.completed-message').text('An error occurred: '+response['error']);
-                            }
-                            else {
-                                $('.completed-message').text('An unknown error occurred.');
-                            }
-                        },
-                        error: function(response) {
-                            self.hideAllQuestions();
-                            $('#nextBtn').hide();
-                            $('.completed-message').text('An error occurred: could not send data to server!');
-                        }
-                });*/
+                 $.ajax({type: 'post',
+                 url: 'http://localhost:8000',
+                 contentType: "application/json",
+                 data: JSON.stringify(answers),
+                 processData: false,
+                 success: function(response) {
+                 self.hideAllQuestions();
+                 $('#nextBtn').hide();
+                 if ('success' in response) {
+                 $('.completed-message').html('Thank you for participating in this study!<br><br>'+response['success']);
+                 }
+                 else if ('error' in response) {
+                 $('.completed-message').text('An error occurred: '+response['error']);
+                 }
+                 else {
+                 $('.completed-message').text('An unknown error occurred.');
+                 }
+                 },
+                 error: function(response) {
+                 self.hideAllQuestions();
+                 $('#nextBtn').hide();
+                 $('.completed-message').text('An error occurred: could not send data to server!');
+                 }
+                 });*/
             }
         });
-      
+
         this.showNextQuestionSet();
     }
 
@@ -400,9 +493,9 @@ var coords=0;
     survey.showNextQuestionSet = function() {
         this.hideAllQuestions();
         this.firstQuestionDisplayed = this.lastQuestionDisplayed+1;
-      
+
         do {
-            this.lastQuestionDisplayed++;  
+            this.lastQuestionDisplayed++;
             $('.question-container > div.question:nth-child(' + (this.lastQuestionDisplayed+1) + ')').show();
             if ( this.questions[this.lastQuestionDisplayed]['break_after'] === true)
                 break;
@@ -415,14 +508,14 @@ var coords=0;
     survey.showPreviousQuestionSet = function() {
         this.hideAllQuestions();
         this.lastQuestionDisplayed = this.firstQuestionDisplayed-1;
-      
+
         do {
-            this.firstQuestionDisplayed--;  
+            this.firstQuestionDisplayed--;
             $('.question-container > div.question:nth-child(' + (this.firstQuestionDisplayed+1) + ')').show();
             if ( this.firstQuestionDisplayed > 0 && this.questions[this.firstQuestionDisplayed-1]['break_after'] === true)
                 break;
         } while ( this.firstQuestionDisplayed > 0 );
-      
+
         this.doButtonStates();
     }
 
@@ -430,10 +523,10 @@ var coords=0;
     survey.doButtonStates = function() {
         if ( this.lastQuestionDisplayed == this.questions.length-1 ) {
             $('#nextBtn').text('Finish');
-            $('#nextBtn').addClass('blue');  
+            $('#nextBtn').addClass('blue');
         }
         else if ( $('#nextBtn').text() === 'Finish' ) {
-            $('#nextBtn').text('Continue »'); 
+            $('#nextBtn').text('Continue »');
             $('#nextBtn').removeClass('blue');
         }
     }
@@ -478,11 +571,11 @@ var coords=0;
             F = sliderValue[i]*0.01;
             // Used for testing
             if (userAnswer[i] == testBank[i]) {
-                //gain_loss.push(F * 0.01);
-                gain_loss.push(Math.pow(F-1,2)+0.25);
+                gain_loss.push(F);
+                //gain_loss.push(Math.pow(F-1,2));
             } else {
-                //gain_loss.push(-F * 0.01);
-                gain_loss.push(-(Math.pow(F-O,2)-0.25));
+                gain_loss.push(-F);
+                //gain_loss.push(-Math.pow(F-O,2));
             }
         }
         return gain_loss
@@ -501,7 +594,7 @@ var coords=0;
                 ],
                 type: 'bar',
                 types: {
-                        'Reference Line': 'line',
+                    'Reference Line': 'line',
                 },
                 colors: {
                     'Earnings from Previous Round': function(d) { return d.value < 0 ? '#E57F7F' : '#99EA99' }
@@ -546,8 +639,8 @@ var coords=0;
 //////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
-    $.getJSON('questions_subjective.json', function(json) {
-        survey.setup_survey(json);        
+    $.getJSON('questions_example.json', function(json) {
+        survey.setup_survey(json);
     });
 });
 
@@ -594,6 +687,8 @@ $( function() {
 } );
 
 function parabolicSlider() {
+
+
     var data = [];
 
     // populate data
@@ -644,6 +739,10 @@ function parabolicSlider() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    container = svg.append("g");
+    console.log("container");
+    console.log(container);
+
     // axises
     var x = d3.scale.linear()
     // .domain([0,d3.max(data)])
@@ -657,6 +756,7 @@ function parabolicSlider() {
         .scale(x)
         .orient("top")
         .tickValues([])
+
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
@@ -677,8 +777,18 @@ function parabolicSlider() {
         .attr("class", "y axis")
         .call(yAxis);
 
+
+    var padding=2;
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("transform", "translate("+ (padding/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+        .text("Loss (3 points)");
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("transform", "translate("+ (width/2) +","+(0)+")")  // centre below axis
+        .text("Gain (1 point)");
+
     // function plot
-    var container = svg.append("g");
 
     var line = d3.svg.line()
         .x(function (d) {
@@ -692,33 +802,10 @@ function parabolicSlider() {
         .attr("class", "line")
         .attr("d", line);
 
-    // handle
-    var drag = d3.behavior.drag()
-        .origin(function (d) {
-            return d;
-        })
-        .on("dragstart", dragstarted)
-        .on("drag", dragged)
-        .on("dragend", dragended);
-
-    handle = [{
+    handle1 = [{
         x: 0,
         y: 0
     }];
-
-    handle_circle = container.append("g")
-        .attr("class", "dot")
-        .selectAll('circle')
-        .data(handle)
-        .enter().append("circle")
-        .attr("r", 5)
-        .attr("cx", function (d) {
-            return d.x;
-        })
-        .attr("cy", function (d) {
-            return d.y;
-        })
-        .call(drag);
 
     function dragstarted(d) {
         d3.event.sourceEvent.stopPropagation();
@@ -741,9 +828,81 @@ function parabolicSlider() {
         d3.select(this)
             .classed("dragging", false);
     }
+    // handle
+    drag = d3.behavior.drag()
+        .origin(function (d) {
+            return d;
+        })
+        .on("dragstart", dragstarted)
+        .on("drag", dragged)
+        .on("dragend", dragended);
+
+
+
+    handle_circle = container.append("g")
+        .attr("id","handle_circle")
+        .attr("class", "dot")
+        .selectAll('circle')
+        .data(handle1)
+        .enter().append("circle")
+        .attr("r", 5)
+        .attr("cx", function (d) {
+            return d.x;
+        })
+        .attr("cy", function (d) {
+            return d.y;
+        })
+        .call(drag);
+    // // handle
+    // var drag = d3.behavior.drag()
+    //     .origin(function (d) {
+    //         return d;
+    //     })
+    //     .on("dragstart", dragstarted)
+    //     .on("drag", dragged)
+    //     .on("dragend", dragended);
+    //
+    //
+
+    // handle_circle = container.append("g")
+    //     .attr("class", "dot")
+    //     .selectAll('circle')
+    //     .data(handle1)
+    //     .enter().append("circle")
+    //     .attr("r", 5)
+    //     .attr("cx", function (d) {
+    //         return d.x;
+    //     })
+    //     .attr("cy", function (d) {
+    //         return d.y;
+    //     })
+    //     .call(drag);
+    //
+    // function dragstarted(d) {
+    //     d3.event.sourceEvent.stopPropagation();
+    //     d3.select(this)
+    //         .classed("dragging", true);
+    // }
+    //
+    // function dragged(d) {
+    //     d3.select(this)
+    //         .attr("cx", d.x = d3.event.x)
+    //         .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
+    //     var div = d3.select("body").select("#realTime")
+    //     svg.select("rect[id='horizontal']")
+    //         .attr("width",d3.event.x) ;
+    //     svg.select("rect[id='vertical']")
+    //         .attr("height",d3.event.y-20) ;
+    // }
+    //
+    // function dragended(d) {
+    //     d3.select(this)
+    //         .classed("dragging", false);
+    // }
 
     //color indicator
-    container.append("rect")
+    hor=container.append("rect")
+        .attr("id","hor")
         .attr("x", 0)
         .attr("y", -10)
         .attr("width", 0)
@@ -752,7 +911,8 @@ function parabolicSlider() {
         .attr("id", "horizontal");
 
 
-    container.append("rect")
+    ver=container.append("rect")
+        .attr("id","ver")
         .attr("x", 0)
         .attr("y", 0)
         .attr("width", 10)
@@ -791,12 +951,12 @@ function parabolicSlider() {
 
     // Update rectangles when mouse is released
     svg.on("mouseup", function(){
-         coords = d3.mouse(this);
+        coords = d3.mouse(this);
         svg.select("rect[id='horizontal']")
-                .attr("width",coords[0]) ;
-            svg.select("rect[id='vertical']")
-                .attr("height",coords[1]) ;
-        });
+            .attr("width",coords[0]) ;
+        svg.select("rect[id='vertical']")
+            .attr("height",coords[1]) ;
+    });
 
 
     parabolicSlider = function(){} // Only allows function to be called once
