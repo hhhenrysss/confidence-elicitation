@@ -6,7 +6,8 @@ survey = { questions: undefined,
 // Survey Class
 ////////////////////////////////////////////////////////////////////////////////////
 
-var coords=0;
+var coords=[0,0];
+var coords1=[0,0];
 var handle1 = [{
     x: 0,
     y: 0
@@ -230,10 +231,35 @@ var ver;
                                 return d.y;
                             })
                             .call(drag);
+                        // Update rectangles when mouse is released
+
+                        // svg1= d3.select("#svg")
+                        // svg1.on("mouseup", function(){
+                        //     coords1 = d3.mouse(this);
+                        //     // svg.select("rect[id='horizontal']")
+                        //     //     .attr("width",coords1[0]) ;
+                        //     // svg.select("rect[id='vertical']")
+                        //     //     .attr("height",coords1[1]) ;
+                        // });
 
                         // Push slider_value from previous question
-                        slider_value.push(coords[1] / 5);
-                        sliderBank.push(coords[1] / 5);
+                        if (coords[1]/5>50) {
+                            if (coords[1] >466)
+                                slider_value.push(1);
+                            else
+                                slider_value.push((coords[1] / 500));
+                            console.log("slider value is")
+                            console.log(slider_value);
+
+                            sliderBank.push(coords[1] / 500);
+                        }
+                        else{
+                                slider_value.push(((coords[1] / 5)+50)/100);
+                                console.log("slider value is")
+                                console.log(slider_value);
+
+                                sliderBank.push((coords[1] / 5+50)/100);
+                        }
                         timeBank.push(elapsed)
                     }
                     else {
@@ -326,8 +352,8 @@ var ver;
 
                 // Store the slider value and elapsed time
                 if (group == "Group 4: PS, B" ||group == "Group 3: PS, NB") {
-                    slider_value.push(coords[1] /5);
-                    sliderBank.push(coords[1] /5);
+                    slider_value.push(coords1[1] /5);
+                    sliderBank.push(coords1[1] /5);
                     timeBank.push(elapsed)
                 }
                 else {
@@ -559,23 +585,55 @@ var ver;
     }
 
     // ToDo: Implement Brier Score correctly
+    // survey.getBrier = function(userAnswer, sliderValue, testBank) {
+    //     var gain_loss = [];
+    //     var O = 0;
+    //     var F = 0;
+    //
+    //     for (var i = 0; i < userAnswer.length; i++) {
+    //         if (testBank[i] == "Yes")
+    //             O = 1
+    //         else
+    //             O = 0
+    //         F = sliderValue[i]*0.01;
+    //         // Used for testing
+    //         if (userAnswer[i] == testBank[i]) {
+    //             gain_loss.push(F);
+    //             //gain_loss.push(Math.pow(F-1,2));
+    //         } else {
+    //             gain_loss.push(-F);
+    //             //gain_loss.push(-Math.pow(F-O,2));
+    //         }
+    //     }
+    //     return gain_loss
+    // }
     survey.getBrier = function(userAnswer, sliderValue, testBank) {
         var gain_loss = [];
-        var O = 0;
-        var F = 0;
+        var gain = 0;
+        var loss = 0;
+
         for (var i = 0; i < userAnswer.length; i++) {
-            if (testBank[i] == "Yes")
-                O = 1
-            else
-                O = 0
-            F = sliderValue[i]*0.01;
-            // Used for testing
-            if (userAnswer[i] == testBank[i]) {
-                gain_loss.push(F);
-                //gain_loss.push(Math.pow(F-1,2));
-            } else {
-                gain_loss.push(-F);
-                //gain_loss.push(-Math.pow(F-O,2));
+
+            if (testBank[i] == "no") {//if real answer is 0
+                if (userAnswer[i] == testBank[i]) {
+                    gain = (1 / 3) * (sliderValue[i]) * (sliderValue[i]) - 1 / 12
+                    gain_loss.push(gain)
+                }
+                else {
+                    loss = (sliderValue[i]) * (sliderValue[i]) - 0.25
+                    gain_loss.push(-loss)
+                }
+
+            }
+            else {
+                if (userAnswer[i] == testBank[i]) {
+                    gain = (-1) * (sliderValue[i] - 1) * (sliderValue[i] - 1) + 0.25
+                    gain_loss.push(gain)
+                }
+                else {
+                    loss = (-3) * (sliderValue[i] - 1) * (sliderValue[i] - 1) + 0.75
+                    gain_loss.push(-loss)
+                }
             }
         }
         return gain_loss
@@ -817,7 +875,6 @@ function parabolicSlider() {
         d3.select(this)
             .attr("cx", d.x = d3.event.x)
             .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
-        var div = d3.select("body").select("#realTime")
         svg.select("rect[id='horizontal']")
             .attr("width",d3.event.x) ;
         svg.select("rect[id='vertical']")
@@ -926,9 +983,14 @@ function parabolicSlider() {
         var coordinates = d3.mouse(this);
         var div = d3.select("body").select("#realTime")
         div
-        // .text("x: "+coordinates[0]/500 + ",y: " + coordinates[1]/500)
+            .text("x: "+coordinates[0]/500 + ",y: " + coordinates[1]/500)
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
+
+        // svg.select("rect[id='horizontal']")
+        //     .attr("width",coordinates[0]) ;
+        // svg.select("rect[id='vertical']")
+        //     .attr("height",coordinates[1]) ;
         // .attr("width",xScale)           //pay attention
         // console.log("x: "+coordinates[0]+"y: "+coordinates[1]);
         // console.log("y: "+coordinates[1]);
@@ -937,28 +999,34 @@ function parabolicSlider() {
     d3.select("svg")
         .on("mousemove", findTheMouse);
 
-    svg.on("click", function() {
-        coords = d3.mouse(this);
-        var div = d3.select("body").select("#realTime")
-        div
-            .text("x: "+coords[0]/500 + ",y: " + coords[1]/500)
-        svg.select("rect[id='horizontal']")
-            .attr("width",coords[0]) ;
-        svg.select("rect[id='vertical']")
-            .attr("height",coords[1]) ;
+    d3.select("svg")
+        .on("click", function() {
+            console.log("I am here")
+            coords = d3.mouse(this);
+            var div = d3.select("body").select("#final")
+            div.text("fianl x: "+coords[0]/500 + ", final y: " + coords[1]/500)
+        // svg.select("rect[id='horizontal']")
+        //     .attr("width",coords[0]) ;
+        // svg.select("rect[id='vertical']")
+        //     .attr("height",coords[1]) ;
         // Normally we go from data to pixels, but here we're doing pixels to data
-    })
-
-    // Update rectangles when mouse is released
-    svg.on("mouseup", function(){
-        coords = d3.mouse(this);
-        svg.select("rect[id='horizontal']")
-            .attr("width",coords[0]) ;
-        svg.select("rect[id='vertical']")
-            .attr("height",coords[1]) ;
     });
 
+    // Update rectangles when mouse is released
+    // svg.on("mouseup", function(){
+    //     coords1 = d3.mouse(this);
+    //    //     .attr("height",coords1[1]) ;
+    // });
 
+    // svg1= d3.select("#svg")
+    svg.on("mouseup", function(){
+        coords1 = d3.mouse(this);
+        // div.text("x: "+coords1[0]/500 + ",y: " + coords1[1]/500)
+        // svg.select("rect[id='horizontal']")
+        //     .attr("width",coords1[0]) ;
+        // svg.select("rect[id='vertical']")
+        //     .attr("height",coords1[1]) ;
+    });
     parabolicSlider = function(){} // Only allows function to be called once
 
 };
