@@ -65,7 +65,7 @@ var ver;
         });
 
         $('#nextBtn').click(function() {
-
+            // coords[1]=0;
             var subjectID = self.getQuestionAnswer(self.questions[0]);
             var questionID = self.questions[questionCounter]['id'];
             var group =  self.getQuestionAnswer(self.questions[1]);
@@ -87,7 +87,7 @@ var ver;
             if (questionID == 0 && questionCounter == 1) {
 
                 // Instruction given will depend on the group
-                if (group == "Group 1: SL, NB") {
+                if (group == "Group 1: Linear Slider, No Feedback") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
                         "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
                         "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
@@ -96,7 +96,7 @@ var ver;
                         "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
                         "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
                         "balance, but the bank balance will never go below zero.<br></font>";
-                } else if (group == "Group 2: SL, B") {
+                } else if (group == "Group 2: Linear Slider, Feedback") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
                         "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
                         "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
@@ -107,7 +107,7 @@ var ver;
                         "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
                         "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
                         "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
-                } else if (group == "Group 3: PS, NB") {
+                } else if (group == "Group 3: Parabolic Slider, No Feedback") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
                         "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
                         "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
@@ -116,7 +116,7 @@ var ver;
                         "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
                         "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
                         "balance, but the bank balance will never go below zero.<br></font>";
-                } else if (group == "Group 4: PS, B") {
+                } else if (group == "Group 4: Parabolic Slider, Feedback") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
                         "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
                         "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
@@ -133,7 +133,7 @@ var ver;
             else if ((questionCounter > 1)) {
 
                 group = answerBank[1];
-                if (group == "Group 1: SL, NB" || group == "Group 2: SL, B") {
+                if (group == "Group 1: Linear Slider, No Feedback" || group == "Group 2: Linear Slider, Feedback") {
                     $("#slider").show(); // Show the regular slider
                     d3.select("svg").remove(); // Destroy the parabolic slider
 
@@ -141,7 +141,7 @@ var ver;
                     document.getElementById("slider-label").style.display = "inline";
                     document.getElementById('instructions').innerHTML = "";
                 }
-                else if (group == "Group 3: PS, NB" || group == "Group 4: PS, B"){
+                else if (group == "Group 3: Parabolic Slider, No Feedback" || group == "Group 4: Parabolic Slider, Feedback"){
                     $("#slider").remove(); // Destroy the regular slider
                     parabolicSlider(); // Start the parabolic slider
                     d3.selectAll("svg").attr("visibility", "show"); // Make sure it is visible after the breaks
@@ -174,7 +174,7 @@ var ver;
 
                 if (questionCounter > 2 & nextClick != 0) {
 
-                    if (group == "Group 3: PS, NB" || group == "Group 4: PS, B") {
+                    if (group == "Group 3: Parabolic Slider, No Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
                         d3.select("#handle_circle").remove()
                         hor
                             .attr("width", 0);
@@ -199,7 +199,7 @@ var ver;
                             hor
                                 .attr("width", d3.event.x);
                             ver
-                                .attr("height", d3.event.y - 20);
+                                .attr("height", d3.event.y - 10);
                         }
 
                         function dragended(d) {
@@ -243,28 +243,48 @@ var ver;
                         // });
 
                         // Push slider_value from previous question
-                        if (coords[1]/5>50) {
-                            if (coords[1] >466)
+
+                        // if (coords[1] / 5 > 50) {
+                        //     if (coords[1] > 466)
+                        //         slider_value.push(1);
+                        //     else
+                        //         slider_value.push((coords[1] / 500));
+                        //     console.log("slider value is")
+                        //     console.log(slider_value);
+                        //
+                        //     sliderBank.push(coords[1] / 500);
+                        // }
+                        // else {
+                        //     slider_value.push(((coords[1] / 5) + 50) / 100);
+                        //     console.log("slider value is")
+                        //     console.log(slider_value);
+                        //
+                        //     sliderBank.push((coords[1] / 5 + 50) / 100);
+                        // }
+                        if (coords[0] <= 0) {
+                            slider_value.push(0);
+                            sliderBank.push(0);
+                        }
+                        else {
+                            if (coords[1] > 460) {
                                 slider_value.push(1);
-                            else
-                                slider_value.push((coords[1] / 500));
-                            console.log("slider value is")
-                            console.log(slider_value);
-
-                            sliderBank.push(coords[1] / 500);
+                                sliderBank.push(1);
+                            }
+                            else {
+                                slider_value.push(coords[1] / 1000 + 0.5);
+                                sliderBank.push(coords[1] / 1000 + 0.5);
+                            }
                         }
-                        else{
-                                slider_value.push(((coords[1] / 5)+50)/100);
-                                console.log("slider value is")
-                                console.log(slider_value);
+                        console.log("slider value is")
+                        console.log(slider_value);
+                        console.log("slider bank is")
+coords[1]=0;
 
-                                sliderBank.push((coords[1] / 5+50)/100);
-                        }
                         timeBank.push(elapsed)
                     }
                     else {
-                        slider_value.push($('#slider').slider('value'));
-                        sliderBank.push($('#slider').slider('value'));
+                        slider_value.push($('#slider').slider('value')/100);
+                        sliderBank.push($('#slider').slider('value')/100);
                         timeBank.push(elapsed)
                     }
 
@@ -301,7 +321,7 @@ var ver;
 
                     // Plot the current moneyBank if they are in the right group
                     self.getBank(moneyBank);
-                    if (group == "Group 2: SL, B" || group == "Group 4: PS, B") {
+                    if (group == "Group 2: Linear Slider, Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
                         $("#chart").show();
                     } else {
                         $("#chart").hide();
@@ -351,14 +371,33 @@ var ver;
                 var elapsed = endTime - startTime;
 
                 // Store the slider value and elapsed time
-                if (group == "Group 4: PS, B" ||group == "Group 3: PS, NB") {
-                    slider_value.push(coords1[1] /5);
-                    sliderBank.push(coords1[1] /5);
+                if (group == "Group 4: Parabolic Slider, Feedback" ||group == "Group 3: Parabolic Slider, No Feedback") {
+                    if (coords[0] <= 0) {
+                        slider_value.push(0);
+                        sliderBank.push(0);
+                    }
+                    else {
+                        if (coords[1] > 466) {
+                            slider_value.push(1);
+                            sliderBank.push(1);
+                        }
+                        else {
+                            slider_value.push(coords[1] / 1000 + 0.5);
+                            sliderBank.push(coords[1] / 1000 + 0.5);
+                        }
+                    }
+                    coords[1]=0;
+                    console.log("slider value is")
+                    console.log(slider_value);
+                    console.log("slider bank is")
+                    console.log(sliderBank);
+
+
                     timeBank.push(elapsed)
                 }
                 else {
-                    slider_value.push($('#slider').slider('value'));
-                    sliderBank.push($('#slider').slider('value'));
+                    slider_value.push($('#slider').slider('value')/100);
+                    sliderBank.push($('#slider').slider('value')/100);
                     timeBank.push(elapsed)
                 }
 
@@ -384,7 +423,7 @@ var ver;
 
                 // Plot the current moneyBank
                 self.getBank(moneyBank);
-                if (group == "Group 2: SL, B" || group == "Group 4: PS, B") {
+                if (group == "Group 2: Linear Slider, Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
                     $("#chart").show();
                 } else {
                     $("#chart").hide();
@@ -982,8 +1021,13 @@ function parabolicSlider() {
     function findTheMouse() {
         var coordinates = d3.mouse(this);
         var div = d3.select("body").select("#realTime")
+        var realY=0;
+        if (coordinates[1]<=460)
+            realY=coordinates[1]/1000+0.5;
+        else
+            realY=1;
         div
-            .text("x: "+coordinates[0]/500 + ",y: " + coordinates[1]/500)
+            .text("realtime x: "+coordinates[0]/500 + ",y: " + (realY))
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
 
@@ -1004,7 +1048,12 @@ function parabolicSlider() {
             console.log("I am here")
             coords = d3.mouse(this);
             var div = d3.select("body").select("#final")
-            div.text("fianl x: "+coords[0]/500 + ", final y: " + coords[1]/500)
+            var realY=0;
+            if (coords[1]<=460)
+                realY=coords[1]/1000+0.5;
+            else
+                realY=1;
+            div.text("fianl x: "+coords[0]/500 + ", final y: " + realY);
         // svg.select("rect[id='horizontal']")
         //     .attr("width",coords[0]) ;
         // svg.select("rect[id='vertical']")
@@ -1022,10 +1071,10 @@ function parabolicSlider() {
     svg.on("mouseup", function(){
         coords1 = d3.mouse(this);
         // div.text("x: "+coords1[0]/500 + ",y: " + coords1[1]/500)
-        // svg.select("rect[id='horizontal']")
-        //     .attr("width",coords1[0]) ;
-        // svg.select("rect[id='vertical']")
-        //     .attr("height",coords1[1]) ;
+        svg.select("rect[id='horizontal']")
+            .attr("width",coords1[0]) ;
+        svg.select("rect[id='vertical']")
+            .attr("height",coords1[1]) ;
     });
     parabolicSlider = function(){} // Only allows function to be called once
 

@@ -17,10 +17,10 @@
         "required":true,
         "type":"single-select",
         "options":[
-            "Group 1: SL, NB",
-            "Group 2: SL, B",
-            "Group 3: PS, NB",
-            "Group 4: PS, B"
+            "Group 1: Linear Slider, No Feedback",
+            "Group 2: Linear Slider, Feedback",
+            "Group 3: Parabolic Slider, No Feedback",
+            "Group 4: Parabolic Slider, Feedback"
         ]
     },
     {
