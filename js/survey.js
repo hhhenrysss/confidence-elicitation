@@ -192,29 +192,54 @@ var ver;
                         }
 
                         function dragged(d) {
+
+                            var realx=Math.max(Math.min(width,d3.event.x),0);
+                            var realy=Math.max(Math.min(height,d3.event.y),0);
+
+                            // d3.select(this)
+                            //     .attr("cx", d.x = d3.event.x)
+                            //     .attr("cy", d.y = (0.025 * d3.event.x * d3.event.x));
                             d3.select(this)
-                                .attr("cx", d.x = d3.event.x)
-                                .attr("cy", d.y = (0.025 * d3.event.x * d3.event.x));
-                            var div = d3.select("body").select("#realTime")
+                                .attr("cx", d.x = realx)
+                                .attr("cy", d.y = (0.025 * realx* realx));
+
+                            var div = d3.select("body").select("#sliderRealTime");
+                            div
+                                .text("Slider realtime x: "+realx + ",y: " + (realy))
+                                .style("left", (d3.event.pageX - 120) + "px")
+                                .style("top", (d3.event.pageY - 20) + "px");
+
+                            var div = d3.select("body").select("#eventRealTime");
+                            div
+                                .text("event realtime x: "+d3.event.x + ",y: " + d3.event.y)
+                                .style("left", (d3.event.pageX - 120) + "px")
+                                .style("top", (d3.event.pageY - 20) + "px");
+
+                            //color bar
                             hor
                                 .attr("width", d3.event.x);
+
                             ver
-                                .attr("height", d3.event.y - 10);
+                                .attr("height", Math.min(d3.event.y - 10,height));
                         }
 
                         function dragended(d) {
+                            d3.select(this)
+                                .attr("cx", d.x = realx)
+                                .attr("cy", d.y = (0.025 * realx* realx));
+
                             d3.select(this)
                                 .classed("dragging", false);
                         }
 
                         // handle
                         drag = d3.behavior.drag()
-                            .origin(function (d) {
-                                return d;
-                            })
-                            .on("dragstart", dragstarted)
+                            // .origin(function (d) {
+                            //     return d;
+                            // })
+                            // .on("dragstart", dragstarted)
                             .on("drag", dragged)
-                            .on("dragend", dragended);
+                            // .on("dragend", dragended);
 
                         //console.log(container);
                         handle_circle = container.append("g")
@@ -223,7 +248,7 @@ var ver;
                             .selectAll('circle')
                             .data(handle1)
                             .enter().append("circle")
-                            .attr("r", 5)
+                            .attr("r", 10)
                             .attr("cx", function (d) {
                                 return d.x;
                             })
@@ -231,16 +256,7 @@ var ver;
                                 return d.y;
                             })
                             .call(drag);
-                        // Update rectangles when mouse is released
 
-                        // svg1= d3.select("#svg")
-                        // svg1.on("mouseup", function(){
-                        //     coords1 = d3.mouse(this);
-                        //     // svg.select("rect[id='horizontal']")
-                        //     //     .attr("width",coords1[0]) ;
-                        //     // svg.select("rect[id='vertical']")
-                        //     //     .attr("height",coords1[1]) ;
-                        // });
 
                         // Push slider_value from previous question
 
@@ -262,8 +278,8 @@ var ver;
                         //     sliderBank.push((coords[1] / 5 + 50) / 100);
                         // }
                         if (coords[0] <= 0) {
-                            slider_value.push(0);
-                            sliderBank.push(0);
+                            slider_value.push(0.5);
+                            sliderBank.push(0.5);
                         }
                         else {
                             if (coords[1] > 460) {
@@ -278,7 +294,8 @@ var ver;
                         console.log("slider value is")
                         console.log(slider_value);
                         console.log("slider bank is")
-coords[1]=0;
+                        //reset slider value
+                        coords[1]=0;
 
                         timeBank.push(elapsed)
                     }
@@ -297,7 +314,7 @@ coords[1]=0;
                 }
 
                 // TAKE A BREAK: Every n question, show the bank and take a break
-                if (questionID % 2 == 0 && questionID != 0 && nextClick != 0) {
+                if (questionID % 10 == 0 && questionID != 0 && nextClick != 0) {
 
                     console.log("BREAK QUESTION!");
                     console.log("slider value: " + slider_value);
@@ -373,8 +390,8 @@ coords[1]=0;
                 // Store the slider value and elapsed time
                 if (group == "Group 4: Parabolic Slider, Feedback" ||group == "Group 3: Parabolic Slider, No Feedback") {
                     if (coords[0] <= 0) {
-                        slider_value.push(0);
-                        sliderBank.push(0);
+                        slider_value.push(0.5);
+                        sliderBank.push(0.5);
                     }
                     else {
                         if (coords[1] > 466) {
@@ -736,7 +753,7 @@ coords[1]=0;
 //////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
-    $.getJSON('questions_example.json', function(json) {
+    $.getJSON('questions_subjective.json', function(json) {
         survey.setup_survey(json);
     });
 });
@@ -909,17 +926,24 @@ function parabolicSlider() {
         d3.select(this)
             .classed("dragging", true);
     }
-
     function dragged(d) {
+        var realx=Math.max(Math.min(width,d3.event.x),0);
+        var realy=Math.max(Math.min(height,d3.event.y),0);
+
+
         d3.select(this)
-            .attr("cx", d.x = d3.event.x)
-            .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
+            .attr("cx", d.x = realx)
+            .attr("cy", d.y = (0.025 * realx* realx));
+
+        // d3.select(this)
+        //     .attr("cx", d.x = d3.event.x)
+        //     .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
         svg.select("rect[id='horizontal']")
             .attr("width",d3.event.x) ;
         svg.select("rect[id='vertical']")
-            .attr("height",d3.event.y-20) ;
-    }
+            .attr("height",Math.min(d3.event.y - 10,height)) ;
 
+    }
     function dragended(d) {
         d3.select(this)
             .classed("dragging", false);
@@ -929,9 +953,9 @@ function parabolicSlider() {
         .origin(function (d) {
             return d;
         })
-        .on("dragstart", dragstarted)
+        // .on("dragstart", dragstarted)
         .on("drag", dragged)
-        .on("dragend", dragended);
+        // .on("dragend", dragended);
 
 
 
@@ -941,7 +965,7 @@ function parabolicSlider() {
         .selectAll('circle')
         .data(handle1)
         .enter().append("circle")
-        .attr("r", 5)
+        .attr("r", 10)
         .attr("cx", function (d) {
             return d.x;
         })
@@ -949,52 +973,6 @@ function parabolicSlider() {
             return d.y;
         })
         .call(drag);
-    // // handle
-    // var drag = d3.behavior.drag()
-    //     .origin(function (d) {
-    //         return d;
-    //     })
-    //     .on("dragstart", dragstarted)
-    //     .on("drag", dragged)
-    //     .on("dragend", dragended);
-    //
-    //
-
-    // handle_circle = container.append("g")
-    //     .attr("class", "dot")
-    //     .selectAll('circle')
-    //     .data(handle1)
-    //     .enter().append("circle")
-    //     .attr("r", 5)
-    //     .attr("cx", function (d) {
-    //         return d.x;
-    //     })
-    //     .attr("cy", function (d) {
-    //         return d.y;
-    //     })
-    //     .call(drag);
-    //
-    // function dragstarted(d) {
-    //     d3.event.sourceEvent.stopPropagation();
-    //     d3.select(this)
-    //         .classed("dragging", true);
-    // }
-    //
-    // function dragged(d) {
-    //     d3.select(this)
-    //         .attr("cx", d.x = d3.event.x)
-    //         .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
-    //     var div = d3.select("body").select("#realTime")
-    //     svg.select("rect[id='horizontal']")
-    //         .attr("width",d3.event.x) ;
-    //     svg.select("rect[id='vertical']")
-    //         .attr("height",d3.event.y-20) ;
-    // }
-    //
-    // function dragended(d) {
-    //     d3.select(this)
-    //         .classed("dragging", false);
-    // }
 
     //color indicator
     hor=container.append("rect")
@@ -1031,13 +1009,12 @@ function parabolicSlider() {
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
 
+        //! should not allow the code below to work, otherwise, it would change the bar whenever you move your cursor
         // svg.select("rect[id='horizontal']")
         //     .attr("width",coordinates[0]) ;
         // svg.select("rect[id='vertical']")
         //     .attr("height",coordinates[1]) ;
-        // .attr("width",xScale)           //pay attention
-        // console.log("x: "+coordinates[0]+"y: "+coordinates[1]);
-        // console.log("y: "+coordinates[1]);
+
     }
 
     d3.select("svg")
@@ -1058,16 +1035,7 @@ function parabolicSlider() {
         //     .attr("width",coords[0]) ;
         // svg.select("rect[id='vertical']")
         //     .attr("height",coords[1]) ;
-        // Normally we go from data to pixels, but here we're doing pixels to data
     });
-
-    // Update rectangles when mouse is released
-    // svg.on("mouseup", function(){
-    //     coords1 = d3.mouse(this);
-    //    //     .attr("height",coords1[1]) ;
-    // });
-
-    // svg1= d3.select("#svg")
     svg.on("mouseup", function(){
         coords1 = d3.mouse(this);
         // div.text("x: "+coords1[0]/500 + ",y: " + coords1[1]/500)
