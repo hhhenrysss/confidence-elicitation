@@ -340,8 +340,6 @@ var ver;
                             })
                             .call(drag);
 
-
-
                         if (coords[0] <= 0) {
                             slider_value.push(0.5);
                             sliderBank.push(0.5);
@@ -707,13 +705,13 @@ var ver;
         for (var i = 0; i < userAnswer.length; i++) {
             if (userAnswer[i] == testBank[i]) { // Correct
                 if (sliderValue[i] == 0.5){
-                    gain_loss.push(0);
+                    gain_loss.push(0.000000001);
                 } else {
                     gain_loss.push(sliderValue[i] * 0.25);
                 }
             } else {
                 if (sliderValue[i] == 0.5){
-                    gain_loss.push(0);
+                    gain_loss.push(0.000000001);
                 } else {
                     gain_loss.push(0.25 * (-3 * Math.pow(sliderValue[i], 2)));
                 }
