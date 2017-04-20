@@ -1105,11 +1105,8 @@ function parabolicSlider() {
         // else
         //     realY=1;
         div
-<<<<<<< HEAD
             // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
-=======
-            .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
->>>>>>> 46a4892b4e5dfd6d49761bd757b3c1b2db0ce46c
+            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
             // .text("realtime x: "+((coordinates[0]/360)+0.5)+ ",y: " + coordinates[1]*3/440)
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
@@ -1125,15 +1122,11 @@ function parabolicSlider() {
             coords = d3.mouse(this);
             var div = d3.select("body").select("#final")
             var realY=0;
-<<<<<<< HEAD
             // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
             // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
-=======
-            div.text("fianl x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
->>>>>>> 46a4892b4e5dfd6d49761bd757b3c1b2db0ce46c
+            // div.text("fianl x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
 
     });
-
 
     parabolicSlider = function(){} // Only allows function to be called once
 
