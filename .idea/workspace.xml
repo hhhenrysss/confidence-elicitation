@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9c6ee5c-6158-420f-b260-41e09e7ad2eb" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/survey.js" afterPath="$PROJECT_DIR$/js/survey.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,21 +22,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="53" column="25" lean-forward="true" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
+            <state relative-caret-position="105">
+              <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="survey.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="survey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/survey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3706">
-              <caret line="470" column="35" lean-forward="true" selection-start-line="470" selection-start-column="35" selection-end-line="470" selection-end-column="35" />
+            <state relative-caret-position="466">
+              <caret line="122" column="53" lean-forward="false" selection-start-line="122" selection-start-column="53" selection-end-line="122" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -62,9 +64,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>console.log</find>
-      <find>reset</find>
-      <find>coords[1]=0;</find>
       <find>reset slid</find>
       <find>600</find>
       <find>answer_subj</find>
@@ -90,8 +89,11 @@
       <find>button</find>
       <find>Continue</find>
       <find>C</find>
-      <find>0.5</find>
       <find>gain_loss</find>
+      <find>0.5</find>
+      <find>check</find>
+      <find>fin</find>
+      <find>final</find>
     </findStrings>
     <replaceStrings>
       <replace>body</replace>
@@ -118,8 +120,8 @@
         <option value="$PROJECT_DIR$/answer/answer_subjective_UPDATED.csv" />
         <option value="$PROJECT_DIR$/answer/answer_subjective_example.csv" />
         <option value="$PROJECT_DIR$/questions_subjective_UPDATED.json" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/stylesheet.css" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/survey.js" />
       </list>
     </option>
@@ -369,12 +371,12 @@
       <workItem from="1492462055043" duration="2227000" />
       <workItem from="1492657274945" duration="30000" />
       <workItem from="1492657323228" duration="4958000" />
-      <workItem from="1492704002169" duration="10036000" />
+      <workItem from="1492704002169" duration="12275000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151721000" />
+    <option name="totallyTimeSpent" value="153960000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1199" height="817" extended-state="0" />
@@ -733,18 +735,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/js/survey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="53" column="25" lean-forward="true" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
+        <state relative-caret-position="466">
+          <caret line="122" column="53" lean-forward="false" selection-start-line="122" selection-start-column="53" selection-end-line="122" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/survey.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3706">
-          <caret line="470" column="35" lean-forward="true" selection-start-line="470" selection-start-column="35" selection-end-line="470" selection-end-column="35" />
+        <state relative-caret-position="105">
+          <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
           <folding />
         </state>
       </provider>
