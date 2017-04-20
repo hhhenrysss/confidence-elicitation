@@ -1,0 +1,102 @@
+[
+    {
+        "text":"EXPERIMENTER: Please enter the subject number:",
+        "id":"0",
+        "break_after":true,
+        "required":true,
+        "type":"text-field-small",
+        "options":[
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "text":"EXPERIMENTER: What is the subject's group number?",
+        "id":"0",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "Group 1: SL, NB",
+            "Group 2: SL, B",
+            "Group 3: PS, NB",
+            "Group 4: PS, B"
+        ]
+    },
+    {
+        "text":"Do you understand and agree with the instructions?",
+        "id":"0",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "I understand and agree with the instructions above."
+        ]
+    },
+    {
+        "text":"Will the Patriots win the Super Bowl?",
+        "id":"1",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "Yes",
+            "No"
+        ]
+    },
+    {  
+        "text":"Will North Korea invade South Korea in 2017?",
+        "id":"2",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "Yes",
+            "No"
+        ]
+    },
+    {  
+        "text":"Will Duke win the NCAA Championship in basketball?",
+        "id":"3",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "text":"Will the sun will rise in the morning?",
+        "id":"4",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "text":"The average GPA for CS undergraduate students at UIUC is 3.6?",
+        "id":"5",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "text":"20% of students at UIUC are considered out-of-state students?",
+        "id":"6",
+        "break_after":true,
+        "required":true,
+        "type":"single-select",
+        "options":[
+            "Yes",
+            "No"
+        ]
+    }
+]

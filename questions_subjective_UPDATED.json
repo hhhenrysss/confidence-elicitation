@@ -1,0 +1,690 @@
+[
+  {
+    "text": "EXPERIMENTER: Please enter the subject number:",
+    "id": 0,
+    "break_after": true,
+    "required": true,
+    "type": "text-field-small",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "EXPERIMENTER: What is the subject's group number?",
+    "id": 0,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Group 1: Linear Slider, No Feedback", "Group 2: Linear Slider, Feedback","Group 3: Parabolic Slider, No Feedback","Group 4: Parabolic Slider, Feedback"]
+  },
+  {
+    "text": "",
+    "id": 0,
+    "break_after": true,
+    "required": false,
+    "type": "single-select",
+    "options": []
+  },
+  {
+    "text": "Example: Was Donald J. Trump is over 40 years old when he became the U.S. president?",
+    "id": 0,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Example: Is it true that Bill Gates was one of the founders of Apple?",
+    "id": 0,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Example: If a randomly chosen U.S. adult male is more than 5 feet 10 inches tall, is that adult a male?",
+    "id": 0,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is our moon larger than Jupiter's moon Europa?",
+    "id": 1,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does Canada have a greater land area than the U.S.?",
+    "id": 2,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "According the the 2010 U.S. Census, were there more men than women living in the United States?",
+    "id": 3,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "According the the 2010 U.S. Census, were there more people under the age of 18 than 25-44?",
+    "id": 4,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the tallest building in the world located in Dubai?",
+    "id": 5,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Lake Victoria in Kenya the largest lake in the world?",
+    "id": 6,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the Nile River the longest river in the world?",
+    "id": 7,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was the United States the first country to successfully land a man on the moon?",
+    "id": 8,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Puerto Rico its own independent nation?",
+    "id": 9,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was the Soviet Union one of the Axis powers during World War II?",
+    "id": 10,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was Massachusetts the first state formed in the United States?",
+    "id": 11,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did the United States have 50 states at the end of World War II?",
+    "id": 12,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "According to the American Kennel Club, are Labrador Retreivers the most popular dog breed in the United States in 2016?",
+    "id": 13,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was the company Ebay.com founded before Amazon.com?",
+    "id": 14,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was President Barack Obama the first African American President in U.S. history?",
+    "id": 15,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Mark Zuckerburg the current CEO of Facebook.com?",
+    "id": 16,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Beijing the capital of Japan?",
+    "id": 17,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Chicago the capitol of Illinois?",
+    "id": 18,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did the TV show American Idol run for more than 10 seasons?",
+    "id": 19,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did WalMart report a higher revenue than Amazon.com in 2015?",
+    "id": 20,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was Joe Biden less than 35 years old when he was first elected as a U.S. Senator?",
+    "id": 21,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did more than half of the Fortune 500 companies recruit at the University of Illinois at Urbana-Champaign in 2010-11?",
+    "id": 22,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the Great Pyramid of Giza located in Cairo, Egypt?",
+    "id": 23,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does the text of Lincoln's Gettysburg address contain an even number of words?",
+    "id": 24,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did Albert Einstein invent the atom bomb? Z",
+    "id": 25,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Illinois among the top 20 states in the U.S. in terms of area?",
+    "id": 26,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was United Airlines founded after World War II?",
+    "id": 27,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was Brazil a colony of Great Britain?",
+    "id": 28,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does the U.S. government spend more than 4% of its budget on foreign aid?",
+    "id": 29,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Are there currently more than 6 monarchies in Europe?",
+    "id": 30,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Arizona larger than Nevada in terms of area?",
+    "id": 31,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did Liam Neeson win an Academy Award for best actor for his role in Schindler's List?",
+    "id": 32,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Monopoly the most popular board game of all time?",
+    "id": 33,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did Fidel Castro die in 2010? I",
+    "id": 34,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did India gain its independence from Great Britain in 1947?",
+    "id": 35,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was the French military involved in the 2011 Libyan conflict?",
+    "id": 36,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Have more than 50 Americans ever been in space in the last 40 years?",
+    "id": 37,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did World War I end in 1918?",
+    "id": 38,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was 2016 the warmest year on record? N",
+    "id": 39,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the number of courses offered in University of Illinois at Urbana-Champaign more than 1500?",
+    "id": 40,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did the Great Chicago Fire occur after 1900?",
+    "id": 41,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was James Monroe the fifth U.S. President?",
+    "id": 42,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does France share a border with Poland?",
+    "id": 43,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was Chicago's yearly total precipitation greater in 1990 than in 1991?",
+    "id": 44,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the number of daily visitors to the Illini Union less than 5000?",
+    "id": 45,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was America's first settlement established by Vikings?",
+    "id": 46,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Massachusetts larger than Greece in terms of area?",
+    "id": 47,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did Wisconsin lose the Rose Bowl in January 2012?",
+    "id": 48,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Have more than 5 women won the Nobel Prize since the beginning of this award?",
+    "id": 49,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was economics among the original fields for which a Nobel Prize was awarded?",
+    "id": 50,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did the U.S. win the most total number of medals in the 2012 Summer Olympics?",
+    "id": 51,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was Bill Clinton ever a governor of Kentucky?",
+    "id": 52,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Texas the largest U.S. state in terms of area?",
+    "id": 53,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does the Willis Tower, formerly known as the Sears Tower, have more than 70 floors?",
+    "id": 54,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does the Mississippi river touch more than seven states?",
+    "id": 55,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was Cleopatra the last pharaoh of ancient Egypt?",
+    "id": 56,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did King Henry VIII of England have less than three wives during his lifetime?",
+    "id": 57,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the African elephant the largest animal in the world?",
+    "id": 58,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does Pluto classify as a planet?",
+    "id": 59,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Saturn the only planet in our solar system that has rings?",
+    "id": 60,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is planet Earth the third planet from the sun?",
+    "id": 61,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the tiger the largest species of cat?",
+    "id": 62,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does India have the highest populated country in the world?",
+    "id": 63,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does Brazil have the more than 50% of the rainforests in the world?",
+    "id": 64,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the highest waterfall in the world, Angel Falls, located in Venezuala?",
+    "id": 65,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does an adult human have more than 400 bones?",
+    "id": 66,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the largest organ in a human the liver?",
+    "id": 67,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the largest primate in the world the gorilla?",
+    "id": 68,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Does the cheetah reach speeds of over 90 mph?",
+    "id": 69,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is the number of dog breeds recognized by the American Kennel Club an even number?",
+    "id": 70,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Do giraffes have an odd number of neck bones?",
+    "id": 71,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is English the official language of the Bahamas?",
+    "id": 72,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did World War I begain in 1914?",
+    "id": 73,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did the Hundred Years' War include England and France?",
+    "id": 74,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is wasabi a condiment found in French cuisine?",
+    "id": 75,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Pho a popular noodle soup from Vietnam?",
+    "id": 76,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is a whiskey made in Scotland called Scotch Whiskey?",
+    "id": 77,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Was the fortune cookie invented in China?",
+    "id": 78,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Did the popular soda Coca-Cola once contain the drug cocaine?",
+    "id": 79,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  },
+  {
+    "text": "Is Vatican City the smallest country in the world?",
+    "id": 80,
+    "break_after": true,
+    "required": true,
+    "type": "single-select",
+    "options": ["Yes", "No"]
+  }
+]
