@@ -6,7 +6,8 @@ survey = { questions: undefined,
 // Survey Class
 ////////////////////////////////////////////////////////////////////////////////////
 
-var coords=0;
+var coords=[0,0];
+var coords1=[0,0];
 var handle1 = [{
     x: 0,
     y: 0
@@ -19,7 +20,7 @@ var margin = {
         left: 50
     },
     width = 200 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 440 - margin.top - margin.bottom;
 
 // var svg = d3.select("#parabolic").append("svg")
 //     .attr("width", width + margin.left + margin.right)
@@ -64,7 +65,6 @@ var ver;
         });
 
         $('#nextBtn').click(function() {
-
             var subjectID = self.getQuestionAnswer(self.questions[0]);
             var questionID = self.questions[questionCounter]['id'];
             var group =  self.getQuestionAnswer(self.questions[1]);
@@ -83,75 +83,6 @@ var ver;
             //console.log("AnswerBank" + answerBank);
             //console.log("moneyBank:" + moneyBank);
 
-            if (questionID == 0 && questionCounter == 1) {
-
-                // Instruction given will depend on the group
-                if (group == "Group 1: SL, NB") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
-                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
-                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
-                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
-                        "answering each question, your reward or penalty from that question will increase or decrease " +
-                        "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
-                        "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
-                        "balance, but the bank balance will never go below zero.<br></font>";
-                } else if (group == "Group 2: SL, B") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
-                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
-                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
-                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
-                        "answering each question, your reward or penalty from that question will increase or decrease " +
-                        "your bank balance.<br><br>At the end of every 10 questions, you will receive a summary report of " +
-                        "your earned reward/penalty in the most recent 10 questions as well as your overall bank balance " +
-                        "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
-                        "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
-                        "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
-                } else if (group == "Group 3: PS, NB") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
-                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
-                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
-                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
-                        "answering each question, your reward or penalty from that question will increase or decrease " +
-                        "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
-                        "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
-                        "balance, but the bank balance will never go below zero.<br></font>";
-                } else if (group == "Group 4: PS, B") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
-                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
-                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
-                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
-                        "answering each question, your reward or penalty from that question will increase or decrease " +
-                        "your bank balance.<br><br>At the end of every 10 questions, you will receive a summary report of " +
-                        "your earned reward/penalty in the most recent 10 questions as well as your overall bank balance " +
-                        "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
-                        "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
-                        "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
-                }
-
-            }
-            else if ((questionCounter > 1)) {
-
-                group = answerBank[1];
-                if (group == "Group 1: SL, NB" || group == "Group 2: SL, B") {
-                    $("#slider").show(); // Show the regular slider
-                    d3.select("svg").remove(); // Destroy the parabolic slider
-
-                    // Get rid of the instructions
-                    document.getElementById("slider-label").style.display = "inline";
-                    document.getElementById('instructions').innerHTML = "";
-                }
-                else if (group == "Group 3: PS, NB" || group == "Group 4: PS, B"){
-                    $("#slider").remove(); // Destroy the regular slider
-                    parabolicSlider(); // Start the parabolic slider
-                    d3.selectAll("svg").attr("visibility", "show"); // Make sure it is visible after the breaks
-
-                    // Get rid of the instructions
-                    document.getElementById("slider-label").style.display = "inline"
-                    document.getElementById('slider-label').innerHTML = "As you move the slider on the curve, the green bar always show";
-                    document.getElementById('instructions').innerHTML = "";
-                }
-            }
-
             // Make question required and display message
             for (i = self.firstQuestionDisplayed; i <= self.lastQuestionDisplayed; i++) {
                 if (self.questions[i]['required'] === true && !self.getQuestionAnswer(questions[i])) {
@@ -164,6 +95,128 @@ var ver;
             if (!ok)
                 return
 
+            if (questionID == 0 && questionCounter == 1) {
+
+                // Instruction given will depend on the group
+                if (group == "Group 1: Linear Slider, No Feedback") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
+                        "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
+                        "balance, but the bank balance will never go below zero.<br></font>";
+                } else if (group == "Group 2: Linear Slider, Feedback") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>At the end of every 10 questions, you will receive a summary report of " +
+                        "your earned reward/penalty in the most recent 10 questions as well as your overall bank balance " +
+                        "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
+                        "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
+                        "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
+                } else if (group == "Group 3: Parabolic Slider, No Feedback") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
+                        "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
+                        "balance, but the bank balance will never go below zero.<br></font>";
+                } else if (group == "Group 4: Parabolic Slider, Feedback") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>At the end of every 10 questions, you will receive a summary report of " +
+                        "your earned reward/penalty in the most recent 10 questions as well as your overall bank balance " +
+                        "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
+                        "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
+                        "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
+                }
+            } else if (questionCounter > 1) {
+
+                group = answerBank[1];
+                if (group == "Group 1: Linear Slider, No Feedback" || group == "Group 2: Linear Slider, Feedback") {
+                    $("#slider").show(); // Show the regular slider
+                    d3.select("svg").remove(); // Destroy the parabolic slider
+
+                    // Get rid of the instructions
+                    document.getElementById("slider-label").style.display = "inline";
+                    document.getElementById('instructions').innerHTML = "";
+
+                    if (questionCounter == 2) {
+                        document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
+                            "may believe it is more likely that Donald Trump was over 40 when he became president, so choosing " +
+                            "the \"Yes\" answer is more appropriate.<br><br>Since you have more tendency toward the \"Yes\", " +
+                            "you don't stay at 50% and prefer to move the slider to the right of 50%. The stronger is your " +
+                            "conviction that your answer is correct, the more you slide to the right.<br><br>";
+                    } else if (questionCounter == 3) {
+                        document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, " +
+                            "you may believe it is less likely that Bill Gates was one of the founders of Apple, so choosing " +
+                            "the \“No\" answer is more appropriate.<br><br>Since you have more tendency toward the \“No\", " +
+                            "you don't stay at 50% and prefer to move the slider to the right of 50%. The stronger is your " +
+                            "conviction that your answer is correct, the more you slide to the right.<br><br>" ;
+                    } else if (questionCounter == 4) {
+                        document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, " +
+                            "you may believe it is more likely that a 5-10 adult is a male than female, so choosing the \"Yes\"" +
+                            " answer is more appropriate.<br><br>Since you have more tendency toward the \"Yes\", you don't " +
+                            "stay at 50% and prefer to move the slider to the right of 50%. The stronger is your conviction " +
+                            "that your answer is correct, the more you slide to the right. But since you realize that there " +
+                            "is still some chance that this adult may be female, it is not appropriate to move the slider all " +
+                            "the way to 100%, therefore, a slider position somewhere between 50% and 100% is more appropriate.<br><br>";
+                    } else {
+                        document.getElementById('slider-instructions').innerHTML = ""
+                    }
+
+                }
+                else if (group == "Group 3: Parabolic Slider, No Feedback" || group == "Group 4: Parabolic Slider, Feedback"){
+                    $("#slider").remove(); // Destroy the regular slider
+                    parabolicSlider(); // Start the parabolic slider
+                    d3.selectAll("svg").attr("visibility", "show"); // Make sure it is visible after the breaks
+
+                    // Get rid of the instructions
+                    document.getElementById("slider-label").style.display = "inline"
+                    document.getElementById('slider-label').innerHTML = "As you move the slider on the curve, the green bar always show.";
+                    document.getElementById('instructions').innerHTML = "";
+
+                    if (questionCounter == 2) {
+                        document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
+                            "may believe it is more likely that Donald Trump was over 40 when he became president, so choosing " +
+                            "the \"Yes\" answer is more appropriate.<br><br>Since you have some evidence to support the \“Yes\” " +
+                            "answer, it may be acceptable to move the slider all the way to the top of the curve.<br><br>The right " +
+                            "place for the slider is somewhere in between where your belief about the likelihood of winning " +
+                            "versus losing justifies the length of red and green bars at that point. The more you believe your " +
+                            "answer is correct, the more you want to move towards the bottom.<br><br>";
+                    } else if (questionCounter == 3) {
+                        document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
+                            "may believe it is less likely that Bill Gates was one of the founders of Apple, so choosing the \“No\" " +
+                            "answer is more appropriate.<br><br>Since you have some evidence to support the \“No\” answer, it may " +
+                            "be acceptable to move the slider all the way to the bottom of the curve.<br><br>The right place for " +
+                            "the slider is somewhere in between where your belief about the likelihood of winning versus losing " +
+                            "justifies the length of red and green bars at that point. The more you believe your answer is correct, " +
+                            "the more you want to move towards the bottom.<br><br>" ;
+                    } else if (questionCounter == 4) {
+                        document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you may " +
+                            "believe it is more likely that a 5-10 adult is a male than female, so choosing the \"Yes\" answer is more " +
+                            "appropriate.<br><br>Since you have some evidence to support the \“Yes\” answer, it is not acceptable to " +
+                            "move the slider all the way to the top of the curve. But you are not completely sure that \“Yes\” " +
+                            "is the correct answer, so it is not appropriate to move the slider all the way to the bottom of the " +
+                            "curve either.<br><br>The right place for the slider is somewhere in between where your belief about " +
+                            "the likelihood of winning versus losing justifies the length of red and green bars at that point. " +
+                            "The more you believe your answer is correct, the more you want to move towards the bottom.<br><br>" ;
+                    } else {
+                        document.getElementById('slider-instructions').innerHTML = ""
+                    }
+
+                }
+            }
+
             // #####################
             // If button is clicked and answer is selected
             if ( $('#nextBtn').text().indexOf('Continue') === 0) {
@@ -171,9 +224,9 @@ var ver;
                 var endTime = new Date();
                 var elapsed = endTime - startTime;
 
-                if (questionCounter > 2 & nextClick != 0) {
+                if (questionID > 0 & nextClick != 0) {
 
-                    if (group == "Group 3: PS, NB" || group == "Group 4: PS, B") {
+                    if (group == "Group 3: Parabolic Slider, No Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
                         d3.select("#handle_circle").remove()
                         hor
                             .attr("width", 0);
@@ -184,36 +237,61 @@ var ver;
                             y: 0
                         }];
 
-                        function dragstarted(d) {
-                            d3.event.sourceEvent.stopPropagation();
-                            d3.select(this)
-                                .classed("dragging", true);
-                        }
+
+                        // function dragged(d) {
+                        //
+                        //     var realx=Math.max(Math.min(width,d3.event.x),0);
+                        //     var realy=Math.max(Math.min(height,d3.event.y),0);
+                        //
+                        //     // d3.select(this)
+                        //     //     .attr("cx", d.x = d3.event.x)
+                        //     //     .attr("cy", d.y = (0.025 * d3.event.x * d3.event.x));
+                        //     d3.select(this)
+                        //         .attr("cx", d.x = realx)
+                        //         .attr("cy", d.y = (0.025 * realx* realx));
+                        //
+                        //     var div = d3.select("body").select("#sliderRealTime");
+                        //     div
+                        //         .text("Slider realtime x: "+realx + ",y: " + (realy))
+                        //         .style("left", (d3.event.pageX - 120) + "px")
+                        //         .style("top", (d3.event.pageY - 20) + "px");
+                        //
+                        //     var div = d3.select("body").select("#eventRealTime");
+                        //     div
+                        //         .text("event realtime x: "+d3.event.x + ",y: " + d3.event.y)
+                        //         .style("left", (d3.event.pageX - 120) + "px")
+                        //         .style("top", (d3.event.pageY - 20) + "px");
+                        //
+                        //     //color bar
+                        //     hor
+                        //         .attr("width", d3.event.x);
+                        //
+                        //     ver
+                        //         .attr("height", Math.min(d3.event.y - 10,height));
+                        // }
 
                         function dragged(d) {
+                            var realx=Math.max(Math.min(width,d3.event.x),0);
+                            var realy=Math.max(Math.min(height,d3.event.y),0);
+
                             d3.select(this)
-                                .attr("cx", d.x = d3.event.x)
-                                .attr("cy", d.y = (0.025 * d3.event.x * d3.event.x));
-                            var div = d3.select("body").select("#realTime")
+                                .attr("cx", d.x = realx)
+                                .attr("cy", d.y = (0.023  * realx * realx));
+                            //console.log('realx: '+realx);
+                            //console.log('dY: '+d.y);
                             hor
-                                .attr("width", d3.event.x);
+                                .attr("width", d.x) ;
                             ver
-                                .attr("height", d3.event.y - 20);
+                                .attr("height",Math.min(d.y,height)) ;
                         }
 
-                        function dragended(d) {
-                            d3.select(this)
-                                .classed("dragging", false);
-                        }
-
-                        // handle
+                        // slider
                         drag = d3.behavior.drag()
-                            .origin(function (d) {
-                                return d;
-                            })
-                            .on("dragstart", dragstarted)
+                            // .origin(function (d) {
+                            //     return d;
+                            // })
                             .on("drag", dragged)
-                            .on("dragend", dragended);
+
 
                         //console.log(container);
                         handle_circle = container.append("g")
@@ -231,27 +309,46 @@ var ver;
                             })
                             .call(drag);
 
-                        // Push slider_value from previous question
-                        slider_value.push(coords[1] / 5);
-                        sliderBank.push(coords[1] / 5);
+
+
+                        if (coords[0] <= 0) {
+                            slider_value.push(0.5);
+                            sliderBank.push(0.5);
+                        }
+                        else {
+                            if (coords[1] > 460) {
+                                slider_value.push(1);
+                                sliderBank.push(1);
+                            }
+                            else {
+                                slider_value.push(coords[1] / 1000 + 0.5);
+                                sliderBank.push(coords[1] / 1000 + 0.5);
+                            }
+                        }
+                        // console.log("slider value is")
+                        // console.log(slider_value);
+                        // console.log("slider bank is")
+                        //reset slider value
+                        coords[1]=0;
+
                         timeBank.push(elapsed)
                     }
                     else {
-                        slider_value.push($('#slider').slider('value'));
-                        sliderBank.push($('#slider').slider('value'));
+                        slider_value.push($('#slider').slider('value')/100);
+                        sliderBank.push($('#slider').slider('value')/100);
                         timeBank.push(elapsed)
                     }
 
-                    console.log(slider_value);
-                    console.log(sliderBank);
-                    console.log(timeBank);
+                    console.log("SliderValue: " + slider_value);
+                    console.log("SliderBank: " + sliderBank);
+                    console.log("Time: " + timeBank);
 
                     roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
                     roundAnswer.push(testBank[questionID]);
                 }
 
                 // TAKE A BREAK: Every n question, show the bank and take a break
-                if (questionID % 2 == 0 && questionID != 0 && nextClick != 0) {
+                if (questionID % 10 == 0 && questionID != 0 && nextClick != 0) {
 
                     console.log("BREAK QUESTION!");
                     console.log("slider value: " + slider_value);
@@ -275,7 +372,7 @@ var ver;
 
                     // Plot the current moneyBank if they are in the right group
                     self.getBank(moneyBank);
-                    if (group == "Group 2: SL, B" || group == "Group 4: PS, B") {
+                    if (group == "Group 2: Linear Slider, Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
                         $("#chart").show();
                     } else {
                         $("#chart").hide();
@@ -289,7 +386,7 @@ var ver;
                         self.sumArr(roundScore).toFixed(2) + "$" + "<br><br>Your current total balance is $" +
                         currentBalance.toFixed(2);
                     $('#nextBtn').hide()
-                    $('#nextBtn').delay(3000).show(0); // Show button after n/1000 seconds. (e.g., n=5000 is 5 sec)
+                    $('#nextBtn').delay(6000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 6 sec)
 
                     // Reset the iterator
                     nextClick = 0;
@@ -325,14 +422,33 @@ var ver;
                 var elapsed = endTime - startTime;
 
                 // Store the slider value and elapsed time
-                if (group == "Group 4: PS, B" ||group == "Group 3: PS, NB") {
-                    slider_value.push(coords[1] /5);
-                    sliderBank.push(coords[1] /5);
+                if (group == "Group 4: Parabolic Slider, Feedback" ||group == "Group 3: Parabolic Slider, No Feedback") {
+                    if (coords[0] <= 0) {
+                        slider_value.push(0.5);
+                        sliderBank.push(0.5);
+                    }
+                    else {
+                        if (coords[1] > 466) {
+                            slider_value.push(1);
+                            sliderBank.push(1);
+                        }
+                        else {
+                            slider_value.push(coords[1] / 1000 + 0.5);
+                            sliderBank.push(coords[1] / 1000 + 0.5);
+                        }
+                    }
+                    coords[1]=0;
+                    console.log("slider value is")
+                    console.log(slider_value);
+                    console.log("slider bank is")
+                    console.log(sliderBank);
+
+
                     timeBank.push(elapsed)
                 }
                 else {
-                    slider_value.push($('#slider').slider('value'));
-                    sliderBank.push($('#slider').slider('value'));
+                    slider_value.push($('#slider').slider('value')/100);
+                    sliderBank.push($('#slider').slider('value')/100);
                     timeBank.push(elapsed)
                 }
 
@@ -358,7 +474,7 @@ var ver;
 
                 // Plot the current moneyBank
                 self.getBank(moneyBank);
-                if (group == "Group 2: SL, B" || group == "Group 4: PS, B") {
+                if (group == "Group 2: Linear Slider, Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
                     $("#chart").show();
                 } else {
                     $("#chart").hide();
@@ -563,23 +679,47 @@ var ver;
         var gain_loss = [];
         var O = 0;
         var F = 0;
+
         for (var i = 0; i < userAnswer.length; i++) {
-            if (testBank[i] == "Yes")
-                O = 1
-            else
-                O = 0
-            F = sliderValue[i]*0.01;
-            // Used for testing
-            if (userAnswer[i] == testBank[i]) {
-                gain_loss.push(F);
-                //gain_loss.push(Math.pow(F-1,2));
+            if (userAnswer[i] == testBank[i]) { // Correct
+                gain_loss.push(sliderValue[i] * 0.25);
             } else {
-                gain_loss.push(-F);
-                //gain_loss.push(-Math.pow(F-O,2));
+                gain_loss.push(0.25*(-3*Math.pow(sliderValue[i],2)));
             }
         }
         return gain_loss
     }
+    // survey.getBrier = function(userAnswer, sliderValue, testBank) {
+    //     var gain_loss = [];
+    //     var gain = 0;
+    //     var loss = 0;
+    //
+    //     for (var i = 0; i < userAnswer.length; i++) {
+    //
+    //         if (testBank[i] == "no") {//if real answer is 0
+    //             if (userAnswer[i] == testBank[i]) {
+    //                 gain = (1 / 3) * (sliderValue[i]) * (sliderValue[i]) - 1 / 12
+    //                 gain_loss.push(gain)
+    //             }
+    //             else {
+    //                 loss = (sliderValue[i]) * (sliderValue[i]) - 0.25
+    //                 gain_loss.push(-loss)
+    //             }
+    //
+    //         }
+    //         else {
+    //             if (userAnswer[i] == testBank[i]) {
+    //                 gain = (-1) * (sliderValue[i] - 1) * (sliderValue[i] - 1) + 0.25
+    //                 gain_loss.push(gain)
+    //             }
+    //             else {
+    //                 loss = (-3) * (sliderValue[i] - 1) * (sliderValue[i] - 1) + 0.75
+    //                 gain_loss.push(-loss)
+    //             }
+    //         }
+    //     }
+    //     return gain_loss
+    // }
 
     survey.getBank = function (moneyBank) {
         var chart = c3.generate({
@@ -639,7 +779,7 @@ var ver;
 //////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
-    $.getJSON('questions_example.json', function(json) {
+    $.getJSON('questions_subjective_UPDATED.json', function(json) {
         survey.setup_survey(json);
     });
 });
@@ -731,7 +871,7 @@ function parabolicSlider() {
             left: 50
         },
         width = 200 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height =440 - margin.top - margin.bottom;
 
     var svg = d3.select("#parabolic").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -781,13 +921,33 @@ function parabolicSlider() {
     var padding=2;
     svg.append("text")
         .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("x", "-180")
+        .attr("y", "-10")
         .attr("transform", "translate("+ (padding/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-        .text("Loss (3 points)");
+        .style("font-size", "10px")
+        .text("3 points");
     svg.append("text")
         .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("x","0")
+        .attr("y","-10")
+        .attr("transform", "translate("+ (padding/2) +","+(height/2)+")rotate(-90)")
+        .style("font-size", "10px")
+        .text("Loss if incorrect");
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("x", "50")
+        .attr("y", "-10")
         .attr("transform", "translate("+ (width/2) +","+(0)+")")  // centre below axis
-        .text("Gain (1 point)");
+        .style("font-size", "10px")
+        .text("1 point");
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("x", "0")
+        .attr("y", "-10")
+        .attr("transform", "translate("+ (width/2) +","+(0)+")")  // centre below axis
+        .style("font-size", "10px")
 
+        .text("Gain if correct");
     // function plot
 
     var line = d3.svg.line()
@@ -800,6 +960,7 @@ function parabolicSlider() {
     container.append("path")
         .datum(data)
         .attr("class", "line")
+        .attr("id", "lineId")
         .attr("d", line);
 
     handle1 = [{
@@ -807,35 +968,32 @@ function parabolicSlider() {
         y: 0
     }];
 
-    function dragstarted(d) {
-        d3.event.sourceEvent.stopPropagation();
-        d3.select(this)
-            .classed("dragging", true);
-    }
 
     function dragged(d) {
+        var realx=Math.max(Math.min(width,d3.event.x),0);
+        var realy=Math.max(Math.min(height,d3.event.y),0);
+
         d3.select(this)
-            .attr("cx", d.x = d3.event.x)
-            .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
-        var div = d3.select("body").select("#realTime")
+            .attr("cx", d.x = realx)
+            .attr("cy", d.y = (0.023  * realx * realx));
+        // console.log('realx: '+realx);
+        // console.log('dY: '+d.y);
         svg.select("rect[id='horizontal']")
-            .attr("width",d3.event.x) ;
+            .attr("width", d.x) ;
+        //.attr("width", d3.event.x) ;
         svg.select("rect[id='vertical']")
-            .attr("height",d3.event.y-20) ;
+            .attr("height",Math.min(d.y,height)) ;
+        //.attr("height",Math.min(d3.event.y - 10,height)) ;
     }
 
-    function dragended(d) {
-        d3.select(this)
-            .classed("dragging", false);
-    }
     // handle
     drag = d3.behavior.drag()
         .origin(function (d) {
             return d;
         })
-        .on("dragstart", dragstarted)
+        // .on("dragstart", dragstarted)
         .on("drag", dragged)
-        .on("dragend", dragended);
+        // .on("dragend", dragended);
 
 
 
@@ -853,62 +1011,17 @@ function parabolicSlider() {
             return d.y;
         })
         .call(drag);
-    // // handle
-    // var drag = d3.behavior.drag()
-    //     .origin(function (d) {
-    //         return d;
-    //     })
-    //     .on("dragstart", dragstarted)
-    //     .on("drag", dragged)
-    //     .on("dragend", dragended);
-    //
-    //
-
-    // handle_circle = container.append("g")
-    //     .attr("class", "dot")
-    //     .selectAll('circle')
-    //     .data(handle1)
-    //     .enter().append("circle")
-    //     .attr("r", 5)
-    //     .attr("cx", function (d) {
-    //         return d.x;
-    //     })
-    //     .attr("cy", function (d) {
-    //         return d.y;
-    //     })
-    //     .call(drag);
-    //
-    // function dragstarted(d) {
-    //     d3.event.sourceEvent.stopPropagation();
-    //     d3.select(this)
-    //         .classed("dragging", true);
-    // }
-    //
-    // function dragged(d) {
-    //     d3.select(this)
-    //         .attr("cx", d.x = d3.event.x)
-    //         .attr("cy", d.y = (0.025*d3.event.x *d3.event.x));
-    //     var div = d3.select("body").select("#realTime")
-    //     svg.select("rect[id='horizontal']")
-    //         .attr("width",d3.event.x) ;
-    //     svg.select("rect[id='vertical']")
-    //         .attr("height",d3.event.y-20) ;
-    // }
-    //
-    // function dragended(d) {
-    //     d3.select(this)
-    //         .classed("dragging", false);
-    // }
 
     //color indicator
     hor=container.append("rect")
         .attr("id","hor")
         .attr("x", 0)
-        .attr("y", -10)
+        .attr("y", 0)
         .attr("width", 0)
         .attr("height", 10)
         .attr("fill", "green")
-        .attr("id", "horizontal");
+        .attr("id", "horizontal")
+        .attr("opacity",0.3);
 
 
     ver=container.append("rect")
@@ -918,44 +1031,42 @@ function parabolicSlider() {
         .attr("width", 10)
         .attr("height", 0)
         .attr("fill", "red")
-        .attr("id", "vertical");
+        .attr("id", "vertical")
+        .attr("opacity",0.3);
+
+
+    container.append("use")
+    .attr("id",'use')
+    .attr("xlink:href",'#lineId');
 
     // var coordinates = 0
 
     function findTheMouse() {
         var coordinates = d3.mouse(this);
         var div = d3.select("body").select("#realTime")
+        // var realY=0;
+        // if (coordinates[1]<=460)
+        //     realY=coordinates[1]/1000+0.5;
+        // else
+        //     realY=1;
         div
-        // .text("x: "+coordinates[0]/500 + ",y: " + coordinates[1]/500)
+            //.text("realtime x: "+coordinates[0]/440 + ",y: " + coordinates[1]*3/440)
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
-        // .attr("width",xScale)           //pay attention
-        // console.log("x: "+coordinates[0]+"y: "+coordinates[1]);
-        // console.log("y: "+coordinates[1]);
+
     }
 
     d3.select("svg")
         .on("mousemove", findTheMouse);
 
-    svg.on("click", function() {
-        coords = d3.mouse(this);
-        var div = d3.select("body").select("#realTime")
-        div
-            .text("x: "+coords[0]/500 + ",y: " + coords[1]/500)
-        svg.select("rect[id='horizontal']")
-            .attr("width",coords[0]) ;
-        svg.select("rect[id='vertical']")
-            .attr("height",coords[1]) ;
-        // Normally we go from data to pixels, but here we're doing pixels to data
-    })
+    d3.select("svg")
+        .on("click", function() {
+            //console.log("I am here")
+            coords = d3.mouse(this);
+            var div = d3.select("body").select("#final")
+            var realY=0;
+            div.text("fianl x: "+coords[0]/440 + ", final y: " + coords[1]*(3/440));
 
-    // Update rectangles when mouse is released
-    svg.on("mouseup", function(){
-        coords = d3.mouse(this);
-        svg.select("rect[id='horizontal']")
-            .attr("width",coords[0]) ;
-        svg.select("rect[id='vertical']")
-            .attr("height",coords[1]) ;
     });
 
 
