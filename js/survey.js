@@ -193,6 +193,7 @@ var ver;
                             "place for the slider is somewhere in between where your belief about the likelihood of winning " +
                             "versus losing justifies the length of red and green bars at that point. The more you believe your " +
                             "answer is correct, the more you want to move towards the bottom.<br><br>";
+                        resetHandle();
                     } else if (questionCounter == 3) {
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
                             "may believe it is less likely that Bill Gates was one of the founders of Apple, so choosing the \“No\" " +
@@ -201,6 +202,7 @@ var ver;
                             "the slider is somewhere in between where your belief about the likelihood of winning versus losing " +
                             "justifies the length of red and green bars at that point. The more you believe your answer is correct, " +
                             "the more you want to move towards the bottom.<br><br>" ;
+                        resetHandle();
                     } else if (questionCounter == 4) {
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you may " +
                             "believe it is more likely that a 5-10 adult is a male than female, so choosing the \"Yes\" answer is more " +
@@ -210,8 +212,10 @@ var ver;
                             "curve either.<br><br>The right place for the slider is somewhere in between where your belief about " +
                             "the likelihood of winning versus losing justifies the length of red and green bars at that point. " +
                             "The more you believe your answer is correct, the more you want to move towards the bottom.<br><br>" ;
+                        resetHandle();
                     } else {
-                        document.getElementById('slider-instructions').innerHTML = ""
+                        document.getElementById('slider-instructions').innerHTML = "";
+                        resetHandle();
                     }
 
                 }
@@ -228,10 +232,8 @@ var ver;
 
                     if (group == "Group 3: Parabolic Slider, No Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
                         d3.select("#handle_circle").remove()
-                        hor
-                            .attr("width", 0);
-                        ver
-                            .attr("height", 0);
+                        hor.attr("width", 0);
+                        ver.attr("height", 0);
                         handle1 = [{
                             x: 0,
                             y: 0
@@ -386,7 +388,7 @@ var ver;
                         self.sumArr(roundScore).toFixed(2) + "$" + "<br><br>Your current total balance is $" +
                         currentBalance.toFixed(2);
                     $('#nextBtn').hide()
-                    $('#nextBtn').delay(6000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 6 sec)
+                    $('#nextBtn').delay(60000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 6 sec)
 
                     // Reset the iterator
                     nextClick = 0;
@@ -402,9 +404,8 @@ var ver;
                 // Move on to next question if not break
                 else {
                     // Move the slider back to 0
-                    // TODO: change slider text back to 0
                     $("#slider").slider("value",  $("#slider").slider("option", "min"));
-
+                    $("#custom-handle").text( 50 );
                     // Increase the question index and click counter
                     nextClick += 1;
                     questionCounter += 1;
@@ -803,6 +804,27 @@ function getTestBank(filename) {
     });
     return data[0];
 };
+
+function resetHandle() {
+    d3.select("#handle_circle").remove()
+    handle1 = [{x: 0, y: 0}];
+    hor.attr("width", 0);
+    ver.attr("height", 0);
+    handle_circle = container.append("g")
+        .attr("id", "handle_circle")
+        .attr("class", "dot")
+        .selectAll('circle')
+        .data(handle1)
+        .enter().append("circle")
+        .attr("r", 5)
+        .attr("cx", function (d) {
+            return d.x;
+        })
+        .attr("cy", function (d) {
+            return d.y;
+        })
+        .call(drag);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 // REGULAR SLIDER
