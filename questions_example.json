@@ -1,102 +1,130 @@
 [
     {
-        "text":"EXPERIMENTER: Please enter the subject number:",
-        "id":"0",
-        "break_after":true,
-        "required":true,
-        "type":"text-field-small",
-        "options":[
-            "Yes",
-            "No"
-        ]
+        "text": "EXPERIMENTER: Please enter the subject number:",
+        "id": 0,
+        "break_after": true,
+        "required": true,
+        "type": "text-field-small",
+        "options": ["Yes", "No"]
     },
     {
-        "text":"EXPERIMENTER: What is the subject's group number?",
-        "id":"0",
-        "break_after":true,
-        "required":true,
-        "type":"single-select",
-        "options":[
-            "Group 1: SL, NB",
-            "Group 2: SL, B",
-            "Group 3: PS, NB",
-            "Group 4: PS, B"
-        ]
+        "text": "EXPERIMENTER: What is the subject's group number?",
+        "id": 0,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Group 1: Linear Slider, No Feedback", "Group 2: Linear Slider, Feedback","Group 3: Parabolic Slider, No Feedback","Group 4: Parabolic Slider, Feedback"]
     },
     {
-        "text":"Do you understand and agree with the instructions?",
-        "id":"0",
-        "break_after":true,
-        "required":true,
-        "type":"single-select",
-        "options":[
-            "I understand and agree with the instructions above."
-        ]
+        "text": "",
+        "id": 0,
+        "break_after": true,
+        "required": false,
+        "type": "single-select",
+        "options": []
     },
     {
-        "text":"Will the Patriots win the Super Bowl?",
-        "id":"1",
-        "break_after":true,
-        "required":true,
-        "type":"single-select",
-        "options":[
-            "Yes",
-            "No"
-        ]
-    },
-    {  
-        "text":"Will North Korea invade South Korea in 2017?",
-        "id":"2",
-        "break_after":true,
-        "required":true,
-        "type":"single-select",
-        "options":[
-            "Yes",
-            "No"
-        ]
-    },
-    {  
-        "text":"Will Duke win the NCAA Championship in basketball?",
-        "id":"3",
-        "break_after":true,
-        "required":true,
-        "type":"single-select",
-        "options":[
-            "Yes",
-            "No"
-        ]
+        "text": "Example: Was Donald J. Trump is over 40 years old when he became the U.S. president?",
+        "id": 0,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
     },
     {
-        "text":"Will the sun will rise in the morning?",
-        "id":"4",
-        "break_after":true,
-        "required":true,
-        "type":"single-select",
-        "options":[
-            "Yes",
-            "No"
-        ]
+        "text": "Example: Is it true that Bill Gates was one of the founders of Apple?",
+        "id": 0,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
     },
     {
-        "text":"The average GPA for CS undergraduate students at UIUC is 3.6?",
-        "id":"5",
-        "break_after":true,
-        "required":true,
-        "type":"single-select",
-        "options":[
-            "Yes",
-            "No"
-        ]
+        "text": "Example: If a randomly chosen U.S. adult male is more than 5 feet 10 inches tall, is that adult a male?",
+        "id": 0,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
     },
     {
-        "text":"20% of students at UIUC are considered out-of-state students?",
-        "id":"6",
-        "break_after":true,
-        "required":true,
-        "type":"single-select",
-        "options":[
-            "Yes",
-            "No"
-        ]
+        "text": "Is our moon larger than Jupiter's moon Europa?",
+        "id": 1,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "Does Canada have a greater land area than the U.S.?",
+        "id": 2,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "According the the 2010 U.S. Census, were there more men than women living in the United States?",
+        "id": 3,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "According the the 2010 U.S. Census, were there more people under the age of 18 than 25-44?",
+        "id": 4,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "Is the tallest building in the world located in Dubai?",
+        "id": 5,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "Is Lake Victoria in Kenya the largest lake in the world?",
+        "id": 6,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "Is the Nile River the longest river in the world?",
+        "id": 7,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "Was the United States the first country to successfully land a man on the moon?",
+        "id": 8,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "Is Puerto Rico its own independent nation?",
+        "id": 9,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
+    },
+    {
+        "text": "Was the Soviet Union one of the Axis powers during World War II?",
+        "id": 10,
+        "break_after": true,
+        "required": true,
+        "type": "single-select",
+        "options": ["Yes", "No"]
     }
 ]

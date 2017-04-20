@@ -44,7 +44,7 @@ var ver;
 
         // Initialize needed computations
         var slider_value = []; // Use between rounds
-        var sliderBank = [0, 0, 0]; // Use to output
+        var sliderBank = [0, 0, 0, 0, 0, 0,]; // Use to output
         var currentBalance = 12; // Starting bank balance
         var moneyBank = ['Earnings from Previous Round'];
         var questionCounter = 0; // Keeps track of what question we are currently
@@ -53,10 +53,10 @@ var ver;
         var roundUserAnswer = [];
         var roundAnswer = [];
         var startTime = new Date();
-        var timeBank = [0,0,0];
+        var timeBank = [0,0,0,0,0,0];
 
         // Read in the appropriate test bank
-        testBank = getTestBank("answer_subjective_UPDATED");
+        testBank = getTestBank("answer_subjective_example");
 
         this.questions = questions;
 
@@ -230,6 +230,7 @@ var ver;
 
                 var endTime = new Date();
                 var elapsed = endTime - startTime;
+                startTime = new Date();
 
                 if (questionID > 0 & nextClick != 0) {
 
@@ -353,7 +354,7 @@ var ver;
                 }
 
                 // TAKE A BREAK: Every n question, show the bank and take a break
-                if (questionID % 10 == 0 && questionID != 0 && nextClick != 0) {
+                if (questionID % 5 == 0 && questionID != 0 && nextClick != 0) {
 
                     console.log("BREAK QUESTION!");
                     console.log("slider value: " + slider_value);
@@ -387,11 +388,11 @@ var ver;
 
                     // Tell them to take a break
                     document.getElementById('message').innerHTML="Please take a 1 minute break! " +
-                        "The Continue button will show after 1 minute.<br><br>In the last round, your balance changed by: " +
-                        self.sumArr(roundScore).toFixed(2) + "$" + "<br><br>Your current total balance is $" +
-                        currentBalance.toFixed(2);
+                        "The Continue button will show after 1 minute at the bottom of the screen.<br><br>In the last " +
+                        "round, your balance changed by: " + self.sumArr(roundScore).toFixed(2) + "$" +
+                        "<br><br>Your current total balance is $" + currentBalance.toFixed(2);
                     $('#nextBtn').hide()
-                    $('#nextBtn').delay(60000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 6 sec)
+                    $('#nextBtn').delay(6000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 60 sec)
 
                     // Reset the iterator
                     nextClick = 0;
@@ -424,6 +425,7 @@ var ver;
 
                 var endTime = new Date();
                 var elapsed = endTime - startTime;
+                startTime = new Date();
 
                 // Store the slider value and elapsed time
                 if (group == "Group 4: Parabolic Slider, Feedback" ||group == "Group 3: Parabolic Slider, No Feedback") {
@@ -442,11 +444,6 @@ var ver;
                         }
                     }
                     coords[1]=0;
-                    console.log("slider value is")
-                    console.log(slider_value);
-                    console.log("slider bank is")
-                    console.log(sliderBank);
-
 
                     timeBank.push(elapsed)
                 }
@@ -455,15 +452,19 @@ var ver;
                     sliderBank.push($('#slider').slider('value')/100);
                     timeBank.push(elapsed)
                 }
-
+                roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
+                roundAnswer.push(testBank[questionID]);
+                
                 console.log(slider_value);
                 console.log(sliderBank);
-
 
                 roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer)
 
                 moneyBank = moneyBank.concat(roundScore);
                 moneyBank = moneyBank.filter(Boolean); // Remove falsy because of pop()
+
+                console.log(roundScore)
+                currentBalance +=  Number(self.sumArr(roundScore).toFixed(2));
 
                 // Hide the question and sliders
                 self.hideAllQuestions();
@@ -471,10 +472,9 @@ var ver;
                 d3.selectAll("svg").attr("visibility", "hidden");
                 document.getElementById("slider-label").style.display = "none"
                 document.getElementById('message').innerHTML="Thank you for your participation in this study! Your answers have been saved." +
-                    "<br><br>Below is a graph which displays how " +
-                    "you've performed in the previous round.<br><br>In the last round, your balance changed by: " +
-                    self.sumArr(roundScore).toFixed(2) + "$" + "<br><br>The total money you've earned is $" +
-                    currentBalance.toFixed(2);
+                    "<br><br>In the last round, your balance changed by: $" +
+                    self.sumArr(roundScore).toFixed(2) + "<br><br>The total money you've earned is $" +
+                    currentBalance;
 
                 // Plot the current moneyBank
                 self.getBank(moneyBank);
@@ -485,12 +485,10 @@ var ver;
                 }
 
                 nextClick += 1;
-
-                // TODO: Not writing the answer correctly; skips the first two
                 // Get all of the answers and money earned to save
                 var answers = {moneyEarned: currentBalance};
                 for (i = 0; i < self.questions.length; i++) {
-                    answers[self.questions[i].id] = [answerBank[i], sliderBank[i], timeBank[i]];
+                    answers[self.questions[i].id] = [testBank[i-5], answerBank[i+1], sliderBank[i], timeBank[i]];
                 }
 
                 // Write answer to file (Note: Only works for Chrome | Not Safari)
@@ -535,7 +533,7 @@ var ver;
         this.showNextQuestionSet();
     }
 
-    // Function to get the answers to the radio buttom questions
+    // Function to get the answers to the radio button questions
     survey.getQuestionAnswer = function(question) {
         var result;
 
@@ -678,17 +676,22 @@ var ver;
         a.click()
     }
 
-    // ToDo: Implement Brier Score correctly
     survey.getBrier = function(userAnswer, sliderValue, testBank) {
         var gain_loss = [];
-        var O = 0;
-        var F = 0;
 
         for (var i = 0; i < userAnswer.length; i++) {
             if (userAnswer[i] == testBank[i]) { // Correct
-                gain_loss.push(sliderValue[i] * 0.25);
+                if (sliderValue[i] == 0.5){
+                    gain_loss.push(0);
+                } else {
+                    gain_loss.push(sliderValue[i] * 0.25);
+                }
             } else {
-                gain_loss.push(0.25*(-3*Math.pow(sliderValue[i],2)));
+                if (sliderValue[i] == 0.5){
+                    gain_loss.push(0);
+                } else {
+                    gain_loss.push(0.25 * (-3 * Math.pow(sliderValue[i], 2)));
+                }
             }
         }
         return gain_loss
@@ -783,7 +786,7 @@ var ver;
 //////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
-    $.getJSON('questions_subjective_UPDATED.json', function(json) {
+    $.getJSON('questions_example.json', function(json) {
         survey.setup_survey(json);
     });
 });
