@@ -182,7 +182,7 @@ var ver;
 
                     // Get rid of the instructions
                     document.getElementById("slider-label").style.display = "inline"
-                    document.getElementById('slider-label').innerHTML = "As you move the slider on the curve, the green bar always shows how many" +
+                    document.getElementById('slider-label').innerHTML = "As you move the slider on the curve, the green bar always shows how many " +
                         "points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is " +
                         "incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what " +
                         "you are truly willing to gain or lose in case your answer is correct or incorrect.<br><br>";
