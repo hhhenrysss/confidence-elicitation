@@ -779,8 +779,8 @@ var ver;
             },
             axis: {
                 y: {
-                    max: 1,
-                    min: -1,
+                    max: 0.25,
+                    min: -0.75,
                     label: "Bank Changes ($)"
                     // Range includes padding, set 0 if no padding needed
                     // padding: {top:0, bottom:0}
