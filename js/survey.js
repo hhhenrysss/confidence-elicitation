@@ -6,7 +6,7 @@ survey = { questions: undefined,
 // Survey Class
 ////////////////////////////////////////////////////////////////////////////////////
 
-var coords=[0,0];
+var coords=[50,0];
 var coords1=[0,0];
 var handle1 = [{
     x: 0,
@@ -340,25 +340,27 @@ var ver;
                             })
                             .call(drag);
 
-                        if (coords[0] <= 0) {
+                        if (coords[0] <= 50) {
                             slider_value.push(0.5);
                             sliderBank.push(0.5);
                         }
                         else {
-                            if (coords[1] > 460) {
+                            if (coords[0] > 180) {
                                 slider_value.push(1);
                                 sliderBank.push(1);
                             }
                             else {
-                                slider_value.push(coords[1] / 1000 + 0.5);
-                                sliderBank.push(coords[1] / 1000 + 0.5);
+                                slider_value.push(((coords[0]-50)/260+0.5));
+                                sliderBank.push(((coords[0]-50)/260+0.5));
+                                // slider_value.push(coords[1] / 1000 + 0.5);
+                                // sliderBank.push(coords[1] / 1000 + 0.5);
                             }
                         }
                         // console.log("slider value is")
                         // console.log(slider_value);
                         // console.log("slider bank is")
                         //reset slider value
-                        coords[1]=0;
+                        coords[0]=50;
 
                         timeBank.push(elapsed)
                     }
@@ -452,21 +454,23 @@ var ver;
 
                 // Store the slider value and elapsed time
                 if (group == "Group 4: Parabolic Slider, Feedback" ||group == "Group 3: Parabolic Slider, No Feedback") {
-                    if (coords[0] <= 0) {
+                    if (coords[0] <= 50) {
                         slider_value.push(0.5);
                         sliderBank.push(0.5);
                     }
                     else {
-                        if (coords[1] > 466) {
+                        if (coords[0] > 180) {
                             slider_value.push(1);
                             sliderBank.push(1);
                         }
                         else {
-                            slider_value.push(coords[1] / 1000 + 0.5);
-                            sliderBank.push(coords[1] / 1000 + 0.5);
+                            slider_value.push(((coords[0]-50)/260+0.5));
+                            sliderBank.push(((coords[0]-50)/260+0.5));
+                            // slider_value.push(coords[1] / 1000 + 0.5);
+                            // sliderBank.push(coords[1] / 1000 + 0.5);
                         }
                     }
-                    coords[1]=0;
+                    coords[0]=50;
 
                     timeBank.push(elapsed)
                 }
@@ -1101,7 +1105,8 @@ function parabolicSlider() {
         // else
         //     realY=1;
         div
-            //.text("realtime x: "+coordinates[0]/440 + ",y: " + coordinates[1]*3/440)
+            .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
+            // .text("realtime x: "+((coordinates[0]/360)+0.5)+ ",y: " + coordinates[1]*3/440)
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
 
@@ -1112,11 +1117,11 @@ function parabolicSlider() {
 
     d3.select("svg")
         .on("click", function() {
-            //console.log("I am here")
+            // console.log("I am here")
             coords = d3.mouse(this);
             var div = d3.select("body").select("#final")
             var realY=0;
-            div.text("fianl x: "+coords[0]/440 + ", final y: " + coords[1]*(3/440));
+            div.text("fianl x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
 
     });
 
