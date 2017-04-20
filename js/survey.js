@@ -56,7 +56,7 @@ var ver;
         var timeBank = [0,0,0];
 
         // Read in the appropriate test bank
-        testBank = getTestBank("answer_subjective");
+        testBank = getTestBank("answer_subjective_UPDATED");
 
         this.questions = questions;
 
@@ -182,7 +182,7 @@ var ver;
 
                     // Get rid of the instructions
                     document.getElementById("slider-label").style.display = "inline"
-                    document.getElementById('slider-label').innerHTML = "As you move the slider on the curve, the green bar always show.";
+                    document.getElementById('slider-label').innerHTML = "As you move the slider on the curve, the green bar always show.<br><br>";
                     document.getElementById('instructions').innerHTML = "";
 
                     if (questionCounter == 2) {
