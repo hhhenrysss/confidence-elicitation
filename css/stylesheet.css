@@ -80,9 +80,9 @@ br {
   border-radius: 2px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.2);
   box-sizing: border-box;
-  margin: 150px auto;
+  margin: 15px auto;
   padding: 0;
-  max-width: 700px;
+  max-width: 980px;
   min-width: 280px;
   width: 100%;
   background-color: rgb(255,255,255);

@@ -56,7 +56,7 @@ var ver;
         var timeBank = [0,0,0,0,0,0];
 
         // Read in the appropriate test bank
-        testBank = getTestBank("answer_subjective_example");
+        testBank = getTestBank("answer_subjective_UPDATED");
 
         this.questions = questions;
 
@@ -151,27 +151,38 @@ var ver;
                     document.getElementById('instructions').innerHTML = "";
 
                     if (questionCounter == 2) {
+                        document.getElementById("slider-label").style.display = "inline"
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> What is the probability that " +
+                            "you think your answer is correct?<br><br>";
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
                             "may believe it is more likely that Donald Trump was over 40 when he became president, so choosing " +
                             "the \"Yes\" answer is more appropriate.<br><br>Since you have more tendency toward the \"Yes\", " +
                             "you don't stay at 50% and prefer to move the slider to the right of 50%. The stronger is your " +
-                            "conviction that your answer is correct, the more you slide to the right.<br><br>";
+                            "conviction that your answer is correct, the more you slide to the right.<br>";
                     } else if (questionCounter == 3) {
+                        document.getElementById("slider-label").style.display = "inline"
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> What is the probability that " +
+                            "you think your answer is correct?<br><br>";
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, " +
                             "you may believe it is less likely that Bill Gates was one of the founders of Apple, so choosing " +
                             "the \“No\" answer is more appropriate.<br><br>Since you have more tendency toward the \“No\", " +
                             "you don't stay at 50% and prefer to move the slider to the right of 50%. The stronger is your " +
-                            "conviction that your answer is correct, the more you slide to the right.<br><br>" ;
+                            "conviction that your answer is correct, the more you slide to the right.<br>" ;
                     } else if (questionCounter == 4) {
+                        document.getElementById("slider-label").style.display = "inline"
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> What is the probability that " +
+                            "you think your answer is correct?<br><br>";
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, " +
                             "you may believe it is more likely that a 5-10 adult is a male than female, so choosing the \"Yes\"" +
                             " answer is more appropriate.<br><br>Since you have more tendency toward the \"Yes\", you don't " +
                             "stay at 50% and prefer to move the slider to the right of 50%. The stronger is your conviction " +
                             "that your answer is correct, the more you slide to the right. But since you realize that there " +
                             "is still some chance that this adult may be female, it is not appropriate to move the slider all " +
-                            "the way to 100%, therefore, a slider position somewhere between 50% and 100% is more appropriate.<br><br>";
+                            "the way to 100%, therefore, a slider position somewhere between 50% and 100% is more appropriate.<br>";
                     } else {
                         document.getElementById('slider-instructions').innerHTML = ""
+                        document.getElementById('slider-label').innerHTML = "What is the probability that " +
+                            "you think your answer is correct?<br><br>";
                     }
 
                 }
@@ -182,10 +193,7 @@ var ver;
 
                     // Get rid of the instructions
                     document.getElementById("slider-label").style.display = "inline"
-                    document.getElementById('slider-label').innerHTML = "As you move the slider on the curve, the green bar always shows how many " +
-                        "points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is " +
-                        "incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what " +
-                        "you are truly willing to gain or lose in case your answer is correct or incorrect.<br><br>";
+                    document.getElementById('slider-label').innerHTML = ""
                     document.getElementById('instructions').innerHTML = "";
 
                     if (questionCounter == 2) {
@@ -195,7 +203,13 @@ var ver;
                             "answer, it may be acceptable to move the slider all the way to the top of the curve.<br><br>The right " +
                             "place for the slider is somewhere in between where your belief about the likelihood of winning " +
                             "versus losing justifies the length of red and green bars at that point. The more you believe your " +
-                            "answer is correct, the more you want to move towards the bottom.<br><br>";
+                            "answer is correct, the more you want to move towards the bottom.<br>";
+                        document.getElementById("slider-label").style.display = "inline"
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> As you move the slider on the curve, the green bar always shows how many " +
+                            "points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is " +
+                            "incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what " +
+                            "you are truly willing to gain or lose in case your answer is correct or incorrect.<br>";
+
                         resetHandle();
                     } else if (questionCounter == 3) {
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
@@ -205,6 +219,11 @@ var ver;
                             "the slider is somewhere in between where your belief about the likelihood of winning versus losing " +
                             "justifies the length of red and green bars at that point. The more you believe your answer is correct, " +
                             "the more you want to move towards the bottom.<br><br>" ;
+                        document.getElementById("slider-label").style.display = "inline"
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> As you move the slider on the curve, the green bar always shows how many " +
+                            "points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is " +
+                            "incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what " +
+                            "you are truly willing to gain or lose in case your answer is correct or incorrect.<br>";
                         resetHandle();
                     } else if (questionCounter == 4) {
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you may " +
@@ -214,7 +233,13 @@ var ver;
                             "is the correct answer, so it is not appropriate to move the slider all the way to the bottom of the " +
                             "curve either.<br><br>The right place for the slider is somewhere in between where your belief about " +
                             "the likelihood of winning versus losing justifies the length of red and green bars at that point. " +
-                            "The more you believe your answer is correct, the more you want to move towards the bottom.<br><br>" ;
+                            "The more you believe your answer is correct, the more you want to move towards the bottom.<br>" ;
+                        document.getElementById("slider-label").style.display = "inline"
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> As you move the slider on the curve, the green bar always shows how many " +
+                            "points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is " +
+                            "incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what " +
+                            "you are truly willing to gain or lose in case your answer is correct or incorrect.<br>";
+
                         resetHandle();
                     } else {
                         document.getElementById('slider-instructions').innerHTML = "";
@@ -354,7 +379,7 @@ var ver;
                 }
 
                 // TAKE A BREAK: Every n question, show the bank and take a break
-                if (questionID % 5 == 0 && questionID != 0 && nextClick != 0) {
+                if (questionID % 10 == 0 && questionID != 0 && nextClick != 0) {
 
                     console.log("BREAK QUESTION!");
                     console.log("slider value: " + slider_value);
@@ -388,11 +413,11 @@ var ver;
 
                     // Tell them to take a break
                     document.getElementById('message').innerHTML="Please take a 1 minute break! " +
-                        "The Continue button will show after 1 minute at the bottom of the screen.<br><br>In the last " +
+                        "The \"Continue\" button will show after 1 minute at the bottom of the screen.<br><br>In the last " +
                         "round, your balance changed by: " + self.sumArr(roundScore).toFixed(2) + "$" +
                         "<br><br>Your current total balance is $" + currentBalance.toFixed(2);
                     $('#nextBtn').hide()
-                    $('#nextBtn').delay(6000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 60 sec)
+                    $('#nextBtn').delay(60000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 60 sec)
 
                     // Reset the iterator
                     nextClick = 0;
@@ -454,7 +479,7 @@ var ver;
                 }
                 roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
                 roundAnswer.push(testBank[questionID]);
-                
+
                 console.log(slider_value);
                 console.log(sliderBank);
 
@@ -786,7 +811,7 @@ var ver;
 //////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
-    $.getJSON('questions_example.json', function(json) {
+    $.getJSON('questions_subjective_UPDATED.json', function(json) {
         survey.setup_survey(json);
     });
 });
