@@ -200,7 +200,7 @@ var ver;
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
                             "may believe it is more likely that Donald Trump was over 40 when he became president, so choosing " +
                             "the \"Yes\" answer is more appropriate.<br><br>Since you have some evidence to support the \“Yes\” " +
-                            "answer, it may be acceptable to move the slider all the way to the top of the curve.<br><br>The right " +
+                            "answer, it may be acceptable to move the slider all the way to the bottom of the curve.<br><br>The right " +
                             "place for the slider is somewhere in between where your belief about the likelihood of winning " +
                             "versus losing justifies the length of red and green bars at that point. The more you believe your " +
                             "answer is correct, the more you want to move towards the bottom.<br>";
@@ -229,8 +229,8 @@ var ver;
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you may " +
                             "believe it is more likely that a 5-10 adult is a male than female, so choosing the \"Yes\" answer is more " +
                             "appropriate.<br><br>Since you have some evidence to support the \“Yes\” answer, it is not acceptable to " +
-                            "move the slider all the way to the top of the curve. But you are not completely sure that \“Yes\” " +
-                            "is the correct answer, so it is not appropriate to move the slider all the way to the bottom of the " +
+                            "move the slider all the way to the bottom of the curve. But you are not completely sure that \“Yes\” " +
+                            "is the correct answer, so it is not appropriate to move the slider all the way to the top of the " +
                             "curve either.<br><br>The right place for the slider is somewhere in between where your belief about " +
                             "the likelihood of winning versus losing justifies the length of red and green bars at that point. " +
                             "The more you believe your answer is correct, the more you want to move towards the bottom.<br>" ;
@@ -779,8 +779,8 @@ var ver;
             },
             axis: {
                 y: {
-                    max: 1,
-                    min: -1,
+                    max: 0.25,
+                    min: -0.75,
                     label: "Bank Changes ($)"
                     // Range includes padding, set 0 if no padding needed
                     // padding: {top:0, bottom:0}
@@ -1105,7 +1105,8 @@ function parabolicSlider() {
         // else
         //     realY=1;
         div
-            .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
+            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
+            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
             // .text("realtime x: "+((coordinates[0]/360)+0.5)+ ",y: " + coordinates[1]*3/440)
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
@@ -1121,10 +1122,11 @@ function parabolicSlider() {
             coords = d3.mouse(this);
             var div = d3.select("body").select("#final")
             var realY=0;
-            div.text("fianl x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
+            // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
+            // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
+            // div.text("fianl x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
 
     });
-
 
     parabolicSlider = function(){} // Only allows function to be called once
 
