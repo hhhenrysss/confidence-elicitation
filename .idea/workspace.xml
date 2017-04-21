@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9c6ee5c-6158-420f-b260-41e09e7ad2eb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/survey.js" afterPath="$PROJECT_DIR$/js/survey.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -24,8 +24,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="70" column="22" lean-forward="false" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
+            <state relative-caret-position="307">
+              <caret line="52" column="12" lean-forward="true" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -34,8 +34,18 @@
       <file leaf-file-name="survey.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/survey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="1096" column="26" lean-forward="true" selection-start-line="1096" selection-start-column="26" selection-end-line="1096" selection-end-column="26" />
+            <state relative-caret-position="647">
+              <caret line="1123" column="79" lean-forward="false" selection-start-line="1123" selection-start-column="79" selection-end-line="1123" selection-end-column="79" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="questions_example.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/questions_example.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -45,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/answer/answer_subjective_UPDATED.csv">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+              <caret line="0" column="32" lean-forward="false" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -63,21 +73,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>600</find>
-      <find>answer_subj</find>
-      <find>As you</find>
-      <find>update</find>
-      <find>UPDATE</find>
-      <find>time</find>
-      <find>endTime</find>
-      <find>startTime</find>
-      <find>test</find>
-      <find>Read</find>
-      <find>getBrier</find>
-      <find>answer_</find>
-      <find>getBrie</find>
-      <find>getTestBank</find>
-      <find>testBank</find>
       <find>.json</find>
       <find>6000</find>
       <find>As you move</find>
@@ -93,6 +88,21 @@
       <find>sliderBank</find>
       <find>coords</find>
       <find>coord</find>
+      <find>question</find>
+      <find>subjective</find>
+      <find>width</find>
+      <find>answerBank</find>
+      <find>getBrier</find>
+      <find>answerbank</find>
+      <find>answers</find>
+      <find>TestBank</find>
+      <find>roundAnswer</find>
+      <find>testBank</find>
+      <find>getQuestionAnswer</find>
+      <find>questionElement</find>
+      <find>question-container</find>
+      <find>generateQuestionElement</find>
+      <find>generateBankElement</find>
     </findStrings>
     <replaceStrings>
       <replace>body</replace>
@@ -132,10 +142,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="200" />
-    <option name="y" value="112" />
+    <option name="x" value="112" />
+    <option name="y" value="64" />
     <option name="width" value="1199" />
-    <option name="height" value="817" />
+    <option name="height" value="815" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -372,15 +382,15 @@
       <workItem from="1492657274945" duration="30000" />
       <workItem from="1492657323228" duration="4958000" />
       <workItem from="1492704002169" duration="10036000" />
-      <workItem from="1492719311903" duration="3115000" />
+      <workItem from="1492719311903" duration="7988000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154836000" />
+    <option name="totallyTimeSpent" value="159709000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="200" y="112" width="1199" height="817" extended-state="0" />
+    <frame x="112" y="64" width="1199" height="815" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21351126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -695,32 +705,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/questions_example.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="128" column="5" lean-forward="false" selection-start-line="128" selection-start-column="5" selection-end-line="128" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/stylesheet.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-680">
           <caret line="180" column="17" lean-forward="true" selection-start-line="180" selection-start-column="17" selection-end-line="180" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/answer/answer_subjective_example.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/answer/answer_subjective_UPDATED.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -732,18 +720,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/answer/answer_subjective_UPDATED.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="32" lean-forward="false" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/questions_example.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/answer/answer_subjective_example.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="70" column="22" lean-forward="false" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
+        <state relative-caret-position="307">
+          <caret line="52" column="12" lean-forward="true" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/survey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="1096" column="26" lean-forward="true" selection-start-line="1096" selection-start-column="26" selection-end-line="1096" selection-end-column="26" />
+        <state relative-caret-position="647">
+          <caret line="1123" column="79" lean-forward="false" selection-start-line="1123" selection-start-column="79" selection-end-line="1123" selection-end-column="79" />
           <folding />
         </state>
       </provider>

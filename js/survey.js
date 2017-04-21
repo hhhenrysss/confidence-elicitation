@@ -350,8 +350,8 @@ var ver;
                                 sliderBank.push(1);
                             }
                             else {
-                                slider_value.push(((coords[0]-50)/260+0.5));
-                                sliderBank.push(((coords[0]-50)/260+0.5));
+                                slider_value.push(((coordinates[0]-50)/260+0.5));
+                                sliderBank.push(((coordinates[0]-50)/260+0.5));
                                 // slider_value.push(coords[1] / 1000 + 0.5);
                                 // sliderBank.push(coords[1] / 1000 + 0.5);
                             }
@@ -1117,7 +1117,7 @@ function parabolicSlider() {
 
     d3.select("svg")
         .on("click", function() {
-            // console.log("I am here")
+            console.log("I am here")
             coords = d3.mouse(this);
             var div = d3.select("body").select("#final")
             var realY=0;
