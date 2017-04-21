@@ -6,6 +6,7 @@ survey = { questions: undefined,
 // Survey Class
 ////////////////////////////////////////////////////////////////////////////////////
 
+// To-Do: Hide handle for parabolic slider until click, fix output file
 
 //global variable
 //
@@ -147,7 +148,8 @@ var ver;
                     if (questionCounter == 2) {
                         document.getElementById("slider-label").style.display = "inline"
                         document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> What is the probability that " +
-                            "you think your answer is correct?<br><br>";
+                            "you think your answer to Part 1 is correct? (Click anywhere on the bar so that the slider appears, then by moving " +
+                            "the slider, specify your answer to Part 2)<br><br>";
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
                             "may believe it is more likely that Donald Trump was over 40 when he became president, so choosing " +
                             "the \"Yes\" answer is more appropriate.<br><br>Since you have more tendency toward the \"Yes\", " +
@@ -156,7 +158,8 @@ var ver;
                     } else if (questionCounter == 3) {
                         document.getElementById("slider-label").style.display = "inline"
                         document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> What is the probability that " +
-                            "you think your answer is correct?<br><br>";
+                            "you think your answer to Part 1 is correct? (Click anywhere on the bar so that the slider appears, then by moving " +
+                            "the slider, specify your answer to Part 2)<br><br>";
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, " +
                             "you may believe it is less likely that Bill Gates was one of the founders of Apple, so choosing " +
                             "the \“No\" answer is more appropriate.<br><br>Since you have more tendency toward the \“No\", " +
@@ -165,7 +168,8 @@ var ver;
                     } else if (questionCounter == 4) {
                         document.getElementById("slider-label").style.display = "inline"
                         document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> What is the probability that " +
-                            "you think your answer is correct?<br><br>";
+                            "you think your answer to Part 1 is correct? (Click anywhere on the bar so that the slider appears, then by moving " +
+                            "the slider, specify your answer to Part 2)<br><br>";
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, " +
                             "you may believe it is more likely that a 5-10 adult is a male than female, so choosing the \"Yes\"" +
                             " answer is more appropriate.<br><br>Since you have more tendency toward the \"Yes\", you don't " +
@@ -1028,6 +1032,8 @@ function parabolicSlider() {
         div
         // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
         // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
+            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
+            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
     }
