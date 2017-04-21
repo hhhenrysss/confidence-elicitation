@@ -24,7 +24,7 @@
     "options": []
   },
   {
-    "text": "Part 1)<br>Example 1: Was Donald J. Trump is over 40 years old when he became the U.S. president?",
+    "text": "Part 1)<br>Example 1: Was Donald J. Trump over 40 years old when he became the U.S. president?",
     "id": 0,
     "break_after": true,
     "required": true,
@@ -46,6 +46,14 @@
     "required": true,
     "type": "single-select",
     "options": ["Yes", "No"]
+  },
+  {
+    "text": "",
+    "id": 0,
+    "break_after": true,
+    "required": false,
+    "type": "single-select",
+    "options": []
   },
   {
     "text": "Is our moon larger than Jupiter's moon Europa?",
