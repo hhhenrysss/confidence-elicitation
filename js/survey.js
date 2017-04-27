@@ -22,17 +22,14 @@ var margin = {
         bottom: 30,
         left: 50
     },
-width = 200 - margin.left - margin.right,
-height = 440 - margin.top - margin.bottom;
+    width = 200 - margin.left - margin.right,
+    height = 440 - margin.top - margin.bottom;
 var svg;
 var container;
 var drag;
 var handle_circle;
 var hor;
 var ver;
-
-var clicked = false;
-
 
 (function (survey, $) {
 
@@ -279,47 +276,35 @@ var clicked = false;
                             x: 0,
                             y: 0
                         }];
-                        clicked=false;
 
 
                         // detect slider drag function of the slider
-                        var drag = d3.behavior.drag()
-                            .origin(function(d) { return d; })
-                            .on("drag", dragged)
                         function dragged(d) {
-
-                            coords = d3.mouse(this);
-                            var cx = Math.min(Math.max(coords[0], 0), 140);
-                            var cy = Math.min(Math.max(0.023  * cx * cx, 0), 440);
-                            d3.select('g.dot circle')
-                                .attr("cx", Math.min(cx, 130))
-                                .attr("cy", Math.min(cy, 390));
-                            hor.attr("width",Math.min(cx,width));
-                            ver.attr("height", Math.min(cy,height));
-
-
-                            var div = d3.select("body").select("#final")
-                            div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5))
-                            // div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
-                                .style("left", (d3.event.pageX - 100) + "px")
-                                .style("top", (d3.event.pageY - 12) + "px");
-                            // clicked=true;
-
+                            var realx=Math.max(Math.min(width,d3.event.x),0);
+                            d3.select(this)
+                                .attr("cx", d.x = realx)
+                                .attr("cy", d.y = (0.023  * realx * realx));
+                            //console.log('realx: '+realx);
+                            //console.log('dY: '+d.y);
+                            hor.attr("width", d.x) ;
+                            ver.attr("height",Math.min(d.y,height)) ;
                         }
-
-
-                        handle_circle= container.append("g")
-                            .attr("id","handle_circle")
+                        drag = d3.behavior.drag()
+                            .on("drag", dragged)
+                        handle_circle = container.append("g")
+                            .attr("id", "handle_circle")
                             .attr("class", "dot")
-                            .attr("style", "display:none")
                             .selectAll('circle')
                             .data(handle1)
                             .enter().append("circle")
-                            .attr("r", 3)
-                            .attr("cx", function(d) { return d.x;})
-                            .attr("cy", function(d) { return d.y;})
+                            .attr("r", 5)
+                            .attr("cx", function (d) {
+                                return d.x;
+                            })
+                            .attr("cy", function (d) {
+                                return d.y;
+                            })
                             .call(drag);
-
 
 
                         //store the slider value, handle the extreme case
@@ -797,55 +782,30 @@ $( function() {
         }
     });
 } );
-
-////////////////////////////////////////////////////////////////////////////////////
-// Parabolic slider
-////////////////////////////////////////////////////////////////////////////////////
-
-
 function resetHandle() {
     d3.select("#handle_circle").remove()
     handle1 = [{x: 0, y: 0}];
     hor.attr("width", 0);
     ver.attr("height", 0);
-
-
-    var drag = d3.behavior.drag()
-        .origin(function(d) { return d; })
-        .on("drag", dragged)
-    function dragged(d) {
-
-        coords = d3.mouse(this);
-        var cx = Math.min(Math.max(coords[0], 0), 140);
-        var cy = Math.min(Math.max(0.023  * cx * cx, 0), 440);
-        d3.select('g.dot circle')
-            .attr("cx", Math.min(cx, 130))
-            .attr("cy", Math.min(cy, 390));
-
-
-        hor.attr("width",Math.min(cx,width));
-        ver.attr("height", Math.min(cy,height));
-
-        var div = d3.select("body").select("#final")
-        div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
-            .style("left", (d3.event.pageX - 100) + "px")
-            .style("top", (d3.event.pageY - 12) + "px");
-    }
-
-    handle_circle= container.append("g")
+    handle_circle = container.append("g")
         .attr("id", "handle_circle")
         .attr("class", "dot")
-        .attr("style", "display:none")
         .selectAll('circle')
         .data(handle1)
         .enter().append("circle")
-        .attr("r", 3)
-        .attr("cx", function(d) { return d.x;})
-        .attr("cy", function(d) { return d.y;})
+        .attr("r", 5)
+        .attr("cx", function (d) {
+            return d.x;
+        })
+        .attr("cy", function (d) {
+            return d.y;
+        })
         .call(drag);
-        clicked=false;
 }
 
+////////////////////////////////////////////////////////////////////////////////////
+// Parabolic slider
+////////////////////////////////////////////////////////////////////////////////////
 function parabolicSlider() {
 
     // populate data
@@ -998,76 +958,42 @@ function parabolicSlider() {
     // handle
     //
     //
-
-    // function dragged(d) {
-    //     var realx=Math.max(Math.min(width,d3.event.x),0);
-    //     var realy=Math.max(Math.min(height,d3.event.y),0);
-    //
-    //     d3.select(this)
-    //         .attr("cx", d.x = realx)
-    //         .attr("cy", d.y = (0.023  * realx * realx));
-    //     // console.log('realx: '+realx);
-    //     // console.log('dY: '+d.y);
-    //     svg.select("rect[id='horizontal']")
-    //         .attr("width", d.x) ;
-    //     //.attr("width", d3.event.x) ;
-    //     svg.select("rect[id='vertical']")
-    //         .attr("height",Math.min(d.y,height)) ;
-    //     //.attr("height",Math.min(d3.event.y - 10,height)) ;
-    // }
-    // drag = d3.behavior.drag()
-    //     .origin(function (d) {
-    //         return d;
-    //     })
-    //     .on("drag", dragged)
-    // handle_circle = container.append("g")
-    //     .attr("id","handle_circle")
-    //     .attr("class", "dot")
-    //     .selectAll('circle')
-    //     .data(handle1)
-    //     .enter().append("circle")
-    //     .attr("r", 5)
-    //     .attr("cx", function (d) {
-    //         return d.x;
-    //     })
-    //     .attr("cy", function (d) {
-    //         return d.y;
-    //     })
-    //     .call(drag);
-
-    var drag = d3.behavior.drag()
-        .origin(function(d) { return d; })
-        .on("drag", dragged)
     function dragged(d) {
+        var realx=Math.max(Math.min(width,d3.event.x),0);
+        var realy=Math.max(Math.min(height,d3.event.y),0);
 
-        var coordinates = d3.mouse(this);
-        var cx = Math.min(Math.max(coordinates[0], 0), 140);
-        var cy = Math.min(Math.max(0.023  * cx * cx, 0), 440);
-        d3.select('g.dot circle')
-            .attr("cx", Math.min(cx, 130))
-            .attr("cy", Math.min(cy, 390));
+        d3.select(this)
+            .attr("cx", d.x = realx)
+            .attr("cy", d.y = (0.023  * realx * realx));
+        // console.log('realx: '+realx);
+        // console.log('dY: '+d.y);
         svg.select("rect[id='horizontal']")
-            .attr("width", Math.min(cx,width));
+            .attr("width", d.x) ;
+        //.attr("width", d3.event.x) ;
         svg.select("rect[id='vertical']")
-            .attr("height",Math.min(cy,height));
-
-        var div = d3.select("body").select("#final")
-        div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
-            .style("left", (d3.event.pageX - 100) + "px")
-            .style("top", (d3.event.pageY - 12) + "px");
-        clicked = false;
+            .attr("height",Math.min(d.y,height)) ;
+        //.attr("height",Math.min(d3.event.y - 10,height)) ;
     }
-    handle_circle= container.append("g")
+    drag = d3.behavior.drag()
+        .origin(function (d) {
+            return d;
+        })
+        .on("drag", dragged)
+    handle_circle = container.append("g")
         .attr("id","handle_circle")
         .attr("class", "dot")
-        .attr("style", "display:none")
         .selectAll('circle')
         .data(handle1)
         .enter().append("circle")
-        .attr("r", 3)
-        .attr("cx", function(d) { return d.x;})
-        .attr("cy", function(d) { return d.y;})
+        .attr("r", 5)
+        .attr("cx", function (d) {
+            return d.x;
+        })
+        .attr("cy", function (d) {
+            return d.y;
+        })
         .call(drag);
+
 
     //color bar
     //
@@ -1104,8 +1030,10 @@ function parabolicSlider() {
         var coordinates = d3.mouse(this);
         var div = d3.select("body").select("#realTime")
         div
-            .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",x: " + coordinates[1]*3/440)
-            .text("realtime y: "+(-3*((coordinates[0]-50)/260+0.5)*((coordinates[0]-50)/260+0.5))+ ",y: " + coordinates[1]*3/440)
+        // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
+        // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
+            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
+            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
             .style("left", (d3.event.pageX - 100) + "px")
             .style("top", (d3.event.pageY - 12) + "px");
     }
@@ -1115,44 +1043,15 @@ function parabolicSlider() {
     //mouse click
     //
     //
-
-    // d3.select("svg")
-    //     .on("click", function() {
-    //         console.log("I am here")
-    //         coords = d3.mouse(this);
-    //         var div = d3.select("body").select("#final")
-    //         // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
-    //         // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
-    //     });
-
-    function click_on_canvas() {
-        coords = d3.mouse(this);
-        var cx = Math.min(Math.max(coords[0] - 50, 0), 140);
-        var cy = Math.min(Math.max(0.023  * cx * cx, 0), 440);
-        container.select("g.dot").attr("style", "display:block")
-
-        if(!clicked){
-                d3.select('g.dot circle')
-                    .attr("cx", Math.min(cx, 130))
-                    .attr("cy", Math.min(cy, 390));
-                svg.select("rect[id='horizontal']")
-                    .attr("width", Math.min(cx, width));
-                svg.select("rect[id='vertical']")
-                    .attr("height", Math.min(cy, height));
-                clicked=true;
-            }
-
-
-            var div = d3.select("body").select("#final");
-            div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*(coords[0]/260+0.5))
-            // div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
-            .style("left", (d3.event.pageX - 100) + "px")
-            .style("top", (d3.event.pageY - 12) + "px");
-    }
     d3.select("svg")
-        .on("click", click_on_canvas)
+        .on("click", function() {
+            console.log("I am here")
+            coords = d3.mouse(this);
+            var div = d3.select("body").select("#final")
+            // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
+            // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
+        });
 
-
-    parabolicSlider = function(){}; // Only allows function to be called once
+    parabolicSlider = function(){} // Only allows function to be called once
 
 };
