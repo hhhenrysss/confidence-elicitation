@@ -6,7 +6,8 @@ survey = { questions: undefined,
 // Survey Class
 ////////////////////////////////////////////////////////////////////////////////////
 
-// To-Do: Hide handle for parabolic slider until click, fix output file
+// To-Do: IT IS REALLY IMPORTANT THAT THE EXPERIMENTER ENTERS THE SUBJECTID AND GROUP
+// BEFORE CLICKING CONTINUE. ELSE, YOU WILL RUN INTO AN ERROR!
 
 //global variable
 //
@@ -22,14 +23,17 @@ var margin = {
         bottom: 30,
         left: 50
     },
-    width = 200 - margin.left - margin.right,
-    height = 440 - margin.top - margin.bottom;
+width = 200 - margin.left - margin.right,
+height = 440 - margin.top - margin.bottom;
 var svg;
 var container;
 var drag;
 var handle_circle;
 var hor;
 var ver;
+
+var clicked = false;
+
 
 (function (survey, $) {
 
@@ -38,16 +42,17 @@ var ver;
 
         // Initialize needed computations
         var slider_value = []; // Use between rounds
-        var sliderBank = [0, 0, 0, 0, 0, 0,]; // Use to output
+        var sliderBank = [0,0,0,0,0,0,0]; // Use to output
         var currentBalance = 12; // Starting bank balance
         var moneyBank = ['Earnings from Previous Round'];
         var questionCounter = 0; // Keeps track of what question we are currently
         var nextClick = 0; // Count number of time the button next is clicked; used to determine the breaks
-        var answerBank = [];//transfer standard answer to output file
+        var answerBank = [];// Store responses for each question; used to get userID and group
+        var outputAnswer = [0,0,0,0,0,]; // Use to get the output file with the user answers
         var roundUserAnswer = [];//stores users' answers
         var roundAnswer = [];//stores standard answers
         var startTime = new Date();
-        var timeBank = [0,0,0,0,0,0];
+        var timeBank = [0,0,0,0,0,0,0];
 
         // Read in the appropriate test bank
         testBank = getTestBank("answer_subjective_UPDATED");
@@ -75,6 +80,7 @@ var ver;
             //console.log("QuestioAnswer:" + self.getQuestionAnswer(self.questions[1]))
             //console.log("currentBalance:" + currentBalance);
             //console.log("AnswerBank" + answerBank);
+            //console.log('output answer:' + outputAnswer);
             //console.log("moneyBank:" + moneyBank);
 
             // Make question required and display message
@@ -82,6 +88,10 @@ var ver;
                 if (self.questions[i]['required'] === true && !self.getQuestionAnswer(questions[i])) {
                     $('.question-container > div.question:nth-child(' + (i+1) + ') > .required-message').show();
                     ok = false;
+
+                    if (questionID == 0) {
+                        location.reload();
+                    }
                 }
             }
 
@@ -90,7 +100,6 @@ var ver;
                 return
 
             if (questionID == 0 && questionCounter == 1) {
-
                 // Instruction given will depend on the group
                 if (group == "Group 1: Linear Slider, No Feedback") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
@@ -137,7 +146,7 @@ var ver;
 
                 group = answerBank[1];
                 if (group == "Group 1: Linear Slider, No Feedback" || group == "Group 2: Linear Slider, Feedback") {
-                    $("#slider").show(); // Show the regular slider
+                    $("#slider").css('display','block'); // Show the regular slider
                     $('.ui-slider-handle').hide(); // Hide handle
                     d3.select("svg").remove(); // Destroy the parabolic slider
 
@@ -146,6 +155,9 @@ var ver;
                     document.getElementById('instructions').innerHTML = "";
 
                     if (questionCounter == 2) {
+                        outputAnswer.push(subjectID);
+                        outputAnswer.push(group);
+
                         document.getElementById("slider-label").style.display = "inline"
                         document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> What is the probability that " +
                             "you think your answer to Part 1 is correct? (Click anywhere on the bar so that the slider appears, then by moving " +
@@ -178,14 +190,15 @@ var ver;
                             "is still some chance that this adult may be female, it is not appropriate to move the slider all " +
                             "the way to 100%, therefore, a slider position somewhere between 50% and 100% is more appropriate.<br>";
                     } else if (questionCounter == 5) {
-                        $("#slider").hide();
+                        $("#slider").css('display','none');
                         document.getElementById('slider-instructions').innerHTML = "";
                         document.getElementById('slider-label').innerHTML = "";
                         document.getElementById('instructions').innerHTML = "<font size=\"4\">This completes the instructions " +
                             "for your task. If you have any questions, please feel free to share them with the experimenter before " +
                             "proceeding.<br><br>If you have no questions, then please click on the \"Continue\" button to begin performing " +
                             "the experimental task, for which you you will gain or lose money in your bank based on the accuracy of " +
-                            "answering the questions and in adjusting the slider knob.”<br></font>";
+                            "answering the questions and in adjusting the slider knob.<br></font>";
+                        answerBank.splice(2); // Delete everything except the first two
                     } else {
                         document.getElementById('slider-instructions').innerHTML = ""
                         document.getElementById('slider-label').innerHTML = "What is the probability that " +
@@ -194,9 +207,10 @@ var ver;
 
                 }
                 else if (group == "Group 3: Parabolic Slider, No Feedback" || group == "Group 4: Parabolic Slider, Feedback"){
+
                     $("#slider").remove(); // Destroy the regular slider
                     parabolicSlider(); // Start the parabolic slider
-                    d3.selectAll("svg").attr("visibility", "show"); // Make sure it is visible after the breaks
+                    d3.selectAll("svg").attr("display", "block"); // Make sure it is visible after the breaks
 
                     // Get rid of the instructions
                     document.getElementById("slider-label").style.display = "inline"
@@ -204,6 +218,9 @@ var ver;
                     document.getElementById('instructions').innerHTML = "";
 
                     if (questionCounter == 2) {
+                        outputAnswer.push(subjectID);
+                        outputAnswer.push(group);
+
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
                             "may believe it is more likely that Donald Trump was over 40 when he became president, so choosing " +
                             "the \"Yes\" answer is more appropriate.<br><br>Since you have some evidence to support the \“Yes\” " +
@@ -212,11 +229,12 @@ var ver;
                             "versus losing justifies the length of red and green bars at that point. The more you believe your " +
                             "answer is correct, the more you want to move towards the bottom.<br>";
                         document.getElementById("slider-label").style.display = "inline"
-                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> As you move the slider on the curve, the green bar always shows how many " +
-                            "points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is " +
-                            "incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what " +
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> Click anywhere on the curve " +
+                            "so that the slider appears, then by moving the slider, specify your answer to Part 2. As you move the " +
+                            "slider on the curve, the green bar always shows how many points you will earn if your answer is correct. " +
+                            "The red bar shows how many points you will lose if your answer is incorrect. Move the slider on the " +
+                            "curve to a point where the relative sizes of the green and red bar represents what " +
                             "you are truly willing to gain or lose in case your answer is correct or incorrect.<br>";
-
                         resetHandle();
                     } else if (questionCounter == 3) {
                         document.getElementById('slider-instructions').innerHTML = "Based on your knowledge and experience, you " +
@@ -227,9 +245,11 @@ var ver;
                             "justifies the length of red and green bars at that point. The more you believe your answer is correct, " +
                             "the more you want to move towards the bottom.<br><br>" ;
                         document.getElementById("slider-label").style.display = "inline"
-                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> As you move the slider on the curve, the green bar always shows how many " +
-                            "points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is " +
-                            "incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what " +
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> Click anywhere on the curve " +
+                            "so that the slider appears, then by moving the slider, specify your answer to Part 2. As you move the " +
+                            "slider on the curve, the green bar always shows how many points you will earn if your answer is correct. " +
+                            "The red bar shows how many points you will lose if your answer is incorrect. Move the slider on the " +
+                            "curve to a point where the relative sizes of the green and red bar represents what " +
                             "you are truly willing to gain or lose in case your answer is correct or incorrect.<br>";
                         resetHandle();
                     } else if (questionCounter == 4) {
@@ -242,17 +262,27 @@ var ver;
                             "the likelihood of winning versus losing justifies the length of red and green bars at that point. " +
                             "The more you believe your answer is correct, the more you want to move towards the bottom.<br>" ;
                         document.getElementById("slider-label").style.display = "inline"
-                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> As you move the slider on the curve, the green bar always shows how many " +
-                            "points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is " +
-                            "incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what " +
+                        document.getElementById('slider-label').innerHTML = "<b><h2>Part 2)</h2></b> Click anywhere on the curve " +
+                            "so that the slider appears, then by moving the slider, specify your answer to Part 2. As you move the " +
+                            "slider on the curve, the green bar always shows how many points you will earn if your answer is correct. " +
+                            "The red bar shows how many points you will lose if your answer is incorrect. Move the slider on the " +
+                            "curve to a point where the relative sizes of the green and red bar represents what " +
                             "you are truly willing to gain or lose in case your answer is correct or incorrect.<br>";
-
                         resetHandle();
-                    } else {
+                    } else if (questionCounter == 5) {
                         document.getElementById('slider-instructions').innerHTML = "";
+                        document.getElementById('slider-label').innerHTML = "";
+                        document.getElementById('instructions').innerHTML = "<font size=\"4\">This completes the instructions " +
+                            "for your task. If you have any questions, please feel free to share them with the experimenter before " +
+                            "proceeding.<br><br>If you have no questions, then please click on the \"Continue\" button to begin performing " +
+                            "the experimental task, for which you you will gain or lose money in your bank based on the accuracy of " +
+                            "answering the questions and in adjusting the slider knob.<br></font>";
+                        d3.selectAll("svg").attr("display", "none");
+                    } else {
+                        document.getElementById('slider-instructions').innerHTML = ""
+                        document.getElementById('slider-label').innerHTML = "";
                         resetHandle();
                     }
-
                 }
             }
 
@@ -276,35 +306,47 @@ var ver;
                             x: 0,
                             y: 0
                         }];
+                        clicked=false;
 
 
                         // detect slider drag function of the slider
-                        function dragged(d) {
-                            var realx=Math.max(Math.min(width,d3.event.x),0);
-                            d3.select(this)
-                                .attr("cx", d.x = realx)
-                                .attr("cy", d.y = (0.023  * realx * realx));
-                            //console.log('realx: '+realx);
-                            //console.log('dY: '+d.y);
-                            hor.attr("width", d.x) ;
-                            ver.attr("height",Math.min(d.y,height)) ;
-                        }
-                        drag = d3.behavior.drag()
+                        var drag = d3.behavior.drag()
+                            .origin(function(d) { return d; })
                             .on("drag", dragged)
-                        handle_circle = container.append("g")
-                            .attr("id", "handle_circle")
+                        function dragged(d) {
+
+                            coords = d3.mouse(this);
+                            var cx = Math.min(Math.max(coords[0], 0), 140);
+                            var cy = Math.min(Math.max(0.023  * cx * cx, 0), 440);
+                            d3.select('g.dot circle')
+                                .attr("cx", Math.min(cx, 130))
+                                .attr("cy", Math.min(cy, 390));
+                            hor.attr("width",Math.min(cx,width));
+                            ver.attr("height", Math.min(cy,height));
+
+
+                            var div = d3.select("body").select("#final")
+                            //div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5))
+                            // div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
+                                .style("left", (d3.event.pageX - 100) + "px")
+                                .style("top", (d3.event.pageY - 12) + "px");
+                            // clicked=true;
+
+                        }
+
+
+                        handle_circle= container.append("g")
+                            .attr("id","handle_circle")
                             .attr("class", "dot")
+                            .attr("style", "display:none")
                             .selectAll('circle')
                             .data(handle1)
                             .enter().append("circle")
-                            .attr("r", 5)
-                            .attr("cx", function (d) {
-                                return d.x;
-                            })
-                            .attr("cy", function (d) {
-                                return d.y;
-                            })
+                            .attr("r", 3)
+                            .attr("cx", function(d) { return d.x;})
+                            .attr("cy", function(d) { return d.y;})
                             .call(drag);
+
 
 
                         //store the slider value, handle the extreme case
@@ -343,7 +385,7 @@ var ver;
 
                 // TAKE A BREAK: Every n question, show the bank and take a break
                 if (questionID % 10 == 0 && questionID != 0 && nextClick != 0) {
-
+                    outputAnswer = outputAnswer.concat(roundUserAnswer);
                     console.log("BREAK QUESTION!");
                     console.log("slider value: " + slider_value);
                     console.log("User answer in round:" + roundUserAnswer);
@@ -360,18 +402,17 @@ var ver;
 
                     // Hide the question and sliders
                     self.hideAllQuestions();
-                    $("#slider").hide();
-                    d3.selectAll("svg").attr("visibility", "hidden");
+                    $("#slider").css('display','none');
+                    d3.selectAll("svg").attr("display", "none");
                     document.getElementById("slider-label").style.display = "none";
 
                     // Plot the current moneyBank if they are in the right group
                     self.getBank(moneyBank);
                     if (group == "Group 2: Linear Slider, Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
-                        $("#chart").show();
+                        $("#chart").css('display','block');;
                     } else {
-                        $("#chart").hide();
+                        $("#chart").css('display','none');;
                     }
-
                     //add the balance
                     currentBalance +=  Number(self.sumArr(roundScore).toFixed(2));
 
@@ -443,9 +484,11 @@ var ver;
                 }
                 roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
                 roundAnswer.push(testBank[questionID]);
+                outputAnswer = outputAnswer.concat(roundUserAnswer);
 
                 console.log(slider_value);
                 console.log(sliderBank);
+                console.log(outputAnswer);
 
                 roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer)
 
@@ -457,35 +500,35 @@ var ver;
 
                 // Hide the question and sliders
                 self.hideAllQuestions();
-                $("#slider").hide();
-                d3.selectAll("svg").attr("visibility", "hidden");
+                $("#slider").css('display','none');
+                d3.selectAll("svg").attr("display", "none");
                 document.getElementById("slider-label").style.display = "none"
                 document.getElementById('message').innerHTML="Thank you for your participation in this study! Your answers have been saved." +
                     "<br><br>In the last round, your balance changed by: $" +
                     self.sumArr(roundScore).toFixed(2) + "<br><br>The total money you've earned is $" +
-                    currentBalance;
+                    currentBalance.toFixed(2);
 
                 // Plot the current moneyBank
                 self.getBank(moneyBank);
                 if (group == "Group 2: Linear Slider, Feedback" || group == "Group 4: Parabolic Slider, Feedback") {
-                    $("#chart").show();
+                    $("#chart").css('display','block');;
                 } else {
-                    $("#chart").hide();
+                    $("#chart").css('display','none');;
                 }
 
                 nextClick += 1;
                 // Get all of the answers and money earned to save
-                var answers = {moneyEarned: currentBalance};
+                var answers = {moneyEarned: currentBalance.toFixed(2)};
                 for (i = 0; i < self.questions.length; i++) {
-                    answers[self.questions[i].id] = [testBank[i-5], answerBank[i+1], sliderBank[i], timeBank[i]];
+                    answers[self.questions[i].id] = [testBank[i-6], outputAnswer[i], sliderBank[i], timeBank[i]];
                 }
 
                 // Write answer to file (Note: Only works for Chrome | Not Safari)
                 self.saveAnswers(JSON.stringify(answers), String(subjectID) + '.json');
                 self.hideAllQuestions();
-                $("#chart").show();
-                $("#slider").hide();
-                d3.selectAll("svg").attr("visibility", "hidden");
+                $("#chart").css('display','block');
+                $("#slider").css('display','none');
+                d3.selectAll("svg").attr("display", "none");
                 $('#nextBtn').hide();
                 document.getElementById("slider-label").style.display = "none";
                 //$('.completed-message').text("Thank you for participating in this study! Your answers have been saved.\n You've earned: $" + currentBalance.toFixed(2) + "!");
@@ -559,7 +602,7 @@ var ver;
         }
         else if ( question.type === 'text-field-small' ) {
             // No slider for these types of questions
-            $("#slider").hide();
+            $("#slider").css('display','none');
             document.getElementById("slider-label").style.display = 'none';
             questionElement.addClass('text-field-small');
             questionAnswerElement.append('<input type="text" value="" class="text" name="' + question.id + '">');
@@ -782,30 +825,55 @@ $( function() {
         }
     });
 } );
+
+////////////////////////////////////////////////////////////////////////////////////
+// Parabolic slider
+////////////////////////////////////////////////////////////////////////////////////
+
+
 function resetHandle() {
     d3.select("#handle_circle").remove()
     handle1 = [{x: 0, y: 0}];
     hor.attr("width", 0);
     ver.attr("height", 0);
-    handle_circle = container.append("g")
+
+
+    var drag = d3.behavior.drag()
+        .origin(function(d) { return d; })
+        .on("drag", dragged)
+    function dragged(d) {
+
+        coords = d3.mouse(this);
+        var cx = Math.min(Math.max(coords[0], 0), 140);
+        var cy = Math.min(Math.max(0.023  * cx * cx, 0), 440);
+        d3.select('g.dot circle')
+            .attr("cx", Math.min(cx, 130))
+            .attr("cy", Math.min(cy, 390));
+
+
+        hor.attr("width",Math.min(cx,width));
+        ver.attr("height", Math.min(cy,height));
+
+        var div = d3.select("body").select("#final")
+        //div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
+            .style("left", (d3.event.pageX - 100) + "px")
+            .style("top", (d3.event.pageY - 12) + "px");
+    }
+
+    handle_circle= container.append("g")
         .attr("id", "handle_circle")
         .attr("class", "dot")
+        .attr("style", "display:none")
         .selectAll('circle')
         .data(handle1)
         .enter().append("circle")
-        .attr("r", 5)
-        .attr("cx", function (d) {
-            return d.x;
-        })
-        .attr("cy", function (d) {
-            return d.y;
-        })
+        .attr("r", 3)
+        .attr("cx", function(d) { return d.x;})
+        .attr("cy", function(d) { return d.y;})
         .call(drag);
+        clicked=false;
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-// Parabolic slider
-////////////////////////////////////////////////////////////////////////////////////
 function parabolicSlider() {
 
     // populate data
@@ -958,42 +1026,76 @@ function parabolicSlider() {
     // handle
     //
     //
-    function dragged(d) {
-        var realx=Math.max(Math.min(width,d3.event.x),0);
-        var realy=Math.max(Math.min(height,d3.event.y),0);
 
-        d3.select(this)
-            .attr("cx", d.x = realx)
-            .attr("cy", d.y = (0.023  * realx * realx));
-        // console.log('realx: '+realx);
-        // console.log('dY: '+d.y);
-        svg.select("rect[id='horizontal']")
-            .attr("width", d.x) ;
-        //.attr("width", d3.event.x) ;
-        svg.select("rect[id='vertical']")
-            .attr("height",Math.min(d.y,height)) ;
-        //.attr("height",Math.min(d3.event.y - 10,height)) ;
-    }
-    drag = d3.behavior.drag()
-        .origin(function (d) {
-            return d;
-        })
+    // function dragged(d) {
+    //     var realx=Math.max(Math.min(width,d3.event.x),0);
+    //     var realy=Math.max(Math.min(height,d3.event.y),0);
+    //
+    //     d3.select(this)
+    //         .attr("cx", d.x = realx)
+    //         .attr("cy", d.y = (0.023  * realx * realx));
+    //     // console.log('realx: '+realx);
+    //     // console.log('dY: '+d.y);
+    //     svg.select("rect[id='horizontal']")
+    //         .attr("width", d.x) ;
+    //     //.attr("width", d3.event.x) ;
+    //     svg.select("rect[id='vertical']")
+    //         .attr("height",Math.min(d.y,height)) ;
+    //     //.attr("height",Math.min(d3.event.y - 10,height)) ;
+    // }
+    // drag = d3.behavior.drag()
+    //     .origin(function (d) {
+    //         return d;
+    //     })
+    //     .on("drag", dragged)
+    // handle_circle = container.append("g")
+    //     .attr("id","handle_circle")
+    //     .attr("class", "dot")
+    //     .selectAll('circle')
+    //     .data(handle1)
+    //     .enter().append("circle")
+    //     .attr("r", 5)
+    //     .attr("cx", function (d) {
+    //         return d.x;
+    //     })
+    //     .attr("cy", function (d) {
+    //         return d.y;
+    //     })
+    //     .call(drag);
+
+    var drag = d3.behavior.drag()
+        .origin(function(d) { return d; })
         .on("drag", dragged)
-    handle_circle = container.append("g")
+    function dragged(d) {
+
+        var coordinates = d3.mouse(this);
+        var cx = Math.min(Math.max(coordinates[0], 0), 140);
+        var cy = Math.min(Math.max(0.023  * cx * cx, 0), 440);
+        d3.select('g.dot circle')
+            .attr("cx", Math.min(cx, 130))
+            .attr("cy", Math.min(cy, 390));
+        svg.select("rect[id='horizontal']")
+            .attr("width", Math.min(cx,width));
+        svg.select("rect[id='vertical']")
+            .attr("height",Math.min(cy,height));
+
+        // var div = d3.select("body").select("#final")
+        //div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
+        //     .style("left", (d3.event.pageX - 100) + "px")
+        //     .style("top", (d3.event.pageY - 12) + "px");
+        clicked = false;
+    }
+    handle_circle= container.append("g")
         .attr("id","handle_circle")
         .attr("class", "dot")
+        .attr("style", "display:none")
         .selectAll('circle')
         .data(handle1)
         .enter().append("circle")
-        .attr("r", 5)
-        .attr("cx", function (d) {
-            return d.x;
-        })
-        .attr("cy", function (d) {
-            return d.y;
-        })
+        .attr("r", 3)
+        .attr("cx", function(d) { return d.x;})
+        .attr("cy", function(d) { return d.y;})
         .call(drag);
-
 
     //color bar
     //
@@ -1028,14 +1130,12 @@ function parabolicSlider() {
     //
     function findTheMouse() {
         var coordinates = d3.mouse(this);
-        var div = d3.select("body").select("#realTime")
-        div
-        // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
-        // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
-            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
-            // .text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",y: " + coordinates[1]*3/440)
-            .style("left", (d3.event.pageX - 100) + "px")
-            .style("top", (d3.event.pageY - 12) + "px");
+        // var div = d3.select("body").select("#realTime")
+        // div
+            //.text("realtime x: "+((coordinates[0]-50)/260+0.5)+ ",x: " + coordinates[1]*3/440)
+            //.text("realtime y: "+(-3*((coordinates[0]-50)/260+0.5)*((coordinates[0]-50)/260+0.5))+ ",y: " + coordinates[1]*3/440)
+            // .style("left", (d3.event.pageX - 100) + "px")
+            // .style("top", (d3.event.pageY - 12) + "px");
     }
     d3.select("svg")
         .on("mousemove", findTheMouse);
@@ -1043,15 +1143,44 @@ function parabolicSlider() {
     //mouse click
     //
     //
-    d3.select("svg")
-        .on("click", function() {
-            console.log("I am here")
-            coords = d3.mouse(this);
-            var div = d3.select("body").select("#final")
-            // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
-            // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
-        });
 
-    parabolicSlider = function(){} // Only allows function to be called once
+    // d3.select("svg")
+    //     .on("click", function() {
+    //         console.log("I am here")
+    //         coords = d3.mouse(this);
+    //         var div = d3.select("body").select("#final")
+    //         // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
+    //         // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*((coords[0]-50)/260+0.5));
+    //     });
+
+    function click_on_canvas() {
+        coords = d3.mouse(this);
+        var cx = Math.min(Math.max(coords[0] - 50, 0), 140);
+        var cy = Math.min(Math.max(0.023  * cx * cx, 0), 440);
+        container.select("g.dot").attr("style", "display:block")
+
+        if(!clicked){
+                d3.select('g.dot circle')
+                    .attr("cx", Math.min(cx, 130))
+                    .attr("cy", Math.min(cy, 390));
+                svg.select("rect[id='horizontal']")
+                    .attr("width", Math.min(cx, width));
+                svg.select("rect[id='vertical']")
+                    .attr("height", Math.min(cy, height));
+                clicked=true;
+            }
+
+
+            // var div = d3.select("body").select("#final");
+            // div.text("final x: "+((coords[0]-50)/260+0.5) + ", final y: " + -3*((coords[0]-50)/260+0.5)*(coords[0]/260+0.5))
+            // div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
+            // .style("left", (d3.event.pageX - 100) + "px");
+            // .style("top", (d3.event.pageY - 12) + "px");
+    }
+    d3.select("svg")
+        .on("click", click_on_canvas)
+
+
+    parabolicSlider = function(){}; // Only allows function to be called once
 
 };

@@ -1,6 +1,6 @@
 [
     {
-        "text": "EXPERIMENTER: Please enter the subject number:",
+        "text": "EXPERIMENTER: If you do not enter an ID and click Continue, the software will reset.<br><br>Please enter the subject ID.",
         "id": 0,
         "break_after": true,
         "required": true,
@@ -8,7 +8,7 @@
         "options": ["Yes", "No"]
     },
     {
-        "text": "EXPERIMENTER: What is the subject's group number?",
+        "text": "EXPERIMENTER: If you do not select a group and click Continue, the software will reset.<br><br>What is the subject's group? ",
         "id": 0,
         "break_after": true,
         "required": true,
@@ -24,7 +24,7 @@
         "options": []
     },
     {
-        "text": "Example: Was Donald J. Trump is over 40 years old when he became the U.S. president?",
+        "text": "Part 1)<br>Example 1: Was Donald J. Trump over 40 years old when he became the U.S. president?",
         "id": 0,
         "break_after": true,
         "required": true,
@@ -32,7 +32,7 @@
         "options": ["Yes", "No"]
     },
     {
-        "text": "Example: Is it true that Bill Gates was one of the founders of Apple?",
+        "text": "Part 1)<br>Example 2: Is it true that Bill Gates was one of the founders of Apple?",
         "id": 0,
         "break_after": true,
         "required": true,
@@ -40,12 +40,20 @@
         "options": ["Yes", "No"]
     },
     {
-        "text": "Example: If a randomly chosen U.S. adult male is more than 5 feet 10 inches tall, is that adult a male?",
+        "text": "Part 1)<br>Example 3: If a randomly chosen U.S. adult male is more than 5 feet 10 inches tall, is that adult a male?",
         "id": 0,
         "break_after": true,
         "required": true,
         "type": "single-select",
         "options": ["Yes", "No"]
+    },
+    {
+        "text": "",
+        "id": 0,
+        "break_after": true,
+        "required": false,
+        "type": "single-select",
+        "options": []
     },
     {
         "text": "Is our moon larger than Jupiter's moon Europa?",

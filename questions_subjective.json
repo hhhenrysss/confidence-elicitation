@@ -1,6 +1,6 @@
 [
   {
-    "text": "EXPERIMENTER: Please enter the subject number:",
+    "text": "EXPERIMENTER: If you do not enter an ID and click Continue, the software will reset.<br><br>Please enter the subject ID.",
     "id": 0,
     "break_after":"TRUE",
     "required":"TRUE",
@@ -8,7 +8,7 @@
     "options": ["Yes", "No"]
   },
   {
-    "text": "EXPERIMENTER: What is the subject's group number?",
+    "text": "EXPERIMENTER: If you do not select a group and click Continue, the software will reset.<br><br>What is the subject's group? ",
     "id": 0,
     "break_after":"TRUE",
     "required":"TRUE",
