@@ -1,6 +1,6 @@
 text,id,break_after,required,type,options
 EXPERIMENTER: Please enter the subject number:,0,true,true,text-field-small,"[""Yes"", ""No""]"
-EXPERIMENTER: What is the subject's group number?,0,true,true,single-select,"[""Group 1: SL, NB"", ""Group 2: SL, B"",""Group 3: PS, NB"",""Group 4: PS, B""]"
+EXPERIMENTER: What is the subject's group number?,0,true,true,single-select,"[""Group 1: SL, NB"", ""Group 2: SL, B""]"
 Do you understand and agree with the instructions?,0,true,true,single-select,"[""I understand and agree with the instructions above.""]"
 Is our moon larger than Jupiter's moon Europa?,1,true,true,single-select,"[""Yes"", ""No""]"
 Does Canada have a greater land area than the U.S.?,2,true,true,single-select,"[""Yes"", ""No""]"

@@ -19,6 +19,15 @@
     <script src="js/jquery.csv.js"></script>
     <script src="js/jquery-ui.min.js"></script>
 
+    <script>
+        function playSound() {
+            var sound = document.getElementById("audio");
+            sound.play();
+        }
+    </script>
+    <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+
+
     <style>
         #custom-handle {
             width: 2em;
@@ -60,7 +69,7 @@
 
         <label id="slider-instructions"></label>
 
-        <a id="nextBtn" href="#" class="button">Continue »</a>
+        <a id="nextBtn" href="#" class="button" onclick="playSound();">Continue »</a>
 
 
     </div>

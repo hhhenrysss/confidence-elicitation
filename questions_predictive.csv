@@ -1,6 +1,6 @@
 text,id,break_after,required,type,options
 EXPERIMENTER: Please enter the subject number:,0,TRUE,TRUE,text-field-small,"[""Yes"", ""No""]"
-EXPERIMENTER: What is the subject's group number?,0,TRUE,TRUE,single-select,"[""Group 1: SL, NB"", ""Group 2: SL, B"",""Group 3: PS, NB"",""Group 4: PS, B""]"
+EXPERIMENTER: What is the subject's group number?,0,TRUE,TRUE,single-select,"[""Group 1: SL, NB"", ""Group 2: SL, B""]"
 Do you understand and agree with the instructions?,0,TRUE,TRUE,single-select,"[""I understand and agree with the instructions above.""]"
 Will the University of Illinois Men's Basketball team make it into the Sweet 16  the NCAA tournament in 2017?,1,TRUE,TRUE,single-select,"[""Yes"", ""No""]"
 Will the University of Kansas Men's Basketball team make it into the NCAA tournament in 2017?,2,TRUE,TRUE,single-select,"[""Yes"", ""No""]"

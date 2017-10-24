@@ -13,7 +13,7 @@
     "break_after": true,
     "required": true,
     "type": "single-select",
-    "options": ["Group 1: Linear Slider, No Feedback", "Group 2: Linear Slider, Feedback","Group 3: Parabolic Slider, No Feedback","Group 4: Parabolic Slider, Feedback"]
+    "options": ["Group 1: Linear Slider", "Group 2: Parabolic Slider"]
   },
   {
     "text": "",

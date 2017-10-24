@@ -101,16 +101,29 @@ var clicked = false;
 
             if (questionID == 0 && questionCounter == 1) {
                 // Instruction given will depend on the group
-                if (group == "Group 1: Linear Slider, No Feedback") {
+                if (group == "Group 1: Linear Slider") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
-                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "receive $12 for your participation in this experiment. This is yours to keep regardless of how " +
                         "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
                         "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
                         "answering each question, your reward or penalty from that question will increase or decrease " +
-                        "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
-                        "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
-                        "balance, but the bank balance will never go below zero.<br></font>";
+                        "your bank balance.<br><br>At the end of every 10 questions, you will receive a summary report of " +
+                        "your earned reward/penalty in the most recent 10 questions as well as your overall bank balance " +
+                        "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
+                        "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
+                        "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
                 } else if (group == "Group 2: Linear Slider, Feedback") {
+                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
+                        "receive $12 for your participation in this experiment. This is yours to keep regardless of how " +
+                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
+                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
+                        "answering each question, your reward or penalty from that question will increase or decrease " +
+                        "your bank balance.<br><br>At the end of every 10 questions, you will receive a summary report of " +
+                        "your earned reward/penalty in the most recent 10 questions as well as your overall bank balance " +
+                        "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
+                        "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
+                        "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
+                } else if (group == "Group 2: Parabolic Slider") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
                         "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
                         "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
@@ -121,15 +134,6 @@ var clicked = false;
                         "up to that point of the experiment.<br><br>Your answers will determine your final bank balance. " +
                         "Correct answers will increase your bank balance from the initial $12, and incorrect answers " +
                         "will lower your bank balance, but the bank balance will never go below zero.<br></font>";
-                } else if (group == "Group 3: Parabolic Slider, No Feedback") {
-                    document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
-                        "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
-                        "you perform in the experiment.<br><br>You will also have a virtual bank which you will receive " +
-                        "its cash value at the end of the experiment. The bank's initial balance is $12.<br><br>By " +
-                        "answering each question, your reward or penalty from that question will increase or decrease " +
-                        "your bank balance.<br><br>Your answers will determine your final bank balance. Correct answers " +
-                        "will increase your bank balance from the initial $12, and incorrect answers will lower your bank " +
-                        "balance, but the bank balance will never go below zero.<br></font>";
                 } else if (group == "Group 4: Parabolic Slider, Feedback") {
                     document.getElementById('instructions').innerHTML = "<font size=\"4\"><b>INSTRUCTIONS</b> You will " +
                         "receive $10 for your participation in this experiment. This is yours to keep regardless of how " +
@@ -145,7 +149,7 @@ var clicked = false;
             } else if (questionCounter > 1) {
 
                 group = answerBank[1];
-                if (group == "Group 1: Linear Slider, No Feedback" || group == "Group 2: Linear Slider, Feedback") {
+                if (group == "Group 1: Linear Slider" || group == "Group 2: Linear Slider, Feedback") {
                     $("#slider").css('display','block'); // Show the regular slider
                     $('.ui-slider-handle').hide(); // Hide handle
                     d3.select("svg").remove(); // Destroy the parabolic slider
@@ -206,7 +210,7 @@ var clicked = false;
                     }
 
                 }
-                else if (group == "Group 3: Parabolic Slider, No Feedback" || group == "Group 4: Parabolic Slider, Feedback"){
+                else if (group == "Group 2: Parabolic Slider" || group == "Group 4: Parabolic Slider, Feedback"){
 
                     $("#slider").remove(); // Destroy the regular slider
                     parabolicSlider(); // Start the parabolic slider
