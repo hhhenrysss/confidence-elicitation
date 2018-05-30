@@ -99,12 +99,25 @@ br {
 .title {
   margin: 0 0 .5rem;
   text-align: left;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   color: rgb(80,80,80);
   font-weight: 400;
   font-size: 2.460rem;
   font-style: normal;
 }
+
+.instruction_title {
+    font-size: x-large;
+    font-weight: bold;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    display: block;
+}
+
+.instruction_text {
+    font-size: large;
+}
+
 
 .footer {
   padding-left: 3rem;
@@ -123,7 +136,7 @@ br {
 }
 
 .required-asterisk, .required-message {
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   color: rgb(196,59,29);
   font-weight: 400;
   font-size: 1.000rem;
