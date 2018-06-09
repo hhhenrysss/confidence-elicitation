@@ -6,13 +6,19 @@ var survey = (function () {
     var main_page_flag = false;
     var select_group_flag = false;
 
-    var tutorial_page_counter = 0;
-    var tutorial_page_max = 3;
+    var tutorial_page_counter = -1;
+    var tutorial_page_max = 100; // just a place holder; this value will change dynamically
     var tutorial_instructions = [];
 
-    var question_page_counter = 0;
-    var question_max = 40;
+    var question_page_counter = -1;
+    var question_page_max = 100; // just a place holder; this value will change dynamically
     var question_instructions = [];
+
+    function start(questions) {
+        question_instructions = questions;
+        question_page_max = question_instructions.length;
+        main_page();
+    }
 
     function dispatcher () {
 
@@ -53,6 +59,10 @@ var survey = (function () {
                     return;
                 }
 
+                // load tutorial here
+                tutorial_instructions = (group === 1) ? instructions.page_tutorial.load_tutorial('linear') : instructions.page_tutorial.load_tutorial('parabolic');
+                tutorial_page_max = tutorial_instructions.length;
+
                 select_group_flag = true;
                 utils.remove_all($text);
 
@@ -61,73 +71,106 @@ var survey = (function () {
             }
 
             // Handling the third page and all tutorial questions
-            else if (tutorial_page_counter !== tutorial_page_max+1) {
+            else if (tutorial_page_counter !== tutorial_page_max) {
                 switch (tutorial_page_counter) {
-                    case 0:
+                    case -1:
+                        // tutorial is loaded at select_group stage
                         utils.remove_all($text, $graph);
-                        tutorial_instructions = (group === 1) ? instructions.page_tutorial.load_tutorial('linear') : instructions.page_tutorial.load_tutorial('parabolic');
-                        tutorial_questions(tutorial_instructions[tutorial_page_counter], tutorial_page_counter);
                         tutorial_page_counter += 1;
+                        tutorial_questions(tutorial_instructions[tutorial_page_counter], tutorial_page_counter);
                         break;
                     default:
                         // this is the case where the template is populated with each question
                         // retrieve previous answers first
-                        var selection = $('input[name=OPTION]:checked').val();
                         if (group === 2) {
-                            // meaning that the group is linear
-                            var coordinates = create_slider.get_circle_coordinates();
-                            if (!(utils.check_validity(coordinates[0]) && utils.check_validity(coordinates[1]) && utils.check_validity(selection))) {
-                                utils.reload_page('You did not enter your answer. The page will be reloaded.');
+                            // meaning that the group is parabolic
+                            var temp = utils.retrieve_parabolic_values(
+                                tutorial_page_counter,
+                                'tutorial',
+                                tutorial_instructions[tutorial_page_counter]['question'],
+                                tutorial_page_counter // actual_index entry does not make sense for tutorial questions, so use counter as substitution
+                            );
+                            if (temp === undefined) {
                                 return;
                             }
-                            answers.push({
-                                'x': coordinates[0],
-                                'y': coordinates[1],
-                                'selection': selection,
-                                'type': 'tutorial',
-                                'number': tutorial_page_counter
-                            });
+                            answers.push(temp);
                         }
                         else {
-                            var position = create_slider.get_linear_value();
-                            if (!(utils.check_validity(position) && utils.check_validity(selection))) {
-                                utils.reload_page('You did not enter your answer. The page will be reloaded.');
+                            temp = utils.retrieve_linear_values(
+                                tutorial_page_counter,
+                                'tutorial',
+                                tutorial_instructions[tutorial_page_counter]['question'],
+                                tutorial_page_counter
+                            );
+                            if (temp === undefined) {
                                 return;
                             }
-                            answers.push({
-                                'position': position,
-                                'selection': selection,
-                                'type': 'tutorial',
-                                'number': tutorial_page_counter
-                            });
+                            answers.push(temp);
                         }
                         console.log(answers[answers.length-1]);
                         utils.remove_all($text, $graph);
 
                         // This is the case where next page, tutorial ends, should be rendered
+                        tutorial_page_counter += 1;
+
                         if (tutorial_page_counter === tutorial_page_max) {
                             tutorial_ends();
                         }
                         else {
                             tutorial_questions(tutorial_instructions[tutorial_page_counter], tutorial_page_counter);
                         }
-                        tutorial_page_counter += 1;
+
                 }
             }
 
             // Handling the tutorial ends page and the subsequent questions page
-            else if (question_page_counter !== question_max) {
+            else if (question_page_counter !== question_page_max) {
                 switch (question_page_counter) {
-                    case 0:
+                    case -1:
                         // clear all
                         utils.remove_all($text, $graph);
                         // transition to next page
-                        questions(question_page_counter);
                         question_page_counter += 1;
+                        questions(question_instructions[question_page_counter], question_page_counter);
                         break;
-
                     default:
+                        if (group === 2) {
+                            // meaning that the group is parabolic
+                            temp = utils.retrieve_parabolic_values(
+                                question_page_counter,
+                                question_instructions[question_page_counter]['category'],
+                                question_instructions[question_page_counter]['question'],
+                                question_instructions[question_page_counter]['index']
+                            );
+                            if (temp === undefined) {
+                                return;
+                            }
+                            answers.push(temp);
+                        }
+                        else {
+                            temp = utils.retrieve_linear_values(
+                                question_page_counter,
+                                question_instructions[question_page_counter]['category'],
+                                question_instructions[question_page_counter]['question'],
+                                question_instructions[question_page_counter]['index']
+                            );
+                            if (temp === undefined) {
+                                return;
+                            }
+                            answers.push(temp);
+                        }
+                        console.log(answers[answers.length-1]);
+                        utils.remove_all($text, $graph);
 
+                        question_page_counter += 1;
+                        // This is the case where next page, tutorial ends, should be rendered
+                        if (question_page_counter === question_page_max) {
+                            alert('here');
+                            question_ends();
+                        }
+                        else {
+                            questions(question_instructions[question_page_counter], question_page_counter);
+                        }
                 }
             }
         });
@@ -135,8 +178,7 @@ var survey = (function () {
 
     // FIRST PAGE -->
 
-     function main_page (questions) {
-        question_instructions = questions;
+     function main_page () {
 
         var $text = $('.text');
         var $prompt = $('<h3>', {'class': 'question_header'});
@@ -230,7 +272,7 @@ var survey = (function () {
 
         $text.append($notice).append($prompt);
 
-        var $last = $('h3');
+        var $last = $('.question_header');
         var options = instructions.question_selection();
         // create options here
         for (var key in options) {
@@ -282,12 +324,28 @@ var survey = (function () {
     }
 
     // SERVES AS A TEMPLATE FOR ALL FORMAL QUESTIONS
-    function questions(counter) {
+    function questions(obj, counter) {
         var $text = $('.text');
-        var $prompt = $('<h3>', {'class': 'question_header'}).html('Question '+(counter+1));
-        var $content = $('<p>', {'class': 'question_text'}).html(question_instructions[counter]['question']);
+        var $prompt = $('<h2>', {'class': 'notice'}).html('Question '+(counter+1));
+        var $content = $('<h3>', {'class': 'question_header'}).html(obj['question']);
 
         $text.append($prompt).append($content);
+
+        var $last = $('.question_header');
+        var options = instructions.question_selection();
+        // create options here
+        for (var key in options) {
+            if (options.hasOwnProperty(key)) {
+                var $select = $('<input>', {
+                    'type': 'radio',
+                    'id': 'selection'+key,
+                    'name': 'OPTION',
+                    'value': key
+                });
+                $last.after($('<label>', {'class': 'input_text', 'for': 'selection'+key}).append($select).append(options[key]));
+                $last = $('.text label:last-child');
+            }
+        }
 
         if (group === 1) {
             create_slider.linearSlider();
@@ -297,9 +355,14 @@ var survey = (function () {
         }
     }
 
+    function question_ends() {
+        var $text = $('.text');
+        var $prompt = $('<h3>', {'class': 'question_header'}).html('')
+    }
+
 
     // PUBLIC API
     return {
-        'main_page': main_page
+        'start': start
     };
 })();

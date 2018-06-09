@@ -25,6 +25,8 @@ body {
 
 .question_header {
     font-size: x-large;
+    padding-bottom: 15px;
+    padding-top: 15px;
 }
 
 .question_text {
@@ -60,6 +62,8 @@ input[type="radio"] {
     display: inline-block;
     border-radius: 5px;
     transition: 0.5s;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 #nextBtn:hover {
@@ -97,17 +101,24 @@ svg text, #originData {
 }
 
 #slider {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 #slider .ui-slider-handle {
     font-size: 10px;
-    padding: 4px 4px 4px 4px;
-    background-color: #5DADE2;
-    border-color: #2b2b2b;
+    width: 2em;
+    height: 2em;
+    top: 50%;
+    margin-top: -1em;
+    background-color: #3498DB;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 2em;
+    /*border-color: ##3498DB;*/
+    /*border-radius: 2px;*/
 }
 
 #slider .ui-slider-range {
-    background-color: #F7DC6F;
+    background-color: #D6EAF8;
 }

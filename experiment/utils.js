@@ -121,12 +121,46 @@ var utils = (function () {
         return !(temp === undefined || temp === '');
     }
 
-    function retrieve_linear_values () {
+    function retrieve_linear_values (counter, type, question, actual_index) {
 
+        var selection = $('input[name=OPTION]:checked').val();
+        var position = create_slider.get_linear_value();
+        if (!(utils.check_validity(position) && utils.check_validity(selection))) {
+            alert('You did not enter your answer!');
+            return undefined;
+        }
+        return {
+            'question': question,
+            'position': position,
+            'selection': selection,
+            'type': type,
+            'number': counter,
+            'original_index': actual_index
+        };
+    }
+
+    function retrieve_parabolic_values (counter, type, question, actual_index) {
+        var selection = $('input[name=OPTION]:checked').val();
+        var coordinates = create_slider.get_circle_coordinates();
+        if (!(utils.check_validity(coordinates[0]) && utils.check_validity(coordinates[1]) && utils.check_validity(selection))) {
+            alert('You did not enter your answer!');
+            return undefined;
+        }
+        return {
+            'question': question,
+            'x': coordinates[0],
+            'y': coordinates[1],
+            'selection': selection,
+            'type': type,
+            'number': counter,
+            'original_index': actual_index
+        };
     }
 
     // PUBLIC API
     return {
+        'retrieve_linear_values': retrieve_linear_values,
+        'retrieve_parabolic_values': retrieve_parabolic_values,
         'play_sound': play_sound,
         'load_questions': load_questions,
         'reload_page': reload_page,
@@ -383,10 +417,13 @@ var create_slider = (function () {
             var cx = Math.min(Math.max(coords[0] - 50, 0), 140);
             var cy = Math.min(Math.max(0.023 * cx * cx, 0), 440);
             container.select("g.dot").attr("style", "display:block");
+
+            circle_x = Math.min(cx, 130);
+            circle_y = Math.min(cy, 390);
             if (!clicked) {
                 d3.select('g.dot circle')
-                    .attr("cx", Math.min(cx, 130))
-                    .attr("cy", Math.min(cy, 390));
+                    .attr("cx", circle_x)
+                    .attr("cy", circle_y);
                 svg.select("rect[id='horizontal']")
                     .attr("width", Math.min(cx, width));
                 svg.select("rect[id='vertical']")
