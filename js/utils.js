@@ -1,18 +1,13 @@
+function timer(time, callback) {
+    /*
+    This function generates a timer and when time's up disappears
+     */
+    $('#message').append('<div class="temporary_loading_container"><div class="loading"></div></div>');
 
-
-// Function to read the answer csv into an array
-//
-//
-function getTestBank(filename) {
-    $.ajax({
-        url: "answer/" + filename + ".csv",
-        async: false,
-        success: function (csvd) {
-            data = $.csv.toArrays(csvd);
-        },
-        dataType: "text",
-        complete: function () {
-        }
-    });
-    return data[0];
+    setTimeout(function () {
+        $('.temporary_loading_container').remove();
+        callback();
+    }, time)
 }
+
+

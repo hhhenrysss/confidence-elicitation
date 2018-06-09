@@ -40,13 +40,14 @@ var clicked = false;
 (function (survey, $) {
 
     survey.setup_survey = function (questions) {
+        /*
+            questions: a json object, an array of dictionaries
+         */
         var self = this;
 
         // Initialize needed computations
         var slider_value = []; // Use between rounds
         var sliderBank = [0, 0, 0, 0, 0, 0, 0]; // Use to output
-        var currentBalance = 12; // Starting bank balance
-        var moneyBank = ['Earnings from Previous Round'];
         var questionCounter = 0; // Keeps track of what question we are currently
         var nextClick = 0; // Count number of time the button next is clicked; used to determine the breaks
         var answerBank = [];// Store responses for each question; used to get userID and group
@@ -55,16 +56,20 @@ var clicked = false;
         var roundAnswer = [];//stores standard answers
         var startTime = new Date();
 
-        // Read in the appropriate test bank
-        testBank = getTestBank("answer_subjective_UPDATED");
+        // Read in the appropriate test bank -> these are answers to the question
+        var testBank = getTestBank("answer_subjective_UPDATED");
 
-        this.questions = questions;
+        this.questions = questions.slice(0, 11);
 
         this.questions.forEach(function (question) {//create DOM structure for each question
             self.generateQuestionElement(question);
         });
 
-        $('#nextBtn').click(function () {
+        var _tutorial_starts_flag = false;
+
+        var _next_button = $('#nextBtn');
+
+        _next_button.click(function () {
             var subjectID = self.getQuestionAnswer(self.questions[0]);
             var questionID = self.questions[questionCounter]['id'];
             var group = self.getQuestionAnswer(self.questions[1]);
@@ -78,7 +83,7 @@ var clicked = false;
                     $('.question-container > div.question:nth-child(' + (i + 1) + ') > .required-message').show();
                     ok = false;
 
-                    if (questionID == 0) {
+                    if (questionID === 0) {
                         location.reload();
                     }
                 }
@@ -89,17 +94,23 @@ var clicked = false;
             if (!ok)
                 return;
 
-            if (questionID == 0 && questionCounter == 1) {
+            var _slider = $("#slider");
+
+            if (questionID === 0 && questionCounter === 1) {
                 // Instruction given will depend on the group
-                if (group == "Group 1: Linear Slider") {
+                if (group === "Group 1: Linear Slider") {
                     document.getElementById('instructions').innerHTML = group1_linear_instruction;
-                } else if (group == "Group 2: Parabolic Slider") {
+                } else if (group === "Group 2: Parabolic Slider") {
                     document.getElementById('instructions').innerHTML = group2_parabolic_instruction;
                 }
-            } else if (questionCounter > 1) {
+            }
+
+            /* tutorial_welcome starts here! */
+            else if (questionCounter > 1) {
                 group = answerBank[1];
-                if (group == "Group 1: Linear Slider") {
-                    $("#slider").css('display', 'block'); // Show the regular slider
+
+                if (group === "Group 1: Linear Slider") {
+                    _slider.css('display', 'block'); // Show the regular slider
                     $('.ui-slider-handle').hide(); // Hide handle
                     d3.select("svg").remove(); // Destroy the parabolic slider
 
@@ -107,34 +118,44 @@ var clicked = false;
                     document.getElementById("slider-label").style.display = "inline";
                     document.getElementById('instructions').innerHTML = "";
 
-                    if (questionCounter == 2) {
-                        outputAnswer.push(subjectID);
-                        outputAnswer.push(group);
-                        document.getElementById("slider-label").style.display = "inline";
-                        document.getElementById('slider-label').innerHTML = linear_slider_prompts;
-                        document.getElementById('slider-instructions').innerHTML = linear_first_instruction_answer;
-                    } else if (questionCounter == 3) {
-                        document.getElementById("slider-label").style.display = "inline";
-                        document.getElementById('slider-label').innerHTML = linear_slider_prompts;
-                        document.getElementById('slider-instructions').innerHTML = linear_second_instruction_answer;
-                    } else if (questionCounter == 4) {
-                        document.getElementById("slider-label").style.display = "inline";
-                        document.getElementById('slider-label').innerHTML = linear_slider_prompts;
-                        document.getElementById('slider-instructions').innerHTML = linear_third_instruction_answer;
-                    } else if (questionCounter == 5) {
-                        $("#slider").css('display', 'none');
-                        document.getElementById('slider-instructions').innerHTML = "";
-                        document.getElementById('slider-label').innerHTML = "";
-                        document.getElementById('instructions').innerHTML = instruction_is_finished;
-                        answerBank.splice(2); // Delete everything except the first two
-                    } else {
-                        document.getElementById('slider-instructions').innerHTML = "";
-                        document.getElementById('slider-label').innerHTML = "What is the probability that " +
-                            "you think your answer is correct?<br><br>";
+                    switch (questionCounter) {
+                        case 2:
+                            outputAnswer.push(subjectID);
+                            outputAnswer.push(group);
+                            document.getElementById("slider-label").style.display = "inline";
+                            document.getElementById('slider-label').innerHTML = linear_slider_prompts;
+                            document.getElementById('slider-instructions').innerHTML = linear_first_instruction_answer;
+                            break;
+
+                        case 3:
+                            document.getElementById("slider-label").style.display = "inline";
+                            document.getElementById('slider-label').innerHTML = linear_slider_prompts;
+                            document.getElementById('slider-instructions').innerHTML = linear_second_instruction_answer;
+                            break;
+
+                        case 4:
+                            document.getElementById("slider-label").style.display = "inline";
+                            document.getElementById('slider-label').innerHTML = linear_slider_prompts;
+                            document.getElementById('slider-instructions').innerHTML = linear_third_instruction_answer;
+                            break;
+
+                        case 5:
+                            _slider.css('display', 'none');
+                            document.getElementById('slider-instructions').innerHTML = "";
+                            document.getElementById('slider-label').innerHTML = "";
+                            document.getElementById('instructions').innerHTML = instruction_is_finished;
+                            answerBank.splice(2); // Delete everything except the first two
+                            break;
+
+                        default:
+                            document.getElementById('slider-instructions').innerHTML = "";
+                            document.getElementById('slider-label').innerHTML = "What is the probability that " +
+                                "you think your answer is correct?<br><br>";
+                            break;
                     }
                 }
-                else if (group == "Group 2: Parabolic Slider") {
-                    $("#slider").remove(); // Destroy the regular slider
+                else if (group === "Group 2: Parabolic Slider") {
+                    _slider.remove(); // Destroy the regular slider
                     parabolicSlider(); // Start the parabolic slider
                     d3.selectAll("svg").attr("display", "block"); // Make sure it is visible after the breaks
 
@@ -143,58 +164,76 @@ var clicked = false;
                     document.getElementById('slider-label').innerHTML = "";
                     document.getElementById('instructions').innerHTML = "";
 
-                    if (questionCounter == 2) {
-                        outputAnswer.push(subjectID);
-                        outputAnswer.push(group);
-                        document.getElementById('slider-instructions').innerHTML = parabolic_first_question_answer;
+                    if (_tutorial_starts_flag === false) {
+                        alert('!!!')
+                        document.getElementById('instructions').innerHTML = tutorial_starts;
                         document.getElementById("slider-label").style.display = "inline";
-                        document.getElementById('slider-label').innerHTML = parablic_slider_prompts;
-                        resetHandle();
-                    } else if (questionCounter == 3) {
-                        document.getElementById('slider-instructions').innerHTML = parabolic_second_question_answer;
-                        document.getElementById("slider-label").style.display = "inline";
-                        document.getElementById('slider-label').innerHTML = parablic_slider_prompts;
-                        resetHandle();
-                    } else if (questionCounter == 4) {
-                        document.getElementById('slider-instructions').innerHTML = parabolic_third_question_answer;
-                        document.getElementById("slider-label").style.display = "inline";
-                        document.getElementById('slider-label').innerHTML = parablic_slider_prompts;
-                        resetHandle();
-                    } else if (questionCounter == 5) {
-                        document.getElementById('slider-instructions').innerHTML = "";
                         document.getElementById('slider-label').innerHTML = "";
-                        document.getElementById('instructions').innerHTML = instruction_is_finished;
-                        d3.selectAll("svg").attr("display", "none");
-                    } else {
-                        document.getElementById('slider-instructions').innerHTML = "";
-                        document.getElementById('slider-label').innerHTML = "";
-                        resetHandle();
+                        _tutorial_starts_flag = true;
+                    }
+                    else {
+                        switch (questionCounter) {
+                            case 2:
+                                console.log('here!');
+                                outputAnswer.push(subjectID);
+                                outputAnswer.push(group);
+                                document.getElementById('slider-instructions').innerHTML = parabolic_first_question_answer;
+                                document.getElementById("slider-label").style.display = "inline";
+                                document.getElementById('slider-label').innerHTML = parablic_slider_prompts;
+                                resetHandle();
+                                break;
+
+                            case 3:
+                                document.getElementById('slider-instructions').innerHTML = parabolic_second_question_answer;
+                                document.getElementById("slider-label").style.display = "inline";
+                                document.getElementById('slider-label').innerHTML = parablic_slider_prompts;
+                                resetHandle();
+                                break;
+
+                            case 4:
+                                document.getElementById('slider-instructions').innerHTML = parabolic_third_question_answer;
+                                document.getElementById("slider-label").style.display = "inline";
+                                document.getElementById('slider-label').innerHTML = parablic_slider_prompts;
+                                resetHandle();
+                                break;
+
+                            case 5:
+                                document.getElementById('slider-instructions').innerHTML = "";
+                                document.getElementById('slider-label').innerHTML = "";
+                                document.getElementById('instructions').innerHTML = instruction_is_finished;
+                                d3.selectAll("svg").attr("display", "none");
+                                break;
+
+                            default:
+                                document.getElementById('slider-instructions').innerHTML = "";
+                                document.getElementById('slider-label').innerHTML = "";
+                                resetHandle();
+                                break
+                        }
                     }
                 }
             }
+            /* tutorial_welcome ends here! */
 
             // #####################
             // If button is clicked and answer is selected
-            if ($('#nextBtn').text().indexOf('Continue') === 0) {
+            if (_next_button.text().indexOf('Continue') === 0) {
 
                 var endTime = new Date();
                 var elapsed = endTime - startTime;
                 startTime = new Date();
 
-                if (questionID > 0 && nextClick != 0) {
+                if (questionID > 0 && nextClick !== 0) {
 
-                    slider_value.push($('#slider').slider('value') / 100);
-                    sliderBank.push($('#slider').slider('value') / 100);
-
-                    console.log("SliderValue: " + slider_value);
-                    console.log("SliderBank: " + sliderBank);
+                    slider_value.push(_slider.slider('value') / 100);
+                    sliderBank.push(_slider.slider('value') / 100);
 
                     roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
                     roundAnswer.push(testBank[questionID]);
                 }
 
                 // TAKE A BREAK: Every n question, show the bank and take a break
-                if (questionID % 10 == 0 && questionID != 0 && nextClick != 0) {
+                if (questionID % 10 === 0 && questionID !== 0 && nextClick !== 0) {
                     outputAnswer = outputAnswer.concat(roundUserAnswer);
                     console.log("BREAK QUESTION!");
                     console.log("slider value: " + slider_value);
@@ -202,23 +241,25 @@ var clicked = false;
                     console.log("testBank round answer:" + roundAnswer);
 
                     // COMPUTE BRIER SCORE AND GET CHART
-                    roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer);
+                    var roundScore = self.getBrier(roundUserAnswer, slider_value, roundAnswer);
 
                     // Hide the question and sliders
                     self.hideAllQuestions();
-                    $("#slider").css('display', 'none');
+                    _slider.css('display', 'none');
                     d3.selectAll("svg").attr("display", "none");
                     document.getElementById("slider-label").style.display = "none";
 
 
-                    //add the balance
-                    currentBalance += Number(self.sumArr(roundScore).toFixed(2));
 
                     // Tell them to take a break
                     document.getElementById('message').innerHTML = "Please take a 1 minute break! " +
                         "The \"Continue\" button will show after 1 minute at the bottom of the screen.<br><br>"
                     $('#nextBtn').hide();
-                    $('#nextBtn').delay(60000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 60 sec)
+                    // $('#nextBtn').delay(60000).show(0); // Show button after n/1000 seconds. (e.g., n=60000 is 60 sec)
+                    timer(60000, function () {
+                        $('#nextBtn').show();
+                    });
+
 
                     // Reset the iterator
                     nextClick = 0;
@@ -233,7 +274,7 @@ var clicked = false;
                 // Move on to next question if not break
                 else {
                     // Move the slider back to 0
-                    $("#slider").slider("value", $("#slider").slider("option", "min"));
+                    _slider.slider("value", _slider.slider("option", "min"));
                     $("#custom-handle").text(50);
                     // Increase the question index and click counter
                     nextClick += 1;
@@ -253,8 +294,8 @@ var clicked = false;
                 startTime = new Date();
 
                 // Store the slider value and elapsed time
-                slider_value.push($('#slider').slider('value') / 100);
-                sliderBank.push($('#slider').slider('value') / 100);
+                slider_value.push(_slider.slider('value') / 100);
+                sliderBank.push(_slider.slider('value') / 100);
 
                 roundUserAnswer.push(self.getQuestionAnswer(self.questions[questionCounter]));
                 roundAnswer.push(testBank[questionID]);
@@ -268,29 +309,29 @@ var clicked = false;
 
 
                 console.log(roundScore);
-                currentBalance += Number(self.sumArr(roundScore).toFixed(2));
 
                 // Hide the question and sliders
                 self.hideAllQuestions();
-                $("#slider").css('display', 'none');
+                _slider.css('display', 'none');
                 d3.selectAll("svg").attr("display", "none");
                 document.getElementById("slider-label").style.display = "none";
                 document.getElementById('message').innerHTML = "Thank you for your participation in this study! Your answers have been saved.";
 
                 // Plot the current moneyBank
-                $("#chart").css('display', 'none');
+                var _chart = $("#chart");
+                _chart.css('display', 'none');
 
                 nextClick += 1;
                 // Get all of the answers and money earned to save
-                var answers = {moneyEarned: currentBalance.toFixed(2)};
-                for (i = 0; i < self.questions.length; i++) {
+                var answers = {};
+                for (var i = 0; i < self.questions.length; i++) {
                     answers[self.questions[i].id] = [testBank[i - 6], outputAnswer[i], sliderBank[i]];
                 }
 
                 // Write answer to file (Note: Only works for Chrome | Not Safari)
                 self.saveAnswers(JSON.stringify(answers), String(subjectID) + '.json');
                 self.hideAllQuestions();
-                $("#chart").css('display', 'block');
+                _chart.css('display', 'block');
                 $("#slider").css('display', 'none');
                 d3.selectAll("svg").attr("display", "none");
                 $('#nextBtn').hide();
@@ -332,10 +373,7 @@ var clicked = false;
     survey.getQuestionAnswer = function (question) {
         var result;
 
-        if (question.type === 'single-select') {
-            result = $('input[type="radio"][name="' + question.id + '"]:checked').val();
-        }
-        else if (question.type === 'single-select-oneline') {
+        if (question.type === 'single-select' || question.type === 'single-select-oneline') {
             result = $('input[type="radio"][name="' + question.id + '"]:checked').val();
         }
         else if (question.type === 'text-field-small') {
@@ -349,13 +387,13 @@ var clicked = false;
         var questionElement = $('<div id="' + question.id + '" class="question"></div>');
         var questionTextElement = $('<div class="question-text"></div>');
         var questionAnswerElement = $('<div class="answer"></div>');
-        var questionCommentElement = $('<div class="comment"></div>');
+        // var questionCommentElement = $('<div class="comment"></div>');
         questionElement.appendTo($('.question-container'));
         questionElement.append(questionTextElement);
         questionElement.append(questionAnswerElement);
-        questionElement.append(questionCommentElement);
+        // questionElement.append(questionCommentElement);
         questionTextElement.html(question.text);
-        questionCommentElement.html(question.comment);
+        // questionCommentElement.html(question.comment);
 
         if (question.type === 'single-select') {
             questionElement.addClass('single-select');
@@ -426,13 +464,14 @@ var clicked = false;
     //
     //
     survey.doButtonStates = function () {
-        if (this.lastQuestionDisplayed == this.questions.length - 1) {
-            $('#nextBtn').text('Finish');
-            $('#nextBtn').addClass('blue');
+        var _next_button = $('#nextBtn');
+        if (this.lastQuestionDisplayed === this.questions.length - 1) {
+            _next_button.text('Finish');
+            _next_button.addClass('blue');
         }
-        else if ($('#nextBtn').text() === 'Finish') {
-            $('#nextBtn').text('Continue »');
-            $('#nextBtn').removeClass('blue');
+        else if (_next_button.text() === 'Finish') {
+            _next_button.text('Continue »');
+            _next_button.removeClass('blue');
         }
     };
 
@@ -454,14 +493,14 @@ var clicked = false;
         var gain_loss = [];
 
         for (var i = 0; i < userAnswer.length; i++) {
-            if (userAnswer[i] == testBank[i]) { // Correct
-                if (sliderValue[i] == 0.5) {
+            if (userAnswer[i] === testBank[i]) { // Correct
+                if (sliderValue[i] === 0.5) {
                     gain_loss.push(0.000000001);
                 } else {
                     gain_loss.push(sliderValue[i] * 0.25);
                 }
             } else {
-                if (sliderValue[i] == 0.5) {
+                if (sliderValue[i] === 0.5) {
                     gain_loss.push(0.000000001);
                 } else {
                     gain_loss.push(0.25 * (-3 * Math.pow(sliderValue[i], 2)));
@@ -469,53 +508,6 @@ var clicked = false;
             }
         }
         return gain_loss
-    };
-
-    //display the bank after the break
-    //
-    //
-    survey.getBank = function (moneyBank) {
-        var chart = c3.generate({
-            size: {
-                height: 240,
-                width: 480
-            },
-            data: {
-                columns: [
-                    ['Reference Line', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // # of 0 should be the number of questions per round
-                ],
-                type: 'bar',
-                types: {
-                    'Reference Line': 'line',
-                },
-                colors: {
-                    'Earnings from Previous Round': function (d) {
-                        return d.value < 0 ? '#E57F7F' : '#99EA99';
-                    }
-                }
-            },
-            legend: {
-                show: false
-            },
-            axis: {
-                y: {
-                    max: 0.25,
-                    min: -0.75,
-                    label: "Bank Changes ($)"
-                    // Range includes padding, set 0 if no padding needed
-                    // padding: {top:0, bottom:0}
-                },
-                x: {
-                    label: "Question",
-                    show: false
-                }
-            },
-            bar: {
-                width: {
-                    ratio: 0.3 // this makes bar width 50% of length between ticks
-                }
-            }
-        });
     };
     //sum the balance
     //
@@ -633,9 +625,9 @@ function parabolicSlider() {
 
     function getData() {
         for (var i = 0; i < 50; i++) {
-            q = i;
-            p = gaussian(q);
-            el = {
+            var q = i;
+            var p = gaussian(q);
+            var el = {
                 "q": q,
                 "p": p
             };
@@ -777,7 +769,7 @@ function parabolicSlider() {
         .origin(function (d) {
             return d;
         })
-        .on("drag", dragged)
+        .on("drag", dragged);
 
     function dragged(d) {
 
@@ -858,7 +850,7 @@ function parabolicSlider() {
         coords = d3.mouse(this);
         var cx = Math.min(Math.max(coords[0] - 50, 0), 140);
         var cy = Math.min(Math.max(0.023 * cx * cx, 0), 440);
-        container.select("g.dot").attr("style", "display:block")
+        container.select("g.dot").attr("style", "display:block");
 
         if (!clicked) {
             d3.select('g.dot circle')
@@ -875,8 +867,24 @@ function parabolicSlider() {
     d3.select("svg")
         .on("click", click_on_canvas);
 
-
     parabolicSlider = function () {
     }; // Only allows function to be called once
 
+}
+
+// Function to read the answer csv into an array
+//
+//
+function getTestBank(filename) {
+    $.ajax({
+        url: "answer/" + filename + ".csv",
+        async: false,
+        success: function (csvd) {
+            data = $.csv.toArrays(csvd);
+        },
+        dataType: "text",
+        complete: function () {
+        }
+    });
+    return data[0];
 }

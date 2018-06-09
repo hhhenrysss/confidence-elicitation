@@ -1,0 +1,361 @@
+[{
+  "question": "Is our moon larger than Jupiter's moon Europa?",
+  "index": 0,
+  "answer": "Yes"
+}, {
+  "question": "Does Canada have a greater land area than the U.S.?",
+  "index": 1,
+  "answer": "Yes"
+}, {
+  "question": "According the the 2010 U.S. Census, were there more men than women living in the United States?",
+  "index": 2,
+  "answer": "No"
+}, {
+  "question": "According the the 2010 U.S. Census, were there more people under the age of 18 than 25-44?",
+  "index": 3,
+  "answer": "No"
+}, {
+  "question": "Is the tallest building in the world located in Dubai?",
+  "index": 4,
+  "answer": "Yes"
+}, {
+  "question": "Is Lake Victoria in Kenya the largest lake in the world?",
+  "index": 5,
+  "answer": "No"
+}, {
+  "question": "Is the Nile River the longest river in the world?",
+  "index": 6,
+  "answer": "No"
+}, {
+  "question": "Was the United States the first country to successfully land a man on the moon?",
+  "index": 7,
+  "answer": "Yes"
+}, {
+  "question": "Is Puerto Rico its own independent nation?",
+  "index": 8,
+  "answer": "No"
+}, {
+  "question": "Was the Soviet Union one of the Axis powers during World War II?",
+  "index": 9,
+  "answer": "No"
+}, {
+  "question": "Was Massachusetts the first state formed in the United States?",
+  "index": 10,
+  "answer": "No"
+}, {
+  "question": "Did the United States have 50 states at the end of World War II?",
+  "index": 11,
+  "answer": "No"
+}, {
+  "question": "According to the American Kennel Club, are Labrador Retreivers the most popular dog breed in the United States in 2016?",
+  "index": 12,
+  "answer": "Yes"
+}, {
+  "question": "Was the company Ebay.com founded before Amazon.com?",
+  "index": 13,
+  "answer": "No"
+}, {
+  "question": "Was President Barack Obama the first African American President in U.S. history?",
+  "index": 14,
+  "answer": "Yes"
+}, {
+  "question": "Is Mark Zuckerburg the current CEO of Facebook.com?",
+  "index": 15,
+  "answer": "Yes"
+}, {
+  "question": "Is Beijing the capital of Japan?",
+  "index": 16,
+  "answer": "No"
+}, {
+  "question": "Is Chicago the capitol of Illinois?",
+  "index": 17,
+  "answer": "No"
+}, {
+  "question": "Did the TV show American Idol run for more than 10 seasons?",
+  "index": 18,
+  "answer": "Yes"
+}, {
+  "question": "Did WalMart report a higher revenue than Amazon.com in 2015?",
+  "index": 19,
+  "answer": "Yes"
+}, {
+  "question": "Was Joe Biden less than 35 years old when he was first elected as a U.S. Senator?",
+  "index": 20,
+  "answer": "Yes"
+}, {
+  "question": "Did more than half of the Fortune 500 companies recruit at the University of Illinois at Urbana-Champaign in 2010-11?",
+  "index": 21,
+  "answer": "No"
+}, {
+  "question": "Is the Great Pyramid of Giza located in Cairo, Egypt?",
+  "index": 22,
+  "answer": "Yes"
+}, {
+  "question": "Does the text of Lincoln's Gettysburg address contain an even number of words?",
+  "index": 23,
+  "answer": "No"
+}, {
+  "question": "Did Albert Einstein invent the atom bomb? Z",
+  "index": 24,
+  "answer": "No"
+}, {
+  "question": "Is Illinois among the top 20 states in the U.S. in terms of area?",
+  "index": 25,
+  "answer": "No"
+}, {
+  "question": "Was United Airlines founded after World War II?",
+  "index": 26,
+  "answer": "No"
+}, {
+  "question": "Was Brazil a colony of Great Britain?",
+  "index": 27,
+  "answer": "No"
+}, {
+  "question": "Does the U.S. government spend more than 4% of its budget on foreign aid?",
+  "index": 28,
+  "answer": "No"
+}, {
+  "question": "Are there currently more than 6 monarchies in Europe?",
+  "index": 29,
+  "answer": "Yes"
+}, {
+  "question": "Is Arizona larger than Nevada in terms of area?",
+  "index": 30,
+  "answer": "Yes"
+}, {
+  "question": "Did Liam Neeson win an Academy Award for best actor for his role in Schindler's List?",
+  "index": 31,
+  "answer": "No"
+}, {
+  "question": "Is Monopoly the most popular board game of all time?",
+  "index": 32,
+  "answer": "No"
+}, {
+  "question": "Did Fidel Castro die in 2010? I",
+  "index": 33,
+  "answer": "No"
+}, {
+  "question": "Did India gain its independence from Great Britain in 1947?",
+  "index": 34,
+  "answer": "Yes"
+}, {
+  "question": "Was the French military involved in the 2011 Libyan conflict?",
+  "index": 35,
+  "answer": "Yes"
+}, {
+  "question": "Have more than 50 Americans ever been in space in the last 40 years?",
+  "index": 36,
+  "answer": "Yes"
+}, {
+  "question": "Did World War I end in 1918?",
+  "index": 37,
+  "answer": "Yes"
+}, {
+  "question": "Was 2016 the warmest year on record? N",
+  "index": 38,
+  "answer": "Yes"
+}, {
+  "question": "Is the number of courses offered in University of Illinois at Urbana-Champaign more than 1500?",
+  "index": 39,
+  "answer": "Yes"
+}, {
+  "question": "Did the Great Chicago Fire occur after 1900?",
+  "index": 40,
+  "answer": "No"
+}, {
+  "question": "Was James Monroe the fifth U.S. President?",
+  "index": 41,
+  "answer": "Yes"
+}, {
+  "question": "Does France share a border with Poland?",
+  "index": 42,
+  "answer": "No"
+}, {
+  "question": "Was Chicago's yearly total precipitation greater in 1990 than in 1991?",
+  "index": 43,
+  "answer": "Yes"
+}, {
+  "question": "Is the number of daily visitors to the Illini Union less than 5000?",
+  "index": 44,
+  "answer": "No"
+}, {
+  "question": "Was America's first settlement established by Vikings?",
+  "index": 45,
+  "answer": "Yes"
+}, {
+  "question": "Is Massachusetts larger than Greece in terms of area?",
+  "index": 46,
+  "answer": "No"
+}, {
+  "question": "Did Wisconsin lose the Rose Bowl in January 2012?",
+  "index": 47,
+  "answer": "Yes"
+}, {
+  "question": "Have more than 5 women won the Nobel Prize since the beginning of this award?",
+  "index": 48,
+  "answer": "Yes"
+}, {
+  "question": "Was economics among the original fields for which a Nobel Prize was awarded?",
+  "index": 49,
+  "answer": "No"
+}, {
+  "question": "Did the U.S. win the most total number of medals in the 2012 Summer Olympics?",
+  "index": 50,
+  "answer": "Yes"
+}, {
+  "question": "Was Bill Clinton ever a governor of Kentucky?",
+  "index": 51,
+  "answer": "No"
+}, {
+  "question": "Is Texas the largest U.S. state in terms of area?",
+  "index": 52,
+  "answer": "No"
+}, {
+  "question": "Does the Willis Tower, formerly known as the Sears Tower, have more than 70 floors?",
+  "index": 53,
+  "answer": "Yes"
+}, {
+  "question": "Does the Mississippi river touch more than seven states?",
+  "index": 54,
+  "answer": "Yes"
+}, {
+  "question": "Was Cleopatra the last pharaoh of ancient Egypt?",
+  "index": 55,
+  "answer": "Yes"
+}, {
+  "question": "Did King Henry VIII of England have less than three wives during his lifetime?",
+  "index": 56,
+  "answer": "No"
+}, {
+  "question": "Is the African elephant the largest animal in the world?",
+  "index": 57,
+  "answer": "No"
+}, {
+  "question": "Does Pluto classify as a planet?",
+  "index": 58,
+  "answer": "No"
+}, {
+  "question": "Is Saturn the only planet in our solar system that has rings?",
+  "index": 59,
+  "answer": "No"
+}, {
+  "question": "Is planet Earth the third planet from the sun?",
+  "index": 60,
+  "answer": "Yes"
+}, {
+  "question": "Is the tiger the largest species of cat?",
+  "index": 61,
+  "answer": "Yes"
+}, {
+  "question": "Does India have the highest populated country in the world?",
+  "index": 62,
+  "answer": "No"
+}, {
+  "question": "Does Brazil have the more than 50% of the rainforests in the world?",
+  "index": 63,
+  "answer": "Yes"
+}, {
+  "question": "Is the highest waterfall in the world, Angel Falls, located in Venezuala?",
+  "index": 64,
+  "answer": "Yes"
+}, {
+  "question": "Does an adult human have more than 400 bones?",
+  "index": 65,
+  "answer": "No"
+}, {
+  "question": "Is the largest organ in a human the liver?",
+  "index": 66,
+  "answer": "No"
+}, {
+  "question": "Is the largest primate in the world the gorilla?",
+  "index": 67,
+  "answer": "Yes"
+}, {
+  "question": "Does the cheetah reach speeds of over 90 mph?",
+  "index": 68,
+  "answer": "No"
+}, {
+  "question": "Is the number of dog breeds recognized by the American Kennel Club an even number?",
+  "index": 69,
+  "answer": "No"
+}, {
+  "question": "Do giraffes have an odd number of neck bones?",
+  "index": 70,
+  "answer": "Yes"
+}, {
+  "question": "Is English the official language of the Bahamas?",
+  "index": 71,
+  "answer": "Yes"
+}, {
+  "question": "Did World War I begain in 1914?",
+  "index": 72,
+  "answer": "Yes"
+}, {
+  "question": "Did the Hundred Years' War include England and France?",
+  "index": 73,
+  "answer": "Yes"
+}, {
+  "question": "Is wasabi a condiment found in French cuisine?",
+  "index": 74,
+  "answer": "No"
+}, {
+  "question": "Is Pho a popular noodle soup from Vietnam?",
+  "index": 75,
+  "answer": "Yes"
+}, {
+  "question": "Is a whiskey made in Scotland called Scotch Whiskey?",
+  "index": 76,
+  "answer": "Yes"
+}, {
+  "question": "Was the fortune cookie invented in China?",
+  "index": 77,
+  "answer": "No"
+}, {
+  "question": "Did the popular soda Coca-Cola once contain the drug cocaine?",
+  "index": 78,
+  "answer": "Yes"
+}, {
+  "question": "Is Vatican City the smallest country in the world?",
+  "index": 79,
+  "answer": "Yes"
+}, {
+  "question": "Did the Wright brothers fly for less than one minute in their first successful flight in 1903?",
+  "index": 80,
+  "answer": "Yes"
+}, {
+  "question": "Does Alaska have the longest coastline in the United States?",
+  "index": 81,
+  "answer": "Yes"
+}, {
+  "question": "Does your left lung take more air than your right?",
+  "index": 82,
+  "answer": "No"
+}, {
+  "question": "Is Delaware the first state to join the United States?",
+  "index": 83,
+  "answer": "Yes"
+}, {
+  "question": "Is Indian Ocean the smallest ocean in the world?",
+  "index": 84,
+  "answer": "No"
+}, {
+  "question": "Do horses sleep while standing up?",
+  "index": 85,
+  "answer": "Yes"
+}, {
+  "question": "Was Harvard the first University in the United States?",
+  "index": 86,
+  "answer": "No"
+}, {
+  "question": "Does a newborn baby have 206 bones?",
+  "index": 87,
+  "answer": "No"
+}, {
+  "question": "Did women get the right to vote in the United States in 1920?",
+  "index": 88,
+  "answer": "Yes"
+}, {
+  "question": "Does Hawaii snow?",
+  "index": 89,
+  "answer": "Yes"
+}]

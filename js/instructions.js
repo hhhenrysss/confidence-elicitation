@@ -23,7 +23,6 @@ var group2_parabolic_instruction = "<h3><span class='instruction_title'>INSTRUCT
  <br></span>";
 
 var linear_slider_prompts = "\
-<h2><strong>Part 2)</strong></h2> \
 <span class='instruction_text'>What is the probability that you think your answer to Part 1 is correct? (Click anywhere on the bar so that the slider appears, then by moving the slider, specify your answer to Part 2)</span>>\
 <br><br>";
 
@@ -43,7 +42,7 @@ var linear_third_instruction_answer = "<span class='instruction_text'>Based on y
  <br></span>";
 
 
-var parablic_slider_prompts = "<h2><strong>Part 2)</strong></h2>\
+var parablic_slider_prompts = "\
 <span class='instruction_text'>Click anywhere on the curve so that the slider appears, then by moving the slider, specify your answer to Part 2. As you move the slider on the curve, the green bar always shows how many points you will earn if your answer is correct. The red bar shows how many points you will lose if your answer is incorrect. Move the slider on the curve to a point where the relative sizes of the green and red bar represents what you are truly willing to gain or lose in case your answer is correct or incorrect.\
  <br></span>";
 
@@ -76,3 +75,9 @@ var instruction_is_finished = "<span class='instruction_text'>This completes the
 <br><br>\
 If you have no questions, then please click on the \"Continue\" button to begin performing the experimental task, for which you you will gain or lose money in your bank based on the accuracy of answering the questions and in adjusting the slider knob.\
 <br></span>";
+
+
+var tutorial_starts = "<h3 class='question-text'>Tutorial Begins</h3><br><br>\
+<p>In the following pages there will be three sample questions to help you get familar with the question formats. Your answers not recorded.</p>";
+
+var tutorial_ends = "<h3 class='question-text'>Tutorial Ends Here</h3><br><br>";

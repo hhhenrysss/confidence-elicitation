@@ -1,0 +1,235 @@
+[{
+  "question": "Will the first snow of champaign fall in November?",
+  "index": 0
+}, {
+  "question": "Will it snow on  Christmas day in Champaign, Illinois?",
+  "index": 1
+}, {
+  "question": "Will the highest temperature of Champaign, Illinois in September be over 80 F?",
+  "index": 2
+}, {
+  "question": "Will the number of rain days in Champaign, Illinois in September be less than 7?",
+  "index": 3
+}, {
+  "question": "Will a tornado touch down in Kansas in September 2018?",
+  "index": 4
+}, {
+  "question": "Will a tornado touch down in Illinois in September 2018?",
+  "index": 5
+}, {
+  "question": "Will Champaign - Urbana experience a hail storm in September 2018?",
+  "index": 6
+}, {
+  "question": "Will a hurricane make landfall in the Gulf of Mexico in September 2018?",
+  "index": 7
+}, {
+  "question": "Will the temperature in Champaign, Illinois be greater than 60 F on October 1, 2018?",
+  "index": 8
+}, {
+  "question": "Will the temperature in Champaign, Illinois be greater than 80 F on October 1, 2018?",
+  "index": 9
+}, {
+  "question": "Will the rainfall of September 2018 in Urbana, Illinois be greater than average (compared to past Septembers)?",
+  "index": 10
+}, {
+  "question": "Will Champaign, Illinois experience snow in October 2018?",
+  "index": 11
+}, {
+  "question": "Will Illinois experience a level 5 earthquake in September 2018?",
+  "index": 12
+}, {
+  "question": "Will the average temperature of Champaign, Illinois in September 2018 be higher than that in September 2017?",
+  "index": 13
+}, {
+  "question": "Will tennis player Roger Federer win US Open tennis in 2018?",
+  "index": 14
+}, {
+  "question": "Will tennis player Serena Williams win US Open tennis in 2018?",
+  "index": 15
+}, {
+  "question": "Will the winner of men's singles in US Open tennis 2018 come from the United States?",
+  "index": 16
+}, {
+  "question": "Will the winner of Women's Singles in US Open tennis 2018 come from the United States?",
+  "index": 17
+}, {
+  "question": "Will the duration of men's final in US Open 2018 be over 3 hours?",
+  "index": 18
+}, {
+  "question": "Will the duration of women's final in US Open 2018 be over 3 hours?",
+  "index": 19
+}, {
+  "question": "Will the University of Illinois at Urbana-Champaign win championship in 2018 Big Ten football standings?",
+  "index": 20
+}, {
+  "question": "Will the University of Michigan win the championship in 2018 Big Ten football standings?",
+  "index": 21
+}, {
+  "question": "Will the Ohio State University win the championship in 2018 Big Ten football standings?",
+  "index": 22
+}, {
+  "question": "Will the Purdue University win the championship in 2018 Big Ten football standings?",
+  "index": 23
+}, {
+  "question": "Will the team of United States win Ryder cup in 2018?",
+  "index": 24
+}, {
+  "question": "Will the team of Europe win Ryder cup in 2018?",
+  "index": 25
+}, {
+  "question": "Will golfer Tiger Woods win 1 point in Ryger cup 2018?",
+  "index": 26
+}, {
+  "question": "Will golfer Patrick Reed win 1 point in Ryger cup 2018?",
+  "index": 27
+}, {
+  "question": "Will there any holes-in-one at the Ryder Cup 2018?",
+  "index": 28
+}, {
+  "question": "Will the team winning Ryder cup 2018 score more than 20 points out of 28?",
+  "index": 29
+}, {
+  "question": "Will the team winning Ryder cup 2018 score more than 15 points out of 28?",
+  "index": 30
+}, {
+  "question": "Will Great Britain win the most gold medals in the Federation Equestre Internationale (FEI) World Equestrian Games in 2018?",
+  "index": 31
+}, {
+  "question": "Will Singapore win the most gold medals in the Federation Equestre Internationale (FEI) World Equestrian Games in 2018?",
+  "index": 32
+}, {
+  "question": "Will Los Angeles Dodgers win the 2018 World Series",
+  "index": 33
+}, {
+  "question": "Will Houston Astros win the 2018 World Series",
+  "index": 34
+}, {
+  "question": "Will Chicago Cubs play the 2018 World Series",
+  "index": 35
+}, {
+  "question": "Will Colorado Rockies play the 2018 World Series",
+  "index": 36
+}, {
+  "question": "Will the University of Illinois football team win their September 8, 2018 game against Western Illinois?",
+  "index": 37
+}, {
+  "question": "Will the University of Illinois football team win their December 1, 2018 game against Indianapolis?",
+  "index": 38
+}, {
+  "question": "Will the team of United States win World Women's Volleyball Championship in 2018?",
+  "index": 39
+}, {
+  "question": "Will the team of Thailand win World Women's Volleyball Championship in 2018?",
+  "index": 40
+}, {
+  "question": "Will more than five 2018 Nobel prize winners be from the United States?",
+  "index": 41
+}, {
+  "question": "Will president Trump be awarded a Nobel Peace Prize in 2018?",
+  "index": 42
+}, {
+  "question": "Will one 2018 Nobel prize winner be from the United States?",
+  "index": 43
+}, {
+  "question": "Will a cure for cancer be announced in September 2018?",
+  "index": 44
+}, {
+  "question": "Will Nasa launch a new satellite into orbit in September?",
+  "index": 45
+}, {
+  "question": "Will human be sent to Mars in 2018?",
+  "index": 46
+}, {
+  "question": "Will one of Hilbert's problem be solved in December 2018?",
+  "index": 47
+}, {
+  "question": "Will one of Millennium Prize problems be solved in December 2018?",
+  "index": 48
+}, {
+  "question": "Will a cloned animal be reported in December 2018?",
+  "index": 49
+}, {
+  "question": "Will a cure for HIV/AIDS be announced in September 2018?",
+  "index": 50
+}, {
+  "question": "Will the daily average price of regular gas in Champaign, Illinois be over 3 US $/G in September 2018?",
+  "index": 51
+}, {
+  "question": "Will the daily average price of regular gas in Champaign, Illinois be over 2 US $/G in September 2018?",
+  "index": 52
+}, {
+  "question": "Will the daily average price of regular gas in Champaign, Illinois be greater than that in Chicago, Illinois on September 1 2018?",
+  "index": 53
+}, {
+  "question": "Will the daily average price of regular gas in Los Angeles, California be greater than that in Chicago, Illinois on September 1, 2018?",
+  "index": 54
+}, {
+  "question": "Will any murder be reported on Campus of UIUC in September 2018?",
+  "index": 55
+}, {
+  "question": "Will any rape be reported on Campus of UIUC in September 2018?",
+  "index": 56
+}, {
+  "question": "Will any alcohol violation be reported on Campus of UIUC in September 2018?",
+  "index": 57
+}, {
+  "question": "Will the University of Illinois at Urbana-Champaign permanently close in September 2018?",
+  "index": 58
+}, {
+  "question": "Will the number of gun-related murders in Chicago during September 2018 be higher than that in September of 2017?",
+  "index": 59
+}, {
+  "question": "Will a terrorist attack killing 100 Americans take place on American soil in September 2018?",
+  "index": 60
+}, {
+  "question": "Will a terrorist attack killing 10 Americans take place on American soil in September 2018?",
+  "index": 61
+}, {
+  "question": "Will a terrorist attack killing 5 people take place in the world in September 2018?",
+  "index": 62
+}, {
+  "question": "Will impeachment precedings against President Trump begin in September 2018?",
+  "index": 63
+}, {
+  "question": "Will President Trump visit the United Kingdom in September 2018?",
+  "index": 64
+}, {
+  "question": "Will President Trump hold a nationally televised press conference in September 2018?",
+  "index": 65
+}, {
+  "question": "Will a Supreme Court Justice be appointed in September 2018?",
+  "index": 66
+}, {
+  "question": "Will any current Supreme Court Justice die or retire, creating a vacancy, in September 2018?",
+  "index": 67
+}, {
+  "question": "Will marijuana be legalized in the state of Illinois in September?",
+  "index": 68
+}, {
+  "question": "Will the state of Illinois pass a state budget in September 2018?",
+  "index": 69
+}, {
+  "question": "Will North Korea invade South Korea in September 2018?",
+  "index": 70
+}, {
+  "question": "Will Democrats win two new seats in the Senate midterm elections in November 2018?",
+  "index": 71
+}, {
+  "question": "Will Republican win more than 200 seats in the House midterm elections in November 2018?",
+  "index": 72
+}, {
+  "question": "Will any current member of the United States Senate resign, retire, or die in September 2018?",
+  "index": 73
+}, {
+  "question": "Will any current member of the United States House of Representatives resign, retire, or die in September 2018?",
+  "index": 74
+}, {
+  "question": "Will any current member of the Illinois State Senate resign, retire, or die in September 2018?",
+  "index": 75
+}, {
+  "question": "Will any current member of the Illinois State House of Representatives resign, retire, or die in September 2018?",
+  "index": 76
+}, {
+  "question": "Will the United Nations Security Counsel pass any resolutions within the next 25 days?",
+  "index": 77
+}]

@@ -1,17 +1,12 @@
-html {
-  font-size: 13px;
-}
-
 body {
   margin: 0;
   background-color: rgb(255,255,255);
   background-repeat: repeat;
   background-position: left top;
-  font: normal 13px arial,sans-serif;
-  font-family: "Roboto";
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
   color: rgb(119,119,119);
   font-weight: 400;
-  font-size: 1.080rem;
+  font-size: 17px;
   font-style: normal;
   padding: 0 0.5rem;
   word-wrap: break-word;
@@ -114,9 +109,9 @@ br {
     display: block;
 }
 
-.instruction_text {
-    font-size: large;
-}
+/*.instruction_text {*/
+    /*font-size: large;*/
+/*}*/
 
 
 .footer {
@@ -256,9 +251,25 @@ a.button {
 	box-shadow: 0 1px 1px rgba(0,0,0,.1);
 }
 
+
 .question {
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+.question-text {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.radio {
+    margin-top: 15px;
 }
 
 
@@ -274,4 +285,46 @@ a.button {
   font-style: normal;
   font-weight: 700;
   src: local('Roboto Bold'), local('Roboto-Bold'), url(http://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+
+.loading {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+}
+
+.loading:after {
+    content: " ";
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: #4D90FE transparent #F4D03F transparent;
+    animation: ring_loading 5s linear 0s infinite;
+}
+
+@keyframes ring_loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.temporary_loading_container {
+    display: table;
+    margin-right: auto;
+    margin-left: auto;
 }
