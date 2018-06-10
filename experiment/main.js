@@ -22,6 +22,9 @@ var survey = (function () {
     function start(questions) {
         question_instructions = questions;
         question_page_max = question_instructions.length;
+        document.getElementsByTagName('button')[0].addEventListener('click', function () {
+           utils.play_sound();
+        });
         main_page();
     }
 
@@ -29,8 +32,6 @@ var survey = (function () {
 
         // This is the main function, as all events work around the next button
         $('#nextBtn').click(function () {
-            // play sound first
-            utils.play_sound();
 
             var $text = $('.text');
             var $graph = $('.graph');
@@ -114,9 +115,9 @@ var survey = (function () {
                     // console.log(answers[answers.length-1]);
                     utils.remove_all($text, $graph);
 
-                    // This is the case where next page, tutorial ends, should be rendered
                     tutorial_page_counter += 1;
 
+                    // This is the case where next page, tutorial ends, should be rendered
                     if (tutorial_page_counter === tutorial_page_max) {
                         tutorial_ends();
                     }
@@ -173,7 +174,6 @@ var survey = (function () {
                         }
                         answers.push(temp);
                     }
-                    // console.log(answers[answers.length-1]);
                     utils.remove_all($text, $graph);
 
                     // take a break; counter is not incremented; after break ends the first if statements will be invoked
@@ -196,22 +196,7 @@ var survey = (function () {
 
             // the final case -> the last page button click handler
             else {
-                var $download_tag = $('#download_file');
-                if ($download_tag.length === 0) {
-                    var complete_json = {
-                        'ID': id,
-                        'GROUP': group,
-                        'ANSWERS': answers
-                    };
-                    var string_data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(complete_json));
-                    $download_tag = $('<a>', {
-                        'id': 'download_file',
-                        'style': 'display:none;'
-                    });
-                    $download_tag.attr('href', string_data).attr('download', id+'.json');
-                    $('.graph').append($download_tag);
-                }
-                $download_tag[0].click();
+                utils.download_file(id, group, answers);
             }
         });
     }
@@ -414,6 +399,7 @@ var survey = (function () {
         var $prompt = $('<h3>', {'class': 'question_header'}).html(instructions.page_end.ending_header());
         var $content = $('<p>', {'class': 'question_text'}).html(instructions.page_end.ending_content());
         $text.append($prompt).append($content);
+        $('button').html('Download');
     }
 
 

@@ -1,8 +1,28 @@
 var utils = (function () {
 
+    function download_file(id, group, answers) {
+        var $download_tag = $('#download_tag');
+        if ($download_tag.length === 0) {
+            var complete_json = {
+                'ID': id,
+                'GROUP': group,
+                'ANSWERS': answers
+            };
+            var string_data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(complete_json));
+            $download_tag = $('<a>', {
+                'id': 'download_tag',
+                'style': 'display:none;'
+            });
+            $download_tag.attr('href', string_data).attr('download', id+'.json');
+            $('.graph').append($download_tag);
+        }
+        $download_tag[0].click();
+    }
+
+
     function play_sound () {
         var sound = $("#audio")[0];
-        var promise = sound.play();
+        sound.play();
     }
 
     function break_timer(time, callback) {
@@ -170,6 +190,7 @@ var utils = (function () {
 
     // PUBLIC API
     return {
+        'download_file': download_file,
         'break_timer': break_timer,
         'retrieve_linear_values': retrieve_linear_values,
         'retrieve_parabolic_values': retrieve_parabolic_values,
@@ -180,6 +201,15 @@ var utils = (function () {
         'check_validity': check_validity
     };
 })();
+
+
+
+
+
+
+
+
+
 
 
 var create_slider = (function () {
