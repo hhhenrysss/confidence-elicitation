@@ -1,8 +1,10 @@
 var survey = (function () {
+    // below are variables that need to be exported for future analysis
     var id = '';
     var group = 0; // group is int
     var answers = [];
 
+    // below are internal variables
     var main_page_flag = false;
     var select_group_flag = false;
 
@@ -13,6 +15,9 @@ var survey = (function () {
     var question_page_counter = -1;
     var question_page_max = 100; // just a place holder; this value will change dynamically
     var question_instructions = [];
+
+    var question_break_interval = 10;
+    var question_break_flag = false;
 
     function start(questions) {
         question_instructions = questions;
@@ -72,106 +77,141 @@ var survey = (function () {
 
             // Handling the third page and all tutorial questions
             else if (tutorial_page_counter !== tutorial_page_max) {
-                switch (tutorial_page_counter) {
-                    case -1:
-                        // tutorial is loaded at select_group stage
-                        utils.remove_all($text, $graph);
-                        tutorial_page_counter += 1;
+                if (tutorial_page_counter === -1) {
+                    // tutorial is loaded at select_group stage
+                    utils.remove_all($text, $graph);
+                    tutorial_page_counter += 1;
+                    tutorial_questions(tutorial_instructions[tutorial_page_counter], tutorial_page_counter);
+                }
+                else {
+                    // this is the case where the template is populated with each question
+                    // retrieve previous answers first
+                    if (group === 2) {
+                        // meaning that the group is parabolic
+                        var temp = utils.retrieve_parabolic_values(
+                            tutorial_page_counter,
+                            'tutorial',
+                            tutorial_instructions[tutorial_page_counter]['question'],
+                            tutorial_page_counter // actual_index entry does not make sense for tutorial questions, so use counter as substitution
+                        );
+                        if (temp === undefined) {
+                            return;
+                        }
+                        answers.push(temp);
+                    }
+                    else {
+                        temp = utils.retrieve_linear_values(
+                            tutorial_page_counter,
+                            'tutorial',
+                            tutorial_instructions[tutorial_page_counter]['question'],
+                            tutorial_page_counter
+                        );
+                        if (temp === undefined) {
+                            return;
+                        }
+                        answers.push(temp);
+                    }
+                    // console.log(answers[answers.length-1]);
+                    utils.remove_all($text, $graph);
+
+                    // This is the case where next page, tutorial ends, should be rendered
+                    tutorial_page_counter += 1;
+
+                    if (tutorial_page_counter === tutorial_page_max) {
+                        tutorial_ends();
+                    }
+                    else {
                         tutorial_questions(tutorial_instructions[tutorial_page_counter], tutorial_page_counter);
-                        break;
-                    default:
-                        // this is the case where the template is populated with each question
-                        // retrieve previous answers first
-                        if (group === 2) {
-                            // meaning that the group is parabolic
-                            var temp = utils.retrieve_parabolic_values(
-                                tutorial_page_counter,
-                                'tutorial',
-                                tutorial_instructions[tutorial_page_counter]['question'],
-                                tutorial_page_counter // actual_index entry does not make sense for tutorial questions, so use counter as substitution
-                            );
-                            if (temp === undefined) {
-                                return;
-                            }
-                            answers.push(temp);
-                        }
-                        else {
-                            temp = utils.retrieve_linear_values(
-                                tutorial_page_counter,
-                                'tutorial',
-                                tutorial_instructions[tutorial_page_counter]['question'],
-                                tutorial_page_counter
-                            );
-                            if (temp === undefined) {
-                                return;
-                            }
-                            answers.push(temp);
-                        }
-                        console.log(answers[answers.length-1]);
-                        utils.remove_all($text, $graph);
-
-                        // This is the case where next page, tutorial ends, should be rendered
-                        tutorial_page_counter += 1;
-
-                        if (tutorial_page_counter === tutorial_page_max) {
-                            tutorial_ends();
-                        }
-                        else {
-                            tutorial_questions(tutorial_instructions[tutorial_page_counter], tutorial_page_counter);
-                        }
-
+                    }
                 }
             }
 
             // Handling the tutorial ends page and the subsequent questions page
             else if (question_page_counter !== question_page_max) {
-                switch (question_page_counter) {
-                    case -1:
-                        // clear all
-                        utils.remove_all($text, $graph);
-                        // transition to next page
-                        question_page_counter += 1;
+                if (question_page_counter === -1 || question_break_flag === true) {
+                    // clear all
+                    utils.remove_all($text, $graph);
+                    // transition to next page
+                    question_page_counter += 1;
+                    if (question_page_counter !== question_page_max) {
                         questions(question_instructions[question_page_counter], question_page_counter);
-                        break;
-                    default:
-                        if (group === 2) {
-                            // meaning that the group is parabolic
-                            temp = utils.retrieve_parabolic_values(
-                                question_page_counter,
-                                question_instructions[question_page_counter]['category'],
-                                question_instructions[question_page_counter]['question'],
-                                question_instructions[question_page_counter]['index']
-                            );
-                            if (temp === undefined) {
-                                return;
-                            }
-                            answers.push(temp);
+                        question_break_flag = false;
+                    }
+                    else {
+                        // this function has two ways to exit, as there are two cases:
+                        /*
+                        * 1. when the questions end exactly after break
+                        * 2. when questions end normally
+                        * */
+                        question_ends();
+                    }
+                }
+                else {
+                    if (group === 2) {
+                        // meaning the group is parabolic
+                        temp = utils.retrieve_parabolic_values(
+                            question_page_counter,
+                            question_instructions[question_page_counter]['category'],
+                            question_instructions[question_page_counter]['question'],
+                            question_instructions[question_page_counter]['index']
+                        );
+                        if (temp === undefined) {
+                            return;
                         }
-                        else {
-                            temp = utils.retrieve_linear_values(
-                                question_page_counter,
-                                question_instructions[question_page_counter]['category'],
-                                question_instructions[question_page_counter]['question'],
-                                question_instructions[question_page_counter]['index']
-                            );
-                            if (temp === undefined) {
-                                return;
-                            }
-                            answers.push(temp);
+                        answers.push(temp);
+                    }
+                    else {
+                        // meaning the group is linear
+                        temp = utils.retrieve_linear_values(
+                            question_page_counter,
+                            question_instructions[question_page_counter]['category'],
+                            question_instructions[question_page_counter]['question'],
+                            question_instructions[question_page_counter]['index']
+                        );
+                        if (temp === undefined) {
+                            return;
                         }
-                        console.log(answers[answers.length-1]);
-                        utils.remove_all($text, $graph);
+                        answers.push(temp);
+                    }
+                    // console.log(answers[answers.length-1]);
+                    utils.remove_all($text, $graph);
 
+                    // take a break; counter is not incremented; after break ends the first if statements will be invoked
+                    if ((question_page_counter+1) % question_break_interval === 0 && question_page_counter !== 0) {
+                        question_break();
+                        question_break_flag = true;
+                    }
+                    else {
                         question_page_counter += 1;
                         // This is the case where next page, tutorial ends, should be rendered
                         if (question_page_counter === question_page_max) {
-                            alert('here');
                             question_ends();
                         }
                         else {
                             questions(question_instructions[question_page_counter], question_page_counter);
                         }
+                    }
                 }
+            }
+
+            // the final case -> the last page button click handler
+            else {
+                var $download_tag = $('#download_file');
+                if ($download_tag.length === 0) {
+                    var complete_json = {
+                        'ID': id,
+                        'GROUP': group,
+                        'ANSWERS': answers
+                    };
+                    var string_data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(complete_json));
+                    $download_tag = $('<a>', {
+                        'id': 'download_file',
+                        'style': 'display:none;'
+                    });
+                    $download_tag.attr('href', string_data).attr('download', id+'.json');
+                    $('.graph').append($download_tag);
+                }
+                $download_tag[0].click();
             }
         });
     }
@@ -355,9 +395,25 @@ var survey = (function () {
         }
     }
 
+    function question_break() {
+        var $text = $('.text');
+        var $prompt = $('<h3>', {'class': 'question_header'}).html(instructions.page_interval.interval_header());
+        var $content = $('<p>', {'class': 'question_text'}).html(instructions.page_interval.interval_explanation());
+
+        $text.append($prompt).append($content);
+
+        var $button = $('button');
+        $button.hide();
+        utils.break_timer(6000, function () {
+            $button.show();
+        }); // the unit is milliseconds
+    }
+
     function question_ends() {
         var $text = $('.text');
-        var $prompt = $('<h3>', {'class': 'question_header'}).html('')
+        var $prompt = $('<h3>', {'class': 'question_header'}).html(instructions.page_end.ending_header());
+        var $content = $('<p>', {'class': 'question_text'}).html(instructions.page_end.ending_content());
+        $text.append($prompt).append($content);
     }
 
 

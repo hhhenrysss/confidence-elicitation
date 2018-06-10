@@ -1,42 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 body {
+    padding: 4em 2em;
     margin: 0;
-    background: #ffffff repeat left top;
+    width: 100%;
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     color: rgb(119,119,119);
     font-weight: 400;
     font-size: 17px;
     font-style: normal;
-    padding: 2rem 1rem 2rem 1rem;
     word-wrap: break-word;
+    box-sizing: border-box;
+
 }
 
-.jquery-script-center {
-    border: 1px solid #ccc;
+.content_wrapper {
+    /*border: 1px solid #ccc;*/
     border-radius: 15px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 1rem silver;
     box-sizing: border-box;
-    margin: 15px auto;
-    padding: 3rem 3rem 3rem 3rem;
+    margin: 0 auto;
+    padding: 3rem 2em;
     max-width: 980px;
     min-width: 280px;
     width: 100%;
     background-color: rgb(255,255,255);
+    display: block;
 }
 
 .question_header {
     font-size: x-large;
-    padding-bottom: 15px;
-    padding-top: 15px;
+    padding-bottom: 1em;
 }
 
 .question_text {
-    padding-top: 1rem;
+    padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     font-size: large;
 }
 
 .input_text {
-    width: 300px;
+    width: 280px;
     height: 25px;
     margin-bottom: 1.5rem;
     display: block;
@@ -56,7 +59,7 @@ input[type="radio"] {
     border: #2874A6 2px solid;
     color: #2874A6;
     font-size: medium;
-    padding: 10px 10px 10px 10px;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -70,7 +73,7 @@ input[type="radio"] {
     background-color: #2874A6;
     border: #2874A6 2px solid;
     color: #ffffff;
-    padding: 10px 10px 10px 10px;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -101,24 +104,74 @@ svg text, #originData {
 }
 
 #slider {
-    margin-top: 30px;
-    margin-bottom: 50px;
+    margin-top: 5em;
+    margin-bottom: 7em;
 }
 
 #slider .ui-slider-handle {
     font-size: 10px;
-    width: 2em;
-    height: 2em;
+    width: 2.4em;
+    height: 2.4em;
     top: 50%;
-    margin-top: -1em;
-    background-color: #3498DB;
-    border-radius: 10px;
+    margin-top: -1.2em;
+    /*background-color: #2874A6;*/
+    border-radius: 0.4rem;
+    /*border-color: #2874A6;*/
+    border: #2874A6 2px solid;
     text-align: center;
-    line-height: 2em;
+    line-height: 2.4em;
+    /*box-shadow: 0 0 0.1em lightgrey;*/
     /*border-color: ##3498DB;*/
     /*border-radius: 2px;*/
 }
 
+#slider .ui-state-active {
+    background-color: #2874A6;
+}
+
 #slider .ui-slider-range {
     background-color: #D6EAF8;
+}
+
+/*Loader animations*/
+.loading {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+}
+
+.loading:after {
+    content: " ";
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: #4D90FE transparent #F4D03F transparent;
+    animation: ring_loading 5s linear 0s infinite;
+}
+
+@keyframes ring_loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.temporary_loading_container {
+    display: table;
+    margin-right: auto;
+    margin-left: auto;
 }

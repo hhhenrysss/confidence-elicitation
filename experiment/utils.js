@@ -5,6 +5,18 @@ var utils = (function () {
         var promise = sound.play();
     }
 
+    function break_timer(time, callback) {
+        // This function generates a timer and when time's up the timer disappears
+        $('.graph').append('<div class="temporary_loading_container"><div class="loading"></div></div>');
+
+
+        setTimeout(function () {
+            $('.temporary_loading_container').remove();
+            callback();
+        }, time);
+    }
+
+
     function load_questions(callback) {
 
         // Fisher-Yates Shuffle: https://bost.ocks.org/mike/shuffle/
@@ -25,12 +37,11 @@ var utils = (function () {
 
         }
 
-
         // the amount of questions you want to add to the final questionnaire
-        var subjective_count = 20;
-        var predictive_count = 20;
+        var subjective_count = 5;
+        var predictive_count = 5;
 
-        // the arrays at this stage is still JSON object
+        // the arrays at this stage is sc till JSON object
         var subjective_sliced = [];
         var predictive_sliced = [];
 
@@ -159,6 +170,7 @@ var utils = (function () {
 
     // PUBLIC API
     return {
+        'break_timer': break_timer,
         'retrieve_linear_values': retrieve_linear_values,
         'retrieve_parabolic_values': retrieve_parabolic_values,
         'play_sound': play_sound,

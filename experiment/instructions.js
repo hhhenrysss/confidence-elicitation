@@ -120,7 +120,7 @@ var instructions = (function () {
 
     var page_end = (function () {
         function ending_header () {
-            return 'The questions end here';
+            return 'The survey ends here!';
         }
         function ending_content () {
             return "Thank you for your participation in this study! Your answers have been saved.";
@@ -133,8 +133,22 @@ var instructions = (function () {
         };
     })();
 
+    var page_interval = (function () {
+        function interval_header () {
+            return 'You have answered 10 questions! Time to take a break!';
+        }
 
-     function question_selection () {
+        function interval_explanation () {
+            return 'After 1 minute, the "continue" button will appear and you may continue.';
+        }
+
+        // PUBLIC API
+        return {
+            'interval_header': interval_header,
+            'interval_explanation': interval_explanation
+        };
+    })();
+    function question_selection () {
         return {
             1: 'Yes',
             2: 'No'
@@ -145,7 +159,8 @@ var instructions = (function () {
 
     // PUBLIC API
     return {
-         'page_home': page_home,
+        'page_interval': page_interval,
+        'page_home': page_home,
         'page_tutorial': page_tutorial,
         'page_group_selection': page_group_selection,
         'page_end': page_end,
