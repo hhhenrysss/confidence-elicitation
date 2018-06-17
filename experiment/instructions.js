@@ -148,6 +148,7 @@ var instructions = (function () {
             'interval_explanation': interval_explanation
         };
     })();
+
     function question_selection () {
         return {
             1: 'Yes',

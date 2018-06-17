@@ -1,4 +1,6 @@
 var survey = (function () {
+    // ALL PUBLIC API ARE LISTED AT THE BOTTOM OF THE OBJECT
+
     // below are variables that need to be exported for future analysis
     var id = '';
     var group = 0; // group is int
@@ -380,6 +382,7 @@ var survey = (function () {
         }
     }
 
+    // THIS PAGE WILL BE RENDERED AFTER SET TIME INTERVAL
     function question_break() {
         var $text = $('.text');
         var $prompt = $('<h3>', {'class': 'question_header'}).html(instructions.page_interval.interval_header());
@@ -394,6 +397,7 @@ var survey = (function () {
         }); // the unit is milliseconds
     }
 
+    // THIS PAGE WILL BE RENDERED AFTER THE USER HAS FILLED IN ALL QUESTIONS. THE NAME OF THE BUTTION IS CHANGED HERE
     function question_ends() {
         var $text = $('.text');
         var $prompt = $('<h3>', {'class': 'question_header'}).html(instructions.page_end.ending_header());
