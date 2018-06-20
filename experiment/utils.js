@@ -479,57 +479,6 @@ var create_slider = (function () {
             .on("click", click_on_canvas);
     }
 
-
-    function resetParabolicHandle() {
-        d3.select("#handle_circle").remove();
-        handle1 = [{x: 0, y: 0}];
-        hor.attr("width", 0);
-        ver.attr("height", 0);
-
-
-        var drag = d3.behavior.drag()
-            .origin(function (d) {
-                return d;
-            })
-            .on("drag", dragged);
-
-        function dragged(d) {
-
-            coords = d3.mouse(this);
-            var cx = Math.min(Math.max(coords[0], 0), 140);
-            var cy = Math.min(Math.max(0.023 * cx * cx, 0), 440);
-            d3.select('g.dot circle')
-                .attr("cx", Math.min(cx, 130))
-                .attr("cy", Math.min(cy, 390));
-
-
-            hor.attr("width", Math.min(cx, width));
-            ver.attr("height", Math.min(cy, height));
-
-            var div = d3.select("body").select("#final")
-            //div.text("final value x: " + (Math.min(Math.max(cx*0.77, 0), 100)) + ",y: " + (Math.min(Math.max(cy*0.778,0), 300)))
-                .style("left", (d3.event.pageX - 100) + "px")
-                .style("top", (d3.event.pageY - 12) + "px");
-        }
-
-        handle_circle = container.append("g")
-            .attr("id", "handle_circle")
-            .attr("class", "dot")
-            .attr("style", "display:none")
-            .selectAll('circle')
-            .data(handle1)
-            .enter().append("circle")
-            .attr("r", 3)
-            .attr("cx", function (d) {
-                return d.x;
-            })
-            .attr("cy", function (d) {
-                return d.y;
-            })
-            .call(drag);
-        clicked = false;
-    }
-
     function linearSlider() {
         var $slider = $('<div>', {'id': 'slider'});
 
@@ -564,7 +513,6 @@ var create_slider = (function () {
         'get_circle_coordinates': get_circle_coordinates,
         'get_linear_value': get_linear_value,
         'parabolicSlider': parabolicSlider,
-        'linearSlider': linearSlider,
-        'resetParabolicHandle': resetParabolicHandle // not really used anywhere
+        'linearSlider': linearSlider
     };
 })();
