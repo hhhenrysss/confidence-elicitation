@@ -19,15 +19,24 @@ var utils = (function () {
     }
 
     function generate_mapped_values (group, answers) {
-        var mapped_values = {};
+        var mapped_values = [];
+
         if (group === 'parabolic') {
             for (var i = 0; i < answers.length; i += 1) {
-                mapped_values[answers[i].number] = translate_parabolic_slider_value(answers[i].x);
+                var temp = {};
+                temp['original_index'] = answers[i].original_index;
+                temp['number'] = answers[i].number;
+                temp['mapped_value'] = translate_parabolic_slider_value(answers[i].x);
+                mapped_values.push(temp);
             }
         }
         else if (group === 'linear') {
             for (i = 0; i < answers.length; i += 1) {
-                mapped_values[answers[i].number] = translate_linear_slider_value(answers[i].x);
+                temp = {};
+                temp['original_index'] = answers[i].original_index;
+                temp['number'] = answers[i].number;
+                temp['mapped_value'] = translate_linear_slider_value(answers[i].x);
+                mapped_values.push(temp);
             }
         }
         return mapped_values;
@@ -49,7 +58,7 @@ var utils = (function () {
             var choice = user_answers[i].selection;
             var question_type = user_answers[i].type;
             var question_actual_index = user_answers[i].original_index;
-            var value = mapped_values[i];
+            var value = mapped_values[i].mapped_value;
             var standard_answer = '';
             if (question_type === 'predictive') {
                 standard_answer = predictive_standard_answers[question_actual_index].answer;
@@ -94,14 +103,17 @@ var utils = (function () {
 
             // generate mapped_values
             var mapped_values = generate_mapped_values(group, answers);
-            var brier_score = calculate_brier(); // THIS FUNCTION SHOULD NOT BE INVOKED
+
+            // TODO: THIS FUNCTION SHOULD NOT BE INVOKED
+            var brier_scores = calculate_brier(answers, mapped_values, undefined, undefined);
 
             var complete_json = {
                 'ID': id,
                 'GROUP': group,
                 'ANSWERS': answers,
                 'TIME': time,
-                'BRIER': brier_score
+                'MAPPED_VALUES': mapped_values,
+                'BRIER': brier_scores
             };
             var string_data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(complete_json));
             $download_tag = $('<a>', {
@@ -129,6 +141,10 @@ var utils = (function () {
             $('.temporary_loading_container').remove();
             callback();
         }, time);
+    }
+
+    function load_answers(callback) {
+        // TODO: resolve this issue
     }
 
 
@@ -243,10 +259,10 @@ var utils = (function () {
             return false;
         }
         var temp = '';
-        if (string instanceof String) {
+        if (typeof(string) === typeof('')) {
             temp = string;
         }
-        else if (string instanceof Number) {
+        else if (typeof(string) === typeof(1)) {
             temp = string.toString();
         }
         return !(temp === undefined || temp === '');

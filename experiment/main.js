@@ -2,7 +2,7 @@ var survey = (function () {
     // ALL PUBLIC API ARE LISTED AT THE BOTTOM OF THE OBJECT
 
     // below are variables that need to be exported for future analysis
-    var id = '';
+    var id = ''; // id could be of either string or number type
     var group = ''; // group is string
     var answers = [];
     var time = {};
@@ -90,6 +90,30 @@ var survey = (function () {
                 else {
                     // this is the case where the template is populated with each question
                     // TUTORIAL QUESTIONS ARE NOT SAVED!
+                    if (group === 'parabolic') {
+                        temp = utils.retrieve_parabolic_values(
+                            tutorial_page_counter,
+                            'tutorial',
+                            tutorial_instructions[tutorial_page_counter]['question'],
+                            tutorial_page_counter // actual_index entry does not make sense for tutorial questions, so use counter as substitution
+                        );
+                        if (temp === undefined) {
+                            return;
+                        }
+                        // answers.push(temp);
+                    }
+                    else {
+                        temp = utils.retrieve_linear_values(
+                            tutorial_page_counter,
+                            'tutorial',
+                            tutorial_instructions[tutorial_page_counter]['question'],
+                            tutorial_page_counter
+                        );
+                        if (temp === undefined) {
+                            return;
+                        }
+                        // answers.push(temp);
+                    }
                     utils.remove_all($text, $graph);
 
                     tutorial_page_counter += 1;
@@ -126,7 +150,7 @@ var survey = (function () {
                 }
                 else {
                     if (group === 'parabolic') {
-                        temp = utils.retrieve_parabolic_values(
+                        var temp = utils.retrieve_parabolic_values(
                             question_page_counter,
                             question_instructions[question_page_counter]['category'],
                             question_instructions[question_page_counter]['question'],
@@ -376,7 +400,8 @@ var survey = (function () {
 
         var $button = $('button');
         $button.hide();
-        utils.break_timer(6000, function () {
+
+        utils.break_timer(60000, function () {
             $button.show();
         }); // the unit is milliseconds
 
