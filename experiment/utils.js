@@ -1,13 +1,107 @@
 var utils = (function () {
 
+    function translate_linear_slider_value(actual_value) {
+        return actual_value/100;
+    }
+
+    function translate_parabolic_slider_value(actual_x) {
+        // actual_x coordinate is the 'Gain if correct 1 point'
+        var translated_x = actual_x + 50;
+        if (translated_x <= 50) {
+            return 0;
+        }
+        else if (translated_x >= 180) {
+            return 1;
+        }
+        else {
+            return (translated_x-50)/260 + 0.5;
+        }
+    }
+
+    function generate_mapped_values (group, answers) {
+        var mapped_values = {};
+        if (group === 'parabolic') {
+            for (var i = 0; i < answers.length; i += 1) {
+                mapped_values[answers[i].number] = translate_parabolic_slider_value(answers[i].x);
+            }
+        }
+        else if (group === 'linear') {
+            for (i = 0; i < answers.length; i += 1) {
+                mapped_values[answers[i].number] = translate_linear_slider_value(answers[i].x);
+            }
+        }
+        return mapped_values;
+    }
+
+    function sanitize_answer (string) {
+        // strip all whitespace characters and convert string to lowercase
+        return string.replace(/\s/g, "").toLowerCase();
+    }
+
+    function calculate_brier(user_answers, mapped_values, predictive_standard_answers, subjective_standard_answers) {
+        if (user_answers === undefined || mapped_values === undefined || predictive_standard_answers === undefined || subjective_standard_answers) {
+            return undefined;
+        }
+
+        var gain_loss = [];
+
+        for (var i = 0; i < user_answers.length; i += 1) {
+            var choice = user_answers[i].selection;
+            var question_type = user_answers[i].type;
+            var question_actual_index = user_answers[i].original_index;
+            var value = mapped_values[i];
+            var standard_answer = '';
+            if (question_type === 'predictive') {
+                standard_answer = predictive_standard_answers[question_actual_index].answer;
+            }
+            else {
+                standard_answer = subjective_standard_answers[question_actual_index].answer;
+            }
+
+            var comparison = sanitize_answer(standard_answer) === sanitize_answer(choice);
+            if (sanitize_answer(standard_answer) === 'no') {
+                if (comparison) {
+                    gain_loss.push(
+                        (1 / 3) * value * value - 1 / 12
+                    );
+                }
+                else {
+                    gain_loss.push(
+                        -1 * (value * value - 0.25)
+                    );
+                }
+            }
+            else {
+                if (comparison) {
+                    gain_loss.push(
+                        (-1) * (value - 1) * (value - 1) + 0.25
+                    );
+                }
+                else {
+                    gain_loss.push(
+                        -1 * ((-3) * (value - 1) * (value - 1) + 0.75)
+                    );
+                }
+            }
+        }
+
+        return gain_loss;
+    }
+
     function download_file(id, group, answers, time) {
         var $download_tag = $('#download_tag');
         if ($download_tag.length === 0) {
+
+            // generate mapped_values
+            var mapped_values = generate_mapped_values(group, answers);
+            var brier_score = calculate_brier(); // THIS FUNCTION SHOULD NOT BE INVOKED
+
             var complete_json = {
                 'ID': id,
                 'GROUP': group,
                 'ANSWERS': answers,
-                'TIME': time
+                'TIME': time,
+                'BRIER': brier_score
             };
             var string_data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(complete_json));
             $download_tag = $('<a>', {

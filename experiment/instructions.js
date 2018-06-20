@@ -151,8 +151,8 @@ var instructions = (function () {
 
     function question_selection () {
         return {
-            1: 'Yes',
-            2: 'No'
+            'Yes': 'Yes',
+            'No': 'No'
         };
     }
 

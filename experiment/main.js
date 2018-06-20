@@ -199,7 +199,7 @@ var survey = (function () {
 
             // the final case -> the last page button click handler
             else {
-                utils.download_file(id, group, answers, time);
+                utils.download_file(id, (group === 2)?'parabolic':'linear', answers, time);
             }
         });
     }
