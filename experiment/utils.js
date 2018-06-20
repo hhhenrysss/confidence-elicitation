@@ -242,7 +242,13 @@ var utils = (function () {
         if (string === undefined) {
             return false;
         }
-        var temp = string.toString();
+        var temp = '';
+        if (string instanceof String) {
+            temp = string;
+        }
+        else if (string instanceof Number) {
+            temp = string.toString();
+        }
         return !(temp === undefined || temp === '');
     }
 

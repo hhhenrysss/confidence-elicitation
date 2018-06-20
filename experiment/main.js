@@ -3,7 +3,7 @@ var survey = (function () {
 
     // below are variables that need to be exported for future analysis
     var id = '';
-    var group = 0; // group is int
+    var group = ''; // group is string
     var answers = [];
     var time = {};
 
@@ -56,20 +56,20 @@ var survey = (function () {
 
             // Handling the second page
             else if (select_group_flag === false) {
-                group = parseInt($('input[name=GROUP]:checked').val());
+                group = $('input[name=GROUP]:checked').val();
 
                 // error checking
                 if (!utils.check_validity(group)) {
                     utils.reload_page('You did not enter your Group type. The page will be reloaded.');
                     return;
                 }
-                if (group !== 1 && group !== 2) {
+                if (group !== 'parabolic' && group !== 'linear') {
                     utils.reload_page('An error regarding Group information has occurred. This page will be reloaded.');
                     return;
                 }
 
                 // load tutorial here
-                tutorial_instructions = (group === 1) ? instructions.page_tutorial.load_tutorial('linear') : instructions.page_tutorial.load_tutorial('parabolic');
+                tutorial_instructions = (group === 'linear') ? instructions.page_tutorial.load_tutorial('linear') : instructions.page_tutorial.load_tutorial('parabolic');
                 tutorial_page_max = tutorial_instructions.length;
 
                 select_group_flag = true;
@@ -89,33 +89,7 @@ var survey = (function () {
                 }
                 else {
                     // this is the case where the template is populated with each question
-                    // retrieve previous answers first
-                    if (group === 2) {
-                        // meaning that the group is parabolic
-                        var temp = utils.retrieve_parabolic_values(
-                            tutorial_page_counter,
-                            'tutorial',
-                            tutorial_instructions[tutorial_page_counter]['question'],
-                            tutorial_page_counter // actual_index entry does not make sense for tutorial questions, so use counter as substitution
-                        );
-                        if (temp === undefined) {
-                            return;
-                        }
-                        answers.push(temp);
-                    }
-                    else {
-                        temp = utils.retrieve_linear_values(
-                            tutorial_page_counter,
-                            'tutorial',
-                            tutorial_instructions[tutorial_page_counter]['question'],
-                            tutorial_page_counter
-                        );
-                        if (temp === undefined) {
-                            return;
-                        }
-                        answers.push(temp);
-                    }
-                    // console.log(answers[answers.length-1]);
+                    // TUTORIAL QUESTIONS ARE NOT SAVED!
                     utils.remove_all($text, $graph);
 
                     tutorial_page_counter += 1;
@@ -151,8 +125,7 @@ var survey = (function () {
                     }
                 }
                 else {
-                    if (group === 2) {
-                        // meaning the group is parabolic
+                    if (group === 'parabolic') {
                         temp = utils.retrieve_parabolic_values(
                             question_page_counter,
                             question_instructions[question_page_counter]['category'],
@@ -165,7 +138,6 @@ var survey = (function () {
                         answers.push(temp);
                     }
                     else {
-                        // meaning the group is linear
                         temp = utils.retrieve_linear_values(
                             question_page_counter,
                             question_instructions[question_page_counter]['category'],
@@ -199,7 +171,7 @@ var survey = (function () {
 
             // the final case -> the last page button click handler
             else {
-                utils.download_file(id, (group === 2)?'parabolic':'linear', answers, time);
+                utils.download_file(id, group, answers, time);
             }
         });
     }
@@ -323,12 +295,10 @@ var survey = (function () {
         $last.after($graph_instruction);
 
         // both graphs will be styled using CSS
-        if (group === 1) {
-            // meaning that the group is linear slider
+        if (group === 'linear') {
             create_slider.linearSlider();
         }
         else {
-            // meaning that the group is parabolic slider
             create_slider.parabolicSlider();
         }
         $('.graph>div').filter(":last").after($answer).after($explanation);
@@ -383,7 +353,7 @@ var survey = (function () {
             }
         }
 
-        if (group === 1) {
+        if (group === 'linear') {
             create_slider.linearSlider();
         }
         else {
@@ -397,7 +367,7 @@ var survey = (function () {
 
     var break_counter = 0;
     function question_break() {
-        break_counter += 1
+        break_counter += 1;
         var $text = $('.text');
         var $prompt = $('<h3>', {'class': 'question_header'}).html(instructions.page_interval.interval_header());
         var $content = $('<p>', {'class': 'question_text'}).html(instructions.page_interval.interval_explanation());

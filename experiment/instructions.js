@@ -105,8 +105,8 @@ var instructions = (function () {
 
         function group_selection_options () {
             return {
-                1: 'Group 1: Linear Slider',
-                2: 'Group 2: Parabolic Slider'
+                'linear': 'Group 1: Linear Slider',
+                'parabolic': 'Group 2: Parabolic Slider'
             };
         }
 
