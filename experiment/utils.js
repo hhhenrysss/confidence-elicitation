@@ -1,12 +1,13 @@
 var utils = (function () {
 
-    function download_file(id, group, answers) {
+    function download_file(id, group, answers, time) {
         var $download_tag = $('#download_tag');
         if ($download_tag.length === 0) {
             var complete_json = {
                 'ID': id,
                 'GROUP': group,
-                'ANSWERS': answers
+                'ANSWERS': answers,
+                'TIME': time
             };
             var string_data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(complete_json));
             $download_tag = $('<a>', {
@@ -19,11 +20,6 @@ var utils = (function () {
         $download_tag[0].click();
     }
 
-
-    function play_sound () {
-        var sound = $("#audio")[0];
-        sound.play();
-    }
 
     function break_timer(time, callback) {
         // This function generates a timer and when time's up the timer disappears
@@ -54,7 +50,6 @@ var utils = (function () {
                 new_array[index] = temp;
             }
             return new_array;
-
         }
 
         // the amount of questions you want to add to the final questionnaire
@@ -194,7 +189,6 @@ var utils = (function () {
         'break_timer': break_timer,
         'retrieve_linear_values': retrieve_linear_values,
         'retrieve_parabolic_values': retrieve_parabolic_values,
-        'play_sound': play_sound,
         'load_questions': load_questions,
         'reload_page': reload_page,
         'remove_all': remove_all,
@@ -564,6 +558,7 @@ var create_slider = (function () {
         'get_circle_coordinates': get_circle_coordinates,
         'get_linear_value': get_linear_value,
         'parabolicSlider': parabolicSlider,
-        'linearSlider': linearSlider
+        'linearSlider': linearSlider,
+        'resetParabolicHandle': resetParabolicHandle // not really used anywhere
     };
 })();

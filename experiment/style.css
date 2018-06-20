@@ -1,53 +1,53 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
-    padding: 4em 2em;
-    margin: 0;
-    width: 100%;
+    padding: 2em 2em;
+    margin: 0 auto;
+    width: 70%;
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     color: rgb(119,119,119);
     font-weight: 400;
-    font-size: 17px;
+    font-size: 16px; /*THE BASE PX IS 16px -> all px are converted to em for responsive*/
     font-style: normal;
     word-wrap: break-word;
     box-sizing: border-box;
-
 }
 
 .content_wrapper {
     /*border: 1px solid #ccc;*/
-    border-radius: 15px;
+    border-radius: 0.9em;
     box-shadow: 0 0 1rem silver;
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 3rem 2em;
-    max-width: 980px;
-    min-width: 280px;
+    padding: 1rem 3em;
+    max-width: 62em; /*980px*/
+    min-width: 17.5em; /*280px*/
     width: 100%;
     background-color: rgb(255,255,255);
     display: block;
 }
 
 .question_header {
-    font-size: x-large;
-    padding-bottom: 1em;
+    font-size: 1em; /*14px*/
+    padding-bottom: 0.5em;
 }
 
 .question_text {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    font-size: large;
+    font-size: 0.875em; /*14px*/
 }
 
 .input_text {
     width: 280px;
     height: 25px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     display: block;
+    font-size: 0.75em; /*12px*/
 }
 
 input[type="text"] {
-    font-family: "Roboto", Arial, Helvetica, sans-serif;
-    font-size: 17px;
+    font-size: 0.75em;
 }
 
 input[type="radio"] {
@@ -56,34 +56,34 @@ input[type="radio"] {
 
 #nextBtn {
     background-color: #ffffff;
-    border: #2874A6 2px solid;
+    border: #2874A6 0.125em solid; /*2px*/
     color: #2874A6;
-    font-size: medium;
-    padding: 10px 10px;
+    font-size: 0.75em; /*12px*/
+    padding: 0.5em 0.5em;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border-radius: 5px;
+    border-radius: 0.3125em; /*5px*/
     transition: 0.5s;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 #nextBtn:hover {
     background-color: #2874A6;
-    border: #2874A6 2px solid;
+    border: #2874A6 0.125em solid; /*2px*/
     color: #ffffff;
-    padding: 10px 10px;
+    padding: 0.5em 0.5em;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border-radius: 5px;
+    border-radius: 0.3125em; /*5px*/
 }
 
 .notice {
-    font-size: x-large;
+    font-size: 1em; /*16px*/
     color: #2874A6;
-    padding-bottom: 15px;
+    padding-bottom: 0.5em;
 }
 
 svg {
@@ -92,37 +92,32 @@ svg {
 }
 
 svg text, #originData {
-    font-size: 10px;
+    font-size: 0.625em; /*10px*/
 }
 
 #originData {
     display: block;
     margin: auto;
     text-align: center;
-    line-height: 25px;
+    line-height: 1.5625em; /*25px*/
 
 }
 
 #slider {
-    margin-top: 5em;
-    margin-bottom: 7em;
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
 
 #slider .ui-slider-handle {
-    font-size: 10px;
+    font-size: 0.625em; /*10px*/
     width: 2.4em;
     height: 2.4em;
     top: 50%;
     margin-top: -1.2em;
-    /*background-color: #2874A6;*/
     border-radius: 0.4rem;
-    /*border-color: #2874A6;*/
-    border: #2874A6 2px solid;
+    border: #2874A6 0.125em solid; /*2px*/
     text-align: center;
     line-height: 2.4em;
-    /*box-shadow: 0 0 0.1em lightgrey;*/
-    /*border-color: ##3498DB;*/
-    /*border-radius: 2px;*/
 }
 
 #slider .ui-state-active {
@@ -136,18 +131,18 @@ svg text, #originData {
 /*Loader animations*/
 .loading {
     display: inline-block;
-    width: 36px;
-    height: 36px;
+    width: 2.25em; /*36px*/
+    height: 2.25em;
 }
 
 .loading:after {
     content: " ";
     display: block;
-    width: 20px;
-    height: 20px;
-    margin: 1px;
+    width: 1.25em; /*20px*/
+    height: 1.25em;
+    margin: 0.0625em; /*1px*/
     border-radius: 50%;
-    border: 5px solid;
+    border: 0.3125em solid; /*5px*/
     border-color: #4D90FE transparent #F4D03F transparent;
     animation: ring_loading 5s linear 0s infinite;
 }

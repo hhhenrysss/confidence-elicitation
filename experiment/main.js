@@ -5,6 +5,7 @@ var survey = (function () {
     var id = '';
     var group = 0; // group is int
     var answers = [];
+    var time = {};
 
     // below are internal variables
     var main_page_flag = false;
@@ -25,7 +26,8 @@ var survey = (function () {
         question_instructions = questions;
         question_page_max = question_instructions.length;
         document.getElementsByTagName('button')[0].addEventListener('click', function () {
-           utils.play_sound();
+            var sound = $("#audio")[0];
+            sound.play();
         });
         main_page();
     }
@@ -45,7 +47,7 @@ var survey = (function () {
                     utils.reload_page('You did not enter your ID. The page will be reloaded.');
                     return;
                 }
-                console.log('id is:', id);
+
                 main_page_flag = true;
                 utils.remove_all($text);
 
@@ -56,7 +58,7 @@ var survey = (function () {
             // Handling the second page
             else if (select_group_flag === false) {
                 group = parseInt($('input[name=GROUP]:checked').val());
-                console.log('group is:', group);
+
                 // error checking
                 if (!utils.check_validity(group)) {
                     utils.reload_page('You did not enter your Group type. The page will be reloaded.');
@@ -198,7 +200,7 @@ var survey = (function () {
 
             // the final case -> the last page button click handler
             else {
-                utils.download_file(id, group, answers);
+                utils.download_file(id, group, answers, time);
             }
         });
     }
@@ -251,6 +253,8 @@ var survey = (function () {
                 $text.append($('<label>', {'class': 'input_text', 'for': 'selection'+key}).append($select).append(options[key]));
             }
         }
+
+         time.select_group_start_time = new Date().getTime()/1000;
     }
 
     // THIRD PAGE -->
@@ -275,15 +279,17 @@ var survey = (function () {
             $content_wrapper.append($content);
         }
         $text.append($content_wrapper);
+
+        time.tutorial_welcome_start_time = new Date().getTime()/1000;
     }
 
     // THIS FUNCTION SERVES AS A TEMPLATE FOR ALL EXAMPLE QUESTIONS
-     function tutorial_questions (obj, indix) {
+     function tutorial_questions (obj, index) {
         var $text = $('.text');
 
         var $notice = $('<h2>', {
             'class': 'notice'
-        }).html('Sample Question '+(indix+1));
+        }).html('Sample Question '+(index+1));
         var $prompt = $('<h3>', {
             'class': 'question_header'
         }).html(obj['question']);
@@ -327,6 +333,8 @@ var survey = (function () {
             create_slider.parabolicSlider();
         }
         $('.graph>div').filter(":last").after($answer).after($explanation);
+
+         time['tutorial_question_'+toString(index)+'_start_time'] = new Date().getTime()/1000;
     }
 
     // END OF TUTORIAL PAGE -->
@@ -348,6 +356,8 @@ var survey = (function () {
 
         $text.append($prompt);
         $text.append($content_wrapper);
+
+        time.tutorial_ends_start_time = new Date().getTime()/1000;
     }
 
     // SERVES AS A TEMPLATE FOR ALL FORMAL QUESTIONS
@@ -380,10 +390,15 @@ var survey = (function () {
         else {
             create_slider.parabolicSlider();
         }
+
+        time['question_'+counter.toString()+'start_time'] = new Date().getTime()/1000;
     }
 
     // THIS PAGE WILL BE RENDERED AFTER SET TIME INTERVAL
+
+    var break_counter = 0;
     function question_break() {
+        break_counter += 1
         var $text = $('.text');
         var $prompt = $('<h3>', {'class': 'question_header'}).html(instructions.page_interval.interval_header());
         var $content = $('<p>', {'class': 'question_text'}).html(instructions.page_interval.interval_explanation());
@@ -395,6 +410,8 @@ var survey = (function () {
         utils.break_timer(6000, function () {
             $button.show();
         }); // the unit is milliseconds
+
+        time['break_'+break_counter.toString()+'_start_time'] = new Date().getTime()/1000;
     }
 
     // THIS PAGE WILL BE RENDERED AFTER THE USER HAS FILLED IN ALL QUESTIONS. THE NAME OF THE BUTTION IS CHANGED HERE
@@ -404,6 +421,7 @@ var survey = (function () {
         var $content = $('<p>', {'class': 'question_text'}).html(instructions.page_end.ending_content());
         $text.append($prompt).append($content);
         $('button').html('Download');
+        time['question_ends_start_time'] = new Date().getTime()/1000;
     }
 
 
