@@ -26,8 +26,7 @@ var survey = (function () {
         question_instructions = questions;
         question_page_max = question_instructions.length;
         document.getElementsByTagName('button')[0].addEventListener('click', function () {
-            var sound = $("#audio")[0];
-            sound.play();
+           utils.play_sound();
         });
         main_page();
     }
@@ -334,7 +333,7 @@ var survey = (function () {
         }
         $('.graph>div').filter(":last").after($answer).after($explanation);
 
-         time['tutorial_question_'+toString(index)+'_start_time'] = new Date().getTime()/1000;
+         time['tutorial_question_'+index.toString()+'_start_time'] = new Date().getTime()/1000;
     }
 
     // END OF TUTORIAL PAGE -->
@@ -391,7 +390,7 @@ var survey = (function () {
             create_slider.parabolicSlider();
         }
 
-        time['question_'+counter.toString()+'start_time'] = new Date().getTime()/1000;
+        time['question_'+counter.toString()+'_start_time'] = new Date().getTime()/1000;
     }
 
     // THIS PAGE WILL BE RENDERED AFTER SET TIME INTERVAL

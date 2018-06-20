@@ -21,6 +21,11 @@ var utils = (function () {
     }
 
 
+    function play_sound () {
+        var sound = $("#audio")[0];
+        sound.play();
+    }
+
     function break_timer(time, callback) {
         // This function generates a timer and when time's up the timer disappears
         $('.graph').append('<div class="temporary_loading_container"><div class="loading"></div></div>');
@@ -189,6 +194,7 @@ var utils = (function () {
         'break_timer': break_timer,
         'retrieve_linear_values': retrieve_linear_values,
         'retrieve_parabolic_values': retrieve_parabolic_values,
+        'play_sound': play_sound,
         'load_questions': load_questions,
         'reload_page': reload_page,
         'remove_all': remove_all,
