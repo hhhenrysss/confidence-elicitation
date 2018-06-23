@@ -167,49 +167,68 @@ var utils = (function () {
             return new_array;
         }
 
+
         // the amount of questions you want to add to the final questionnaire
         var subjective_count = 5;
         var predictive_count = 5;
 
         // the arrays at this stage is sc till JSON object
-        var subjective_sliced = [];
-        var predictive_sliced = [];
+
+
 
         // the array is still JSON format with the order: first subjetcive, second predive
         var final_questions = [];
 
-        // deferred call is needed
-        $.when(
-            $.getJSON("questions/subjective_questions.json", function (json) {
-                // method to create random list is first shaffle all indices and the slice the top count
-                var length = json.length;
-                // create a list of indices
-                var all_indices = Array.from(Array(length).keys());
-                var sliced_indices = shuffle(all_indices).slice(0, subjective_count);
-                for (var i = 0; i < sliced_indices.length; i++) {
-                    var index = sliced_indices[i];
-                    // add category metadata
-                    json[index].category = 'subjective';
-                    subjective_sliced.push(json[index]);
-                }
-            }),
+        // two helper functions
 
-            $.getJSON('questions/predictive_questions.json', function (json) {
-                var length = json.length;
-                var all_indices = Array.from(Array(length).keys());
-                var sliced_indices = shuffle(all_indices).slice(0, predictive_count);
-                for (var i = 0; i < sliced_indices.length; i++) {
-                    var index = sliced_indices[i];
-                    // add category metadata
-                    json[index].category = 'predictive';
-                    predictive_sliced.push(json[index]);
-                }
-            })
+        function generate_subjective_questions (json) {
+            // method to create random list is first shaffle all indices and the slice the top count
+            var subjective_sliced = [];
+            var length = json.length;
+            // create a list of indices
+            var all_indices = Array.from(Array(length).keys());
+            var sliced_indices = shuffle(all_indices).slice(0, subjective_count);
+            for (var i = 0; i < sliced_indices.length; i++) {
+                var index = sliced_indices[i];
+                // add category metadata
+                json[index].category = 'subjective';
+                subjective_sliced.push(json[index]);
+            }
+            return subjective_sliced;
+        }
+
+        function generate_predictive_questions(json) {
+            var predictive_sliced = [];
+            var length = json.length;
+            var all_indices = Array.from(Array(length).keys());
+            var sliced_indices = shuffle(all_indices).slice(0, predictive_count);
+            for (var i = 0; i < sliced_indices.length; i++) {
+                var index = sliced_indices[i];
+                // add category metadata
+                json[index].category = 'predictive';
+                predictive_sliced.push(json[index]);
+            }
+            return predictive_sliced;
+        }
+
+        // deferred objects are needed
+        $.when(
+            $.getJSON("questions/subjective_questions.json"),
+            $.getJSON('questions/predictive_questions.json')
         ).then(
-            function success () {
+            function success (subjective_response, predictive_response) {
                 // success ajax calls
+                // the returned objects contain JSON but are not the actual data needed
+                console.log(subjective_response)
+                var predictive_sliced = generate_predictive_questions(predictive_response[0]);
+                var subjective_sliced = generate_subjective_questions(subjective_response[0]);
+
+
+
                 // zip two arrays
                 // length is the smaller of two arrays
+
+
                 var length = (predictive_sliced.length > subjective_sliced.length) ? subjective_sliced.length : predictive_sliced.length;
                 for (var i = 0; i < length; i++) {
                     final_questions.push(subjective_sliced[i]);

@@ -139,7 +139,7 @@ var instructions = (function () {
         }
 
         function interval_explanation () {
-            return 'After 1 minute, the "continue" button will appear and you may continue.';
+            return 'After 1 minute, the "continue" button will appear and you may continue. Please DO NOT switch to another tab or minimize/close the browser.';
         }
 
         // PUBLIC API
