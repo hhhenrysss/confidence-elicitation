@@ -304,6 +304,17 @@ var utils = (function () {
         };
     }
 
+    function is_id_invalid (id, allow_underscore) {
+        // by default underscore is not allowed
+        // returns true if invalid
+        if (allow_underscore === false || allow_underscore === undefined) {
+            return !(id.replace(/^[a-z0-9]+$/gi, '') === '');
+        }
+        else {
+            return !(id.replace(/\W/g, '') === '');
+        }
+    }
+
     // PUBLIC API
     return {
         'download_file': download_file,
@@ -314,7 +325,8 @@ var utils = (function () {
         'load_questions': load_questions,
         'reload_page': reload_page,
         'remove_all': remove_all,
-        'check_validity': check_validity
+        'check_validity': check_validity,
+        'is_id_invalid': is_id_invalid
     };
 })();
 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confidence Elicitation Look Up</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.csv.js"></script>
+    <script src="js/utils.js"></script>
+</head>
+<body>
+    <div class="content_wrapper">
+        <h1 class="notice">Need to retrieve your records?</h1>
+        <p class="question_header">Type in your id below!</p>
+        <input type="text" class="input_text">
+        <button type="button" id="nextBtn">Submit</button>
+
+        <div class="navigation_options">
+            <p><a href="index.html">Back</a></p>
+        </div>
+    </div>
+
+    <script>
+        $(function document_ready () {
+            var $button = $('#nextBtn');
+            var status = true;
+            $button.click(function () {
+                var id = $('input').val();
+                if (utils.is_id_invalid(id)) {
+                    alert('Your input is invalid! Please try again');
+                }
+                else {
+                    var $download_tag = $('#download_tag');
+                    if ($download_tag.length === 0) {
+                        $.get({
+                            url: 'retrieve_data.php',
+                            data: id
+                        }).done(function success (data) {
+                            status = true;
+                            var $error = $('#retrieve_data_error');
+                            if ($error.length !== 0) {
+                                $error.remove();
+                            }
+
+                            $button.html('download');
+                            $('.temporary_loading_container').remove();
+                            var string_data = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+                            $download_tag = $('<a>', {
+                                'id': 'download_tag',
+                                'style': 'display:none;'
+                            });
+                            $download_tag.attr('href', string_data).attr('download', id+'.json');
+                            $button.after($download_tag);
+                            $download_tag[0].click();
+                        }).fail(function fail () {
+                            status = false;
+                            $('.temporary_loading_container').remove();
+                            var $error = $('<p>', {'class': 'question_header', 'id': 'retrieve_data_error'}).html('No record found!');
+                            $button.after($error);
+                        });
+
+                        if (status === false) {
+                            return;
+                        }
+                        $button.after('<div class="temporary_loading_container"><div class="loading"></div></div>')
+                    }
+                    else {
+                        $download_tag[0].click();
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+</html>
