@@ -1,95 +1,23 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
-    <meta charset="utf-8">
-
+    <meta charset="UTF-8">
     <title>Confidence Elicitation</title>
-
-    <link href="css/stylesheet.css" type="text/css" rel="stylesheet">
-    <link href="css/paraslider_style.css" type="text/css" rel="stylesheet">
-    <link href="css/jquery-ui.min.css" type="text/css" rel="stylesheet">
-    <link href="css/c3.min.css" type="text/css" rel="stylesheet">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-
-    <script src="js/d3.js" charset="utf-8"></script>
-    <script src="js/c3.min.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.csv.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-
-    <script>
-        function playSound() {
-            var sound = document.getElementById("audio");
-            sound.play();
-        }
-    </script>
-    <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false"></audio>
-
-
-    <style>
-        #custom-handle {
-            width: 2em;
-            height: 1.6em;
-            top: 50%;
-            margin-top: -.8em;
-            text-align: center;
-            line-height: 1.6em;
-        }
-
-        #custom-handle .ui-slider-range {
-            background: #ef2929;
-        }
-
-        #custom-handle .ui-slider-handle {
-            border-color: #ef2929;
-        }
-    </style>
-
+    <link href="css/style.css" type="text/css" rel="stylesheet">
 </head>
-
 <body>
+    <div class="content_wrapper">
 
-<div class="jquery-script-center">
+        <h1 class="notice">Welcome to the Confidence Elicitation Experiment!</h1>
 
-    <div class="wrapper">
-        <div class="main">
-
-            <label id="instructions"></label>
-
-            <div class="question-container"></div>
-
-            <label id="message"></label>
-
-
-            <label id="slider-label" for="slider"><br></label>
-
-            <br>
-            <div id="slider">
-                <div id="custom-handle" class="ui-slider-handle"></div>
-            </div>
-
-            <div id="chart"></div>
-            <div id="parabolic"></div>
-
-            <label id="slider-instructions"></label>
-
-            <a id="nextBtn" href="#" class="button" onclick="playSound();">Continue »</a>
-
-
+        <div class="navigation_options">
+            <p><a href="experiment.html">Click here to begin the experiment</a></p>
         </div>
-        <div class="completed-message"></div>
+
+        <div class="navigation_options">
+            <p><a href="lookup.html">Click here to retrieve your data</a></p>
+        </div>
+
     </div>
-
-    <div id="realTime"></div>
-    <div id="final"></div>
-
-    <script src="js/instructions.js" type="text/javascript"></script>
-    <script src="js/utils.js" type="text/javascript"></script>
-    <script src="js/survey.js" type="text/javascript"></script>
-</div>
 </body>
-
-
 </html>
