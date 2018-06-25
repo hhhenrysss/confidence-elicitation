@@ -28,6 +28,7 @@ var survey = (function () {
         document.getElementsByTagName('button')[0].addEventListener('click', function () {
            utils.play_sound();
         });
+        utils.remove_all($('.text'), $('.graph'))
         main_page();
     }
 
