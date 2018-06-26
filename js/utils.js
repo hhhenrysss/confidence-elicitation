@@ -123,7 +123,15 @@ var utils = (function () {
             $download_tag.attr('href', string_data).attr('download', id+'.json');
             $('.graph').append($download_tag);
         }
-        $download_tag[0].click();
+        var $download = $download_tag[0];
+        if ($download.click) {
+            $download.click();
+        }
+        else {
+            var obj = document.createEvent('MouseEvents');
+            obj.initMouseEvent('click', true, true, window);
+            $download.dispatchEvent(obj);
+        }
     }
 
 
@@ -186,23 +194,32 @@ var utils = (function () {
             var subjective_sliced = [];
             var length = json.length;
             // create a list of indices
-            var all_indices = Array.from(Array(length).keys());
+
+            var all_indices = new Array(length);
+            for (var i = 0; i < all_indices.length; i += 1) {
+                all_indices[i] = i;
+            }
+
             var sliced_indices = shuffle(all_indices).slice(0, subjective_count);
-            for (var i = 0; i < sliced_indices.length; i++) {
+            for (i = 0; i < sliced_indices.length; i++) {
                 var index = sliced_indices[i];
                 // add category metadata
                 json[index].category = 'subjective';
                 subjective_sliced.push(json[index]);
             }
+
             return subjective_sliced;
         }
 
         function generate_predictive_questions(json) {
             var predictive_sliced = [];
             var length = json.length;
-            var all_indices = Array.from(Array(length).keys());
+            var all_indices = new Array(length);
+            for (var i = 0; i < all_indices.length; i += 1) {
+                all_indices[i] = i;
+            }
             var sliced_indices = shuffle(all_indices).slice(0, predictive_count);
-            for (var i = 0; i < sliced_indices.length; i++) {
+            for (i = 0; i < sliced_indices.length; i++) {
                 var index = sliced_indices[i];
                 // add category metadata
                 json[index].category = 'predictive';
@@ -219,11 +236,8 @@ var utils = (function () {
             function success (subjective_response, predictive_response) {
                 // success ajax calls
                 // the returned objects contain JSON but are not the actual data needed
-                console.log(subjective_response)
                 var predictive_sliced = generate_predictive_questions(predictive_response[0]);
                 var subjective_sliced = generate_subjective_questions(subjective_response[0]);
-
-
 
                 // zip two arrays
                 // length is the smaller of two arrays
@@ -234,7 +248,6 @@ var utils = (function () {
                     final_questions.push(subjective_sliced[i]);
                     final_questions.push(predictive_sliced[i]);
                 }
-
                 // if there are any left, append directly
                 if (length === predictive_sliced.length && length < subjective_sliced.length) {
                     for (i = length; i < subjective_sliced.length; i++) {
@@ -246,7 +259,6 @@ var utils = (function () {
                         final_questions.push(predictive_sliced[i]);
                     }
                 }
-
                 callback(final_questions);
             },
             function failed () {
@@ -506,7 +518,7 @@ var create_slider = (function () {
             .attr("id", "lineId")
             .attr("d", line);
 
-        handle1 = [{
+        var handle1 = [{
             x: 0,
             y: 0
         }];
@@ -541,7 +553,7 @@ var create_slider = (function () {
             clicked = false;
         }
 
-        handle_circle = container.append("g")
+        var handle_circle = container.append("g")
             .attr("id", "handle_circle")
             .attr("class", "dot")
             .attr("style", "display:none")
@@ -561,7 +573,7 @@ var create_slider = (function () {
         //create color bars
         //
         //
-        hor = container.append("rect")
+        var hor = container.append("rect")
             .attr("id", "hor")
             .attr("x", 0)
             .attr("y", 0)
@@ -571,7 +583,7 @@ var create_slider = (function () {
             .attr("id", "horizontal")
             .attr("opacity", 0.3);
 
-        ver = container.append("rect")
+        var ver = container.append("rect")
             .attr("id", "ver")
             .attr("x", 0)
             .attr("y", 0)
@@ -602,7 +614,7 @@ var create_slider = (function () {
         var clicked = false;
 
         function click_on_canvas() {
-            coords = d3.mouse(this);
+            var coords = d3.mouse(this);
             var cx = Math.min(Math.max(coords[0] - 50, 0), 140);
             var cy = Math.min(Math.max(0.023 * cx * cx, 0), 440);
             container.select("g.dot").attr("style", "display:block");
@@ -622,7 +634,7 @@ var create_slider = (function () {
             }
         }
 
-        d3.select("svg")
+        d3.select("svg g")
             .on("click", click_on_canvas);
     }
 

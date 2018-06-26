@@ -135,25 +135,6 @@ svg text, #originData {
 }
 
 /*Loader animations*/
-.loading {
-    display: inline-block;
-    width: 2.25em; /*36px*/
-    height: 2.25em;
-}
-
-.loading:after {
-    content: " ";
-    display: block;
-    width: 1.25em; /*20px*/
-    height: 1.25em;
-    margin: 0.0625em; /*1px*/
-    border-radius: 50%;
-    border: 0.3125em solid; /*5px*/
-    border-color: #4D90FE transparent #F4D03F transparent;
-    animation: ring_loading 5s linear 0s infinite;
-    -webkit-animation: ring_loading 5s linear 0s infinite;
-}
-
 @keyframes ring_loading {
     0% {
         -webkit-transform: rotate(0deg);
@@ -198,6 +179,28 @@ svg text, #originData {
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+
+.loading {
+    display: inline-block;
+    width: 2.25em; /*36px*/
+    height: 2.25em;
+}
+
+.loading:after {
+    content: " ";
+    display: block;
+    width: 1.25em; /*20px*/
+    height: 1.25em;
+    margin: 0.0625em; /*1px*/
+    border-radius: 50%;
+    border: 0.3125em solid; /*5px*/
+    border-color: #4D90FE transparent #F4D03F transparent;
+    animation: ring_loading 5s linear 0s infinite;
+    -webkit-animation-name: ring_loading;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
 }
 
 .temporary_loading_container {
