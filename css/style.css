@@ -134,6 +134,7 @@ svg text, #originData {
     background-color: #D6EAF8;
 }
 
+
 /*Loader animations*/
 @keyframes ring_loading {
     0% {
@@ -198,6 +199,7 @@ svg text, #originData {
     border-color: #4D90FE transparent #F4D03F transparent;
     animation: ring_loading 5s linear 0s infinite;
     -webkit-animation-name: ring_loading;
+    -webkit-animation-duration: 5s;
     -webkit-animation-delay: 0s;
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;

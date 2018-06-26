@@ -120,7 +120,7 @@ var utils = (function () {
                 'id': 'download_tag',
                 'style': 'display:none;'
             });
-            $download_tag.attr('href', string_data).attr('download', id+'.json');
+            $download_tag.attr('href', string_data).attr('download', id+'.json').attr('target', '_blank');
             $('.graph').append($download_tag);
         }
         var $download = $download_tag[0];
@@ -207,7 +207,6 @@ var utils = (function () {
                 json[index].category = 'subjective';
                 subjective_sliced.push(json[index]);
             }
-
             return subjective_sliced;
         }
 
@@ -613,29 +612,27 @@ var create_slider = (function () {
         //
         var clicked = false;
 
-        function click_on_canvas() {
-            var coords = d3.mouse(this);
-            var cx = Math.min(Math.max(coords[0] - 50, 0), 140);
-            var cy = Math.min(Math.max(0.023 * cx * cx, 0), 440);
-            container.select("g.dot").attr("style", "display:block");
+        d3.select("svg")
+            .on("click", function click_on_canvas() {
+                var coords = d3.mouse(this);
+                var cx = Math.min(Math.max(coords[0] - 50, 0), 140);
+                var cy = Math.min(Math.max(0.023 * cx * cx, 0), 440);
+                container.select("g.dot").attr("style", "display:block");
 
-            circle_x = Math.min(cx, 130);
-            circle_y = Math.min(cy, 390);
-            if (!clicked) {
-                d3.select('g.dot circle')
-                    .attr("cx", circle_x)
-                    .attr("cy", circle_y);
-                svg.select("rect[id='horizontal']")
-                    .attr("width", Math.min(cx, width));
-                svg.select("rect[id='vertical']")
-                    .attr("height", Math.min(cy, height));
-                clicked = true;
-                // $('#originData').html('x: '+Math.min(cx, 130)+', y: '+Math.min(cy, 390));
-            }
-        }
-
-        d3.select("svg g")
-            .on("click", click_on_canvas);
+                circle_x = Math.min(cx, 130);
+                circle_y = Math.min(cy, 390);
+                if (!clicked) {
+                    d3.select('g.dot circle')
+                        .attr("cx", circle_x)
+                        .attr("cy", circle_y);
+                    svg.select("rect[id='horizontal']")
+                        .attr("width", Math.min(cx, width));
+                    svg.select("rect[id='vertical']")
+                        .attr("height", Math.min(cy, height));
+                    clicked = true;
+                    // $('#originData').html('x: '+Math.min(cx, 130)+', y: '+Math.min(cy, 390));
+                }
+            });
     }
 
     function linearSlider() {
