@@ -35,7 +35,7 @@ var utils = (function () {
                 temp = {};
                 temp['original_index'] = answers[i].original_index;
                 temp['number'] = answers[i].number;
-                temp['mapped_value'] = translate_linear_slider_value(answers[i].x);
+                temp['mapped_value'] = translate_linear_slider_value(answers[i].position);
                 mapped_values.push(temp);
             }
         }

@@ -16,9 +16,9 @@ body {
 
 .content_wrapper {
     /*border: 1px solid #ccc;*/
-    border-radius: 0.9em;
-    -webkit-box-shadow: 0 0 1rem silver;
-    box-shadow: 0 0 1rem silver;
+    border-radius: 0.5em;
+    -webkit-box-shadow: 0 0 1em silver;
+    box-shadow: 0 0 1em silver;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin: 0 auto;
