@@ -7,6 +7,8 @@ var survey = (function () {
     var answers = [];
     var time = {};
 
+    var current_timer_task = '';
+
     // below are internal variables
     var main_page_flag = false;
     var select_group_flag = false;
@@ -28,7 +30,7 @@ var survey = (function () {
         document.getElementsByTagName('button')[0].addEventListener('click', function () {
            utils.play_sound();
         });
-        utils.remove_all($('.text'), $('.graph'))
+        utils.remove_all($('.text'), $('.graph'));
         main_page();
     }
 
@@ -36,6 +38,11 @@ var survey = (function () {
 
         // This is the main function, as all events work around the next button
         $('#nextBtn').click(function () {
+
+            if (current_timer_task !== '') {
+                time[current_timer_task+'_end_time'] = new Date().getTime();
+                current_timer_task = '';
+            }
 
             var $text = $('.text');
             var $graph = $('.graph');
@@ -250,7 +257,8 @@ var survey = (function () {
             }
         }
 
-         time.select_group_start_time = new Date().getTime()/1000;
+        time.select_group_start_time = new Date().getTime();
+        current_timer_task = 'select_group';
     }
 
     // THIRD PAGE -->
@@ -276,7 +284,8 @@ var survey = (function () {
         }
         $text.append($content_wrapper);
 
-        time.tutorial_welcome_start_time = new Date().getTime()/1000;
+        time.tutorial_welcome_start_time = new Date().getTime();
+        current_timer_task = 'tutorial_welcome';
     }
 
     // THIS FUNCTION SERVES AS A TEMPLATE FOR ALL EXAMPLE QUESTIONS
@@ -328,7 +337,8 @@ var survey = (function () {
         }
         $('.graph>div').filter(":last").after($answer).after($explanation);
 
-         time['tutorial_question_'+index.toString()+'_start_time'] = new Date().getTime()/1000;
+        time['tutorial_question_'+index.toString()+'_start_time'] = new Date().getTime();
+        current_timer_task = 'tutorial_question_'+index.toString();
     }
 
     // END OF TUTORIAL PAGE -->
@@ -351,7 +361,8 @@ var survey = (function () {
         $text.append($prompt);
         $text.append($content_wrapper);
 
-        time.tutorial_ends_start_time = new Date().getTime()/1000;
+        time.tutorial_ends_start_time = new Date().getTime();
+        current_timer_task = 'tutorial_ends';
     }
 
     // SERVES AS A TEMPLATE FOR ALL FORMAL QUESTIONS
@@ -385,7 +396,8 @@ var survey = (function () {
             create_slider.parabolicSlider();
         }
 
-        time['question_'+counter.toString()+'_start_time'] = new Date().getTime()/1000;
+        time['question_'+counter.toString()+'_start_time'] = new Date().getTime();
+        current_timer_task = 'question_'+counter.toString();
     }
 
     // THIS PAGE WILL BE RENDERED AFTER SET TIME INTERVAL
@@ -406,7 +418,8 @@ var survey = (function () {
             $button.show();
         }); // the unit is milliseconds
 
-        time['break_'+break_counter.toString()+'_start_time'] = new Date().getTime()/1000;
+        time['break_'+break_counter.toString()+'_start_time'] = new Date().getTime();
+        current_timer_task = 'break_'+break_counter.toString();
     }
 
     // THIS PAGE WILL BE RENDERED AFTER THE USER HAS FILLED IN ALL QUESTIONS. THE NAME OF THE BUTTION IS CHANGED HERE
@@ -416,7 +429,8 @@ var survey = (function () {
         var $content = $('<p>', {'class': 'question_text'}).html(instructions.page_end.ending_content());
         $text.append($prompt).append($content);
         $('button').html('Download');
-        time['question_ends_start_time'] = new Date().getTime()/1000;
+        time['question_ends_start_time'] = new Date().getTime();
+        current_timer_task = 'question_ends';
     }
 
 
